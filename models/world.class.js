@@ -3,6 +3,9 @@ class World {
     enemies = [new Chicken(), new Chicken(), new Chicken()];
     canvas;
     ctx;
+    clouds = [
+        new Cloud(),
+    ]
 
     constructor(canvas) {
         this.ctx = canvas.getContext('2d');
@@ -17,6 +20,10 @@ class World {
         //für das Zeichnen der Hühner als Array
         this.enemies.forEach((enemy) => {
             this.ctx.drawImage(enemy.img, enemy.x, enemy.y, enemy.width, enemy.height);
+        });
+
+           this.clouds.forEach((cloud) => {
+            this.ctx.drawImage(cloud.img, cloud.x, cloud.y, cloud.width, cloud.height);
         });
 
         //draw() wird immer wieder aufgerufen
