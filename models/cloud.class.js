@@ -9,6 +9,15 @@ class Cloud extends MovableObject {
 
         this.x = Math.random() * 500;
 
+        this.animate();
+
     }
+
+    // Clouds move to the left continuously and set interval to create the animation (refresh every 60 ms)
+    animate() { 
+        setInterval(() => { 
+        this.x -= 0.15;
+        }, 1000 / 60); // 60fps
+}
 
 }
