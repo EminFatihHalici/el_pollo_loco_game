@@ -4,6 +4,7 @@ class World {
     canvas;
     ctx;
     keyboard;
+    camera_x = 0;
     clouds = [
         new Cloud(),
     ]
@@ -25,11 +26,12 @@ class World {
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); //Löscht die vorherigen Bilder im Canvas
+        this.ctx.translate(this.camera_x, 0); //Verschiebe das Koordinatensystem nach links
         this.addObjectsToMap(this.backgroundObjects);
         this.addObjectsToMap(this.clouds);
         this.addToMap(this.character);
         this.addObjectsToMap(this.enemies);
-
+        this.ctx.translate(-this.camera_x, 0); //Verschiebe das Koordinatensystem zurück
 
         //draw() wird immer wieder aufgerufen
         let self = this;
@@ -49,7 +51,9 @@ class World {
             addToMap(mo) {
                 if (mo.otherDirection) {
                     this.ctx.save();
+                    // verschiebe das Koordinatensystem
                     this.ctx.translate(mo.width, 0);
+                    // Spiegeln
                     this.ctx.scale(-1, 1);
                     mo.x = mo.x * -1;
                 }    
