@@ -11,13 +11,13 @@ function init() {
 window.addEventListener("keydown", (e) => {
     if (e.keyCode == 39) {
         keyboard.RIGHT = true;
-    } else if (e.key == 37) {
+    } else if (e.keyCode == 37) {
         keyboard.LEFT = true;
-    }   else if (e.key == 38) {     
+    }   else if (e.keyCode == 38) {     
         keyboard.UP = true;
-    }   else if (e.key == 40) {
+    }   else if (e.keyCode == 40) {
         keyboard.DOWN = true;
-    }   else if (e.key == " ") {
+    }   else if (e.keyCode == " ") {
         keyboard.SPACE = true;
     }
 });
@@ -26,13 +26,13 @@ window.addEventListener("keydown", (e) => {
 window.addEventListener("keyup", (e) => {
     if (e.keyCode == 39) {
         keyboard.RIGHT = false;
-    } else if (e.key == 37) {
+    } else if (e.keyCode == 37) {
         keyboard.LEFT = false;
-    }   else if (e.key == 38) {     
+    }   else if (e.keyCode == 38) {     
         keyboard.UP = false;
-    }   else if (e.key == 40) {
+    }   else if (e.keyCode == 40) {
         keyboard.DOWN = false;
-    }   else if (e.key == " ") {
+    }   else if (e.keyCode == " ") {
         keyboard.SPACE = false;
     }
 });

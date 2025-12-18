@@ -5,6 +5,7 @@ class Character extends MovableObject {
        x = 100;
        y = 170;
        world;
+       speed = 10; 
 
     IMAGES_WALKING = [
         'img/2_character_pepe/2_walk/W-21.png',
@@ -25,9 +26,21 @@ class Character extends MovableObject {
 
     //currentImage is increased every second to change the image of the character and length calculated with modulo operator
     animate() {
-        setInterval(() => {
 
+
+        setInterval(() => {
             if(this.world.keyboard.RIGHT) {
+                this.x += this.speed;
+            }
+
+             if(this.world.keyboard.LEFT) {
+                this.x -= this.speed;
+            }
+        }   , 1000 / 60); // 60fps
+
+
+        setInterval(() => {
+            if(this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
 
                 let i = this.currentIMage % this.IMAGES_WALKING.length; // let i = 0 % 6; => Rest 0
                 // i = 0, 1, 2, 3, 4, 5, 0, 1, ...
@@ -35,7 +48,7 @@ class Character extends MovableObject {
                 this.img = this.imageCache[path];
                 this.currentIMage++;
              }
-        }, 100);
+        }, 50);
     }
 
     jump() {
