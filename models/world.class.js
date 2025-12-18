@@ -1,8 +1,8 @@
 class World {
     character = new Character();
+    level = level1;
     enemies = level1.enemies;
     canvas;
-    level = level1;
     ctx;
     keyboard;
     camera_x = 0;

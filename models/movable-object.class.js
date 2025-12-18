@@ -18,22 +18,30 @@ class MovableObject {
     //loading all img from character to json array
     loadImages(arr) {
         arr.forEach(path => {
-        let img = new Image();
-        img.src = path;
-        this.imageCache[path] = img;
-       }); 
+            let img = new Image();
+            img.src = path;
+            this.imageCache[path] = img;
+        });
 
+    }
+
+    playAnimation(images) {
+        let i = this.currentIMage % this.IMAGES_WALKING.length; // let i = 0 % 6; => Rest 0
+        // i = 0, 1, 2, 3, 4, 5, 0, 1, ...
+        let path = images[i];
+        this.img = this.imageCache[path];
+        this.currentIMage++;
     }
 
 
     moveRight() {
         console.log('Moving right');
-        
+
     }
 
-      moveLeft() {
-        setInterval(() => { 
-        this.x -= this.speed;
+    moveLeft() {
+        setInterval(() => {
+            this.x -= this.speed;
         }, 1000 / 60); // 60fps
     }
 }
