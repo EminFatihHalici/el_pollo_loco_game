@@ -2,6 +2,7 @@ class World {
     character = new Character();
     enemies = level1.enemies;
     canvas;
+    level = level1;
     ctx;
     keyboard;
     camera_x = 0;
@@ -20,10 +21,10 @@ class World {
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); //Löscht die vorherigen Bilder im Canvas
         this.ctx.translate(this.camera_x, 0); //Verschiebe das Koordinatensystem nach links
-        this.addObjectsToMap(this.backgroundObjects);
-        this.addObjectsToMap(this.clouds);
+        this.addObjectsToMap(this.level.backgroundObjects);
+        this.addObjectsToMap(this.level.clouds);
         this.addToMap(this.character);
-        this.addObjectsToMap(this.enemies);
+        this.addObjectsToMap(this.level.enemies);
         this.ctx.translate(-this.camera_x, 0); //Verschiebe das Koordinatensystem zurück
 
         //draw() wird immer wieder aufgerufen
