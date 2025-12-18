@@ -20,6 +20,7 @@ class World {
         this.canvas = canvas;
         this.keyboard = keyboard;
         this.draw();
+        this.setWorld();
     }
 
     draw() {
@@ -48,6 +49,11 @@ class World {
             addToMap(mo) {
                 this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
             }
+
+
+      setWorld() {
+        this.character.world = this; 
+      }      
             
 
 
