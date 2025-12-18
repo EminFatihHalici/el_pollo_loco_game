@@ -26,12 +26,15 @@ class Character extends MovableObject {
     //currentImage is increased every second to change the image of the character and length calculated with modulo operator
     animate() {
         setInterval(() => {
-        let i = this.currentIMage % this.IMAGES_WALKING.length; // let i = 0 % 6; => Rest 0
-        // i = 0, 1, 2, 3, 4, 5, 0, 1, ...
-        let path = this.IMAGES_WALKING[i];
-        this.img = this.imageCache[path];
-        this.currentIMage++;
 
+            if(this.world.keyboard.RIGHT) {
+
+                let i = this.currentIMage % this.IMAGES_WALKING.length; // let i = 0 % 6; => Rest 0
+                // i = 0, 1, 2, 3, 4, 5, 0, 1, ...
+                let path = this.IMAGES_WALKING[i];
+                this.img = this.imageCache[path];
+                this.currentIMage++;
+             }
         }, 100);
     }
 

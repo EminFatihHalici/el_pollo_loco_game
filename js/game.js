@@ -9,7 +9,7 @@ function init() {
 
 //adding event listeners to detect key presses
 window.addEventListener("keydown", (e) => {
-    if (e.key == 39) {
+    if (e.keyCode == 39) {
         keyboard.RIGHT = true;
     } else if (e.key == 37) {
         keyboard.LEFT = true;
@@ -24,7 +24,7 @@ window.addEventListener("keydown", (e) => {
 
 
 window.addEventListener("keyup", (e) => {
-    if (e.key == 39) {
+    if (e.keyCode == 39) {
         keyboard.RIGHT = false;
     } else if (e.key == 37) {
         keyboard.LEFT = false;
