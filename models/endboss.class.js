@@ -18,7 +18,7 @@ IMAGES_WALKING = [
 constructor() {
     super().loadImage(this.IMAGES_WALKING[0]);
     this.loadImages(this.IMAGES_WALKING);
-    this.x = 2200;
+    this.x = 4100;
     this.animate();
 }
 
