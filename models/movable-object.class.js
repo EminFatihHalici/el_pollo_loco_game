@@ -15,7 +15,7 @@ class MovableObject {
     // setting gravity for movable objects / character falls down
     applyGravity() {
         setInterval(() => {
-            if(this.isAboveGround()) {
+            if(this.isAboveGround() || this.speedY > 0) {
             this.y -= this.speedY;    
             this.speedY -= this.accelaration;
             }
