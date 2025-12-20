@@ -8,6 +8,25 @@ class MovableObject {
     currentIMage = 0;
     speed = 0.15;
     otherDirection = false;
+    speedY = 0;
+    accelaration = 3;
+
+
+    // setting gravity for movable objects / character falls down
+    applyGravity() {
+        setInterval(() => {
+            if(this.isAboveGround()) {
+            this.y -= this.speedY;    
+            this.speedY -= this.accelaration;
+            }
+    }, 1000 / 25);
+    }
+
+
+    // Abfrage
+    isAboveGround() {
+        return this.y < 160;
+    }
 
 
     loadImage(path) {
