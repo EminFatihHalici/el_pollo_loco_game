@@ -56,7 +56,7 @@ class Character extends MovableObject {
             }
 
             if (this.world.keyboard.UP && !this.isAboveGround()) {
-                this.speedY = 30;
+                this.jump();
             }
 
         }, 1000 / 60); // 60fps
@@ -75,7 +75,5 @@ class Character extends MovableObject {
         }, 50);
     }
 
-    jump() {
-
-    }
+    
 } 

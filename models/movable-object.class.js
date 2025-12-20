@@ -63,4 +63,8 @@ class MovableObject {
             this.x -= this.speed;
         }, 1000 / 60); // 60fps
     }
+
+    jump() {
+        this.speedY = 30;
+    }
 }
