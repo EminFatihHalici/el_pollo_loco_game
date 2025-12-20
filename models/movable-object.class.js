@@ -15,11 +15,11 @@ class MovableObject {
     // setting gravity for movable objects / character falls down
     applyGravity() {
         setInterval(() => {
-            if(this.isAboveGround() || this.speedY > 0) {
-            this.y -= this.speedY;    
-            this.speedY -= this.accelaration;
+            if (this.isAboveGround() || this.speedY > 0) {
+                this.y -= this.speedY;
+                this.speedY -= this.accelaration;
             }
-    }, 1000 / 25);
+        }, 1000 / 25);
     }
 
 
@@ -54,14 +54,11 @@ class MovableObject {
 
 
     moveRight() {
-        console.log('Moving right');
-
+        this.x += this.speed;
     }
 
     moveLeft() {
-        setInterval(() => {
             this.x -= this.speed;
-        }, 1000 / 60); // 60fps
     }
 
     jump() {

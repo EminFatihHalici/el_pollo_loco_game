@@ -17,14 +17,19 @@ class Chicken extends MovableObject {
        this.loadImages(this.IMAGES_WALKING);
        this.animate();
        this.speed = 0.15 + Math.random() * 0.25; //Zufällige Geschwindigkeit der Hühner
-       this.moveLeft();
     }
 
 
      animate() {
+
+      setInterval(() => {
+          this.moveLeft();
+        }, 1000 / 60); // 60fps
+
         setInterval(() => {
       this.playAnimation(this.IMAGES_WALKING);
         }, 200);
+
     }
 
 }
