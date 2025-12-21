@@ -23,7 +23,7 @@ class MovableObject {
     }
 
 
-    
+
 
     drawFrame(ctx) {
         // frame only for specific classes (instance of)
@@ -33,7 +33,16 @@ class MovableObject {
             ctx.strokeStyle = 'blue';
             ctx.rect(this.x, this.y, this.width, this.height);
             ctx.stroke();
-        }  
+        }
+    }
+
+
+    //character.isColliding(chicken);
+    isColliding(mo) {
+        return this.x + this.width > mo.x &&
+            this.y + this.height > mo.y &&
+            this.x < mo.x &&
+            this.y < mo.y + mo.height;
     }
 
     draw(ctx) {
