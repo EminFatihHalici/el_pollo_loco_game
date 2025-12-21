@@ -35,8 +35,6 @@ class MovableObject {
 
     draw(ctx) {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-
-
     }
 
     // Abfrage
