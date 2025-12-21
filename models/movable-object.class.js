@@ -10,7 +10,7 @@ class MovableObject {
     otherDirection = false;
     speedY = 0;
     accelaration = 3;
-
+    energy = 100; 
     offset = {
         top: 0,
         bottom: 0,
