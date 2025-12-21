@@ -8,7 +8,7 @@ class World {
     camera_x = 0;
     clouds = level1.clouds;
 
-    backgroundObjects = level1.backgroundObjects; 
+    backgroundObjects = level1.backgroundObjects;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -35,37 +35,48 @@ class World {
 
     }
 
-            //vereinfache die Schleifen // eine für alle
-         addObjectsToMap(objects) {
-                objects.forEach(o => {
-                    this.addToMap(o);
-                });
-            }
+    //vereinfache die Schleifen // eine für alle
+    addObjectsToMap(objects) {
+        objects.forEach(o => {
+            this.addToMap(o);
+        });
+    }
 
-            addToMap(mo) {
-                if (mo.otherDirection) {
-                    this.ctx.save();
-                    // verschiebe das Koordinatensystem
-                    this.ctx.translate(mo.width, 0);
-                    // Spiegeln
-                    this.ctx.scale(-1, 1);
-                    mo.x = mo.x * -1;
-                }    
+    addToMap(mo) {
+        if (mo.otherDirection) {
+            this.flipImage(mo);
+        }
 
-                this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
+        mo.draw(this.ctx);
 
-                if (mo.otherDirection) {
-                    mo.x = mo.x * -1;
-                    this.ctx.restore();
-                }
-             
-            }
+        mo.drawFrame(this.ctx); // Rahmen um Objekte zum Testen
+
+        if (mo.otherDirection) {
+            this.flipImageBack(mo);
+        }
+
+    }
 
 
-      setWorld() {
-        this.character.world = this; 
-      }      
-            
+    flipImage(mo) {
+        this.ctx.save();
+        // verschiebe das Koordinatensystem
+        this.ctx.translate(mo.width, 0);
+        // Spiegeln
+        this.ctx.scale(-1, 1);
+        mo.x = mo.x * -1;
+    }
+
+    flipImageBack(mo) {
+        mo.x = mo.x * -1;
+        this.ctx.restore();
+    }
+
+
+    setWorld() {
+        this.character.world = this;
+    }
+
 
 
 }

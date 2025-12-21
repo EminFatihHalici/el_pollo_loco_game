@@ -19,9 +19,25 @@ class MovableObject {
                 this.y -= this.speedY;
                 this.speedY -= this.accelaration;
             }
-        }, 1000 / 25);
+        }, 1000 / 25)
     }
 
+
+    
+
+    drawFrame(ctx) {
+        ctx.beginPath();
+        ctx.lineWidth = '2';
+        ctx.strokeStyle = 'blue';
+        ctx.rect(this.x, this.y, this.width, this.height);
+        ctx.stroke();
+    }
+
+    draw(ctx) {
+        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+
+
+    }
 
     // Abfrage
     isAboveGround() {
@@ -58,7 +74,7 @@ class MovableObject {
     }
 
     moveLeft() {
-            this.x -= this.speed;
+        this.x -= this.speed;
     }
 
     jump() {
