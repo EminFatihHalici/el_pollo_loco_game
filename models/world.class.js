@@ -34,9 +34,15 @@ class World {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); //Löscht die vorherigen Bilder im Canvas
         this.ctx.translate(this.camera_x, 0); //Verschiebe das Koordinatensystem nach links
         this.addObjectsToMap(this.level.backgroundObjects);
+
+        this.ctx.translate(-this.camera_x, 0);
+        //space for fixed objects
+        this.addToMap(this.statusBar);
+        this.ctx.translate(this.camera_x, 0);
+        
+        
         this.addObjectsToMap(this.level.clouds);
         this.addToMap(this.character);
-        this.addToMap(this.statusBar);
         this.statusBar.setPercantage(this.character.energy);
         this.addObjectsToMap(this.level.enemies);
         this.ctx.translate(-this.camera_x, 0); //Verschiebe das Koordinatensystem zurück
