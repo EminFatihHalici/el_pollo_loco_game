@@ -8,6 +8,8 @@ class World {
     camera_x = 0;
     clouds = level1.clouds;
     statusBarHealth = new StatusBarHealth();
+    statusBarCoin = new StatusBarCoin();
+    statusBarBottle = new StatusBarBottle();
     backgroundObjects = level1.backgroundObjects;
 
     constructor(canvas, keyboard) {
@@ -37,6 +39,8 @@ class World {
 
         this.ctx.translate(-this.camera_x, 0);
         //space for fixed objects
+        this.addToMap(this.statusBarBottle)
+        this.addToMap(this.statusBarCoin);
         this.addToMap(this.statusBarHealth);
         this.ctx.translate(this.camera_x, 0);
         
