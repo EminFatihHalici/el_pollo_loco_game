@@ -42,17 +42,6 @@ class MovableObject extends DrawableObject {
         return timepassed < 1;
     }
 
-    drawFrame(ctx) {
-        // frame only for specific classes (instance of)
-        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof SmallChicken) {
-            ctx.beginPath();
-            ctx.lineWidth = '2';
-            ctx.strokeStyle = 'blue';
-            ctx.rect(this.x, this.y, this.width, this.height);
-            ctx.stroke();
-        }
-    }
-
     //character.isColliding(chicken);
     isColliding(mo) {
         return this.x + this.width - this.offset.right > mo.x + mo.offset.left &&
