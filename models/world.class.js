@@ -7,7 +7,7 @@ class World {
     keyboard;
     camera_x = 0;
     clouds = level1.clouds;
-    statusBar = new StatusBar();
+    statusBarHealth = new StatusBarHealth();
     backgroundObjects = level1.backgroundObjects;
 
     constructor(canvas, keyboard) {
@@ -37,12 +37,12 @@ class World {
 
         this.ctx.translate(-this.camera_x, 0);
         //space for fixed objects
-        this.addToMap(this.statusBar);
+        this.addToMap(this.statusBarHealth);
         this.ctx.translate(this.camera_x, 0);
         
         this.addObjectsToMap(this.level.clouds);
         this.addToMap(this.character);
-        this.statusBar.setPercantage(this.character.energy);
+        this.statusBarHealth.setPercantage(this.character.energy);
         this.addObjectsToMap(this.level.enemies);
         this.ctx.translate(-this.camera_x, 0); //Verschiebe das Koordinatensystem zurück
 
