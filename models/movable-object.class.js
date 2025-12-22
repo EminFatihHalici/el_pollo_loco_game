@@ -1,16 +1,10 @@
-class MovableObject {
-    x = 120;
-    y = 280;
-    img;
-    height = 150;
-    width = 100;
-    imageCache = [];
-    currentIMage = 0;
+class MovableObject extends DrawableObject {
+
     speed = 0.15;
     otherDirection = false;
     speedY = 0;
     accelaration = 3;
-    energy = 100; 
+    energy = 100;
     lastHit = 0;
     offset = {
         top: 0,
@@ -18,7 +12,6 @@ class MovableObject {
         left: 0,
         right: 0
     };
-
 
     // setting gravity for movable objects / character falls down
     applyGravity() {
@@ -29,7 +22,6 @@ class MovableObject {
             }
         }, 1000 / 25)
     }
-
 
     hit() {
         this.energy -= 5;
@@ -61,7 +53,6 @@ class MovableObject {
         }
     }
 
-
     //character.isColliding(chicken);
     isColliding(mo) {
         return this.x + this.width - this.offset.right > mo.x + mo.offset.left &&
@@ -70,29 +61,9 @@ class MovableObject {
             this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom;
     }
 
-    draw(ctx) {
-        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-    }
-
     // Abfrage
     isAboveGround() {
         return this.y < 160;
-    }
-
-
-    loadImage(path) {
-        this.img = new Image();
-        this.img.src = path;
-    }
-
-    //loading all img from character to json array
-    loadImages(arr) {
-        arr.forEach(path => {
-            let img = new Image();
-            img.src = path;
-            this.imageCache[path] = img;
-        });
-
     }
 
     playAnimation(images) {
@@ -102,7 +73,6 @@ class MovableObject {
         this.img = this.imageCache[path];
         this.currentIMage++;
     }
-
 
     moveRight() {
         this.x += this.speed;
