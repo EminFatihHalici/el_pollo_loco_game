@@ -28,14 +28,13 @@ class StatusBar extends DrawableObject {
     animate() {
         setInterval(() => {
             this.playAnimation(this.IMAGES);
-
         }, 200);
     }
 
 
 
-    setPercantage() {
-        this.percentage = this.percentage;
+    setPercantage(percentage) {
+        this.percentage = percentage;
         let imagePath = this.IMAGES[this.resolveImageIndex()];
         this.img = this.imageCache[imagePath];
 
