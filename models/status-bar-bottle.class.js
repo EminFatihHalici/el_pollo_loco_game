@@ -23,7 +23,7 @@ constructor() {
 
     animate() {
         setInterval(() => {
-            this.playAnimation(this.IMAGES);
+            // this.playAnimation(this.IMAGES);
         }, 200);
     }
 

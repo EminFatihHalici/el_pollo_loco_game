@@ -27,7 +27,7 @@ class StatusBarHealth extends DrawableObject {
 
     animate() {
         setInterval(() => {
-            this.playAnimation(this.IMAGES);
+            // this.playAnimation(this.IMAGES);
         }, 200);
     }
 
