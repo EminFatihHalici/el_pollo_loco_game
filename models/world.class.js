@@ -11,6 +11,9 @@ class World {
     statusBarCoin = new StatusBarCoin();
     statusBarBottle = new StatusBarBottle();
     backgroundObjects = level1.backgroundObjects;
+    throwableObjects = [
+        new ThrowableObject()
+    ];
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -43,7 +46,7 @@ class World {
         this.addToMap(this.statusBarCoin);
         this.addToMap(this.statusBarHealth);
         this.ctx.translate(this.camera_x, 0);
-        
+        this.addObjectsToMap(this.throwableObjects);
         this.addObjectsToMap(this.level.clouds);
         this.addToMap(this.character);
         this.statusBarHealth.setPercantage(this.character.energy);

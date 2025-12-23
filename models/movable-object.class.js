@@ -52,7 +52,11 @@ class MovableObject extends DrawableObject {
 
     // Abfrage
     isAboveGround() {
+        if (this instanceof ThrowableObject) { // thurowable objects are allowed to fall down
+            return true;
+        } else {
         return this.y < 160;
+        }
     }
 
     playAnimation(images) {
