@@ -11,9 +11,7 @@ class World {
     statusBarCoin = new StatusBarCoin();
     statusBarBottle = new StatusBarBottle();
     backgroundObjects = level1.backgroundObjects;
-    throwableObjects = [
-        new ThrowableObject()
-    ];
+    throwableObjects = [];
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -21,19 +19,31 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
-        this.checkCollisions();
+        this.run();
     }
 
-    checkCollisions() {
+    run() {
         setInterval(() => {
+            this.checkCollisions();
+            this.checkThrowObjects();
+        }, 200);
+    }
+
+    checkThrowObjects() {
+        if (this.keyboard.D) {
+            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
+            this.throwableObjects.push(bottle);
+        }
+    }  
+
+     checkCollisions() {
             this.level.enemies.forEach((enemy) => {
                 if(this.character.isColliding(enemy)) {
                     this.character.hit(); 
                     console.log('Energy ', this.character.energy);
                 }
             });
-        }, 200);
-    }
+        }
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); //Löscht die vorherigen Bilder im Canvas
