@@ -12,6 +12,7 @@ class World {
     statusBarBottle = new StatusBarBottle();
     backgroundObjects = level1.backgroundObjects;
     throwableObjects = [];
+    backgroundSound = new Sound('audio/background_wind_sound.mp3')
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -19,6 +20,8 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
+        this.backgroundSound.volume(0.005);
+        this.backgroundSound.loop();
         this.run();
     }
 
