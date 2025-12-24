@@ -23,4 +23,8 @@ class Sound {
         this.audio.play();
     }
 
+    isPlaying() {
+        return !this.audio.paused;
+    }
+
 }
