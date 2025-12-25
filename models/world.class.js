@@ -20,7 +20,7 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
-        this.backgroundSound.volume(0.005);
+        this.backgroundSound.volume(0.03);
         this.backgroundSound.loop();
         this.run();
     }
