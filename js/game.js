@@ -1,9 +1,32 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
+let startImages = [
+    'img/9_intro_outro_screens/start/startscreen_1.png',
+    'img/9_intro_outro_screens/start/startscreen_2.png'
+];
+let currentImageIndex = 0;
+let intervalId;
 
 function init() {
     canvas = document.getElementById('canvas');
+    renderStartScreen();
+}
+
+// rendering both intro pics
+function renderStartScreen() {
+    let imgElement = document.getElementById('introImage');
+    intervalId = setInterval(() => {
+        currentImageIndex = (currentImageIndex + 1) % startImages.length;
+        imgElement.src = startImages[currentImageIndex];
+
+    }, 3000);
+}
+
+//function to dissappear the intro pic and show the canvas
+function startGame() {
+    clearInterval(intervalId);
+    document.getElementById('startScreen').classList.add('d-none');
     world = new World(canvas, keyboard);
 }
 
@@ -13,14 +36,14 @@ window.addEventListener("keydown", (e) => {
         keyboard.RIGHT = true;
     } else if (e.keyCode == 37) {
         keyboard.LEFT = true;
-    }   else if (e.keyCode == 38) {     
+    } else if (e.keyCode == 38) {
         keyboard.UP = true;
-    }   else if (e.keyCode == 40) {
+    } else if (e.keyCode == 40) {
         keyboard.DOWN = true;
-    }   else if (e.keyCode == 32) {
+    } else if (e.keyCode == 32) {
         keyboard.SPACE = true;
     } else if (e.keyCode == 68) {
-        keyboard.D = true; 
+        keyboard.D = true;
     }
 });
 
@@ -30,13 +53,13 @@ window.addEventListener("keyup", (e) => {
         keyboard.RIGHT = false;
     } else if (e.keyCode == 37) {
         keyboard.LEFT = false;
-    }   else if (e.keyCode == 38) {     
+    } else if (e.keyCode == 38) {
         keyboard.UP = false;
-    }   else if (e.keyCode == 40) {
+    } else if (e.keyCode == 40) {
         keyboard.DOWN = false;
-    }   else if (e.keyCode == 32) {
+    } else if (e.keyCode == 32) {
         keyboard.SPACE = false;
     } else if (e.keyCode == 68) {
-        keyboard.D = false; 
+        keyboard.D = false;
     }
 });
