@@ -1,12 +1,38 @@
+   let enemies = [];
+
+   // array for the chicken and their position
+    for (let i = 0; i < 8; i++) {
+        let xPosition = 400 + (i * 500) + (Math.random() * 300);
+        enemies.push(new Chicken(xPosition));
+    }
+
+    // array for the small chicken and their position
+    for (let i = 0; i < 4; i++) {
+        let startOfSmallChicken = 2500;
+        enemies.push(new SmallChicken(startOfSmallChicken + i * 50)); 
+}
+
+    
+
+    enemies.push(new Endboss());
+
+
 const level1 = new Level(
-    [new Chicken(),
-    new Chicken(),
-    new Chicken(),
-    new SmallChicken(),
-    new SmallChicken(), 
-    new SmallChicken(),
-    new Endboss()
-    ],
+    // [new Chicken(400),
+    // new Chicken(800),
+    // new Chicken(1200),
+    // new Chicken(2600),
+    // new Chicken(2650),
+    // new Chicken(2700),
+    // new SmallChicken(),
+    // new SmallChicken(), 
+    // new SmallChicken(),
+    // new Endboss()
+    // ],
+
+ 
+    enemies,
+
     [
         new Cloud()
     ],

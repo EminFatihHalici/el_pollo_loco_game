@@ -11,9 +11,9 @@ class SmallChicken extends MovableObject {
     ]
 
 
-      constructor() {
+      constructor(x) {
        super().loadImage('img/3_enemies_chicken/chicken_small/1_walk/1_w.png')
-       this.x = 2550 +Math.random() * 500; //Zufällige Startposition der Hühner
+       this.x = x + Math.random() * 500; //Zufällige Startposition der Hühner
        this.loadImages(this.IMAGES_WALKING);
        this.animate();
        this.speed = 0.15 + Math.random() * 0.25; //Zufällige Geschwindigkeit der Hühner
