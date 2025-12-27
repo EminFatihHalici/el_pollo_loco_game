@@ -1,8 +1,30 @@
 let enemies = [];
 let coins = [];
 
-for (let i = 0; i < 10; i++) {
-    coins.push(new Coins(300 + i * 150, 100 + Math.random() * 200));
+
+// array for coins , their positions and their arc style
+for (let i = 0; i < 5; i++) {
+    let x = 300 + (i * 150);
+    let y = 300;
+    if (i === 0 || i === 4) {
+    } else if (i === 1 || i === 3) {
+        y = 220;
+    } else {
+        y = 150;
+    }
+    coins.push(new Coins(x, y));
+}
+
+for (let i = 0; i < 5; i++) {
+    let x = 1800 + (i * 150);
+    let y = 300;
+    if (i === 0 || i === 4) {
+    } else if (i === 1 || i === 3) {
+        y = 220;
+    } else {
+        y = 150;
+    }
+    coins.push(new Coins(x, y));
 }
 
 // array for the chicken and their position
