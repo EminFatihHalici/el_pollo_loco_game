@@ -63,7 +63,7 @@ class World {
         this.addObjectsToMap(this.throwableObjects);
         this.addObjectsToMap(this.level.clouds);
         this.addToMap(this.character);
-        this.addToMap(this.coins);
+        this.addObjectsToMap(this.level.coins);
         this.statusBarHealth.setPercantage(this.character.energy);
         this.addObjectsToMap(this.level.enemies);
         this.ctx.translate(-this.camera_x, 0); //Verschiebe das Koordinatensystem zurück

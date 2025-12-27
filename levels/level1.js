@@ -1,20 +1,25 @@
-   let enemies = [];
+let enemies = [];
+let coins = [];
 
-   // array for the chicken and their position
-    for (let i = 0; i < 8; i++) {
-        let xPosition = 400 + (i * 500) + (Math.random() * 300);
-        enemies.push(new Chicken(xPosition));
-    }
-
-    // array for the small chicken and their position
-    for (let i = 0; i < 4; i++) {
-        let startOfSmallChicken = 2500;
-        enemies.push(new SmallChicken(startOfSmallChicken + i * 50)); 
+for (let i = 0; i < 10; i++) {
+    coins.push(new Coins(300 + i * 150, 100 + Math.random() * 200));
 }
 
-    
+// array for the chicken and their position
+for (let i = 0; i < 8; i++) {
+    let xPosition = 400 + (i * 500) + (Math.random() * 300);
+    enemies.push(new Chicken(xPosition));
+}
 
-    enemies.push(new Endboss());
+// array for the small chicken and their position
+for (let i = 0; i < 4; i++) {
+    let startOfSmallChicken = 2500;
+    enemies.push(new SmallChicken(startOfSmallChicken + i * 50));
+}
+
+
+
+enemies.push(new Endboss());
 
 
 const level1 = new Level(
@@ -30,8 +35,8 @@ const level1 = new Level(
     // new Endboss()
     // ],
 
- 
     enemies,
+
 
     [
         new Cloud()
@@ -77,7 +82,11 @@ const level1 = new Level(
         new BackgroundObject('img/5_background/layers/2_second_layer/1.png', 719 * 6),
         new BackgroundObject('img/5_background/layers/1_first_layer/1.png', 719 * 6),
 
-    ]
+    ],
+
+
+
+    coins,
 
 );
 
