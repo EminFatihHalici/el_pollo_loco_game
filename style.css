@@ -36,8 +36,9 @@ body {
 }
 
 .play-btn {
-    padding: 15px 40px;
+    padding: 15px;
     font-size: 32px;
+    margin-top: 400px;
     background-color: #FFA500;
     color: white;
     border: none;
