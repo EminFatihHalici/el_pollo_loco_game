@@ -3,11 +3,22 @@ let coins = [];
 let bottles = [];
 
 
-
-for (let i = 0; i < 3; i++) {
+// array for bottles
+for (let i = 0; i < 5; i++) {
     let x = 300 + (i * 150);
-    let y = 300;
-  
+    let y = 360;
+     if (i === 0 || i === 5) {
+    } else if (i === 1) {
+        x = 1220;
+    } else if (i === 2) {
+        x = 3880;
+    } else if (i === 3) {
+        x = 2880;
+    } else if (i === 4) {
+        x = 3200;
+    } else if (i === 5) {
+        x = 1200;
+    }
     bottles.push(new Bottles(x, y));
 }
 
