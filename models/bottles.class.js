@@ -1,7 +1,7 @@
 class Bottles extends MovableObject {
 
-    width = 100;
-    height = 100;
+    width = 70;
+    height = 70;
 
 
     IMAGES = [

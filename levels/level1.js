@@ -6,7 +6,7 @@ let bottles = [];
 // array for bottles
 for (let i = 0; i < 5; i++) {
     let x = 300 + (i * 150);
-    let y = 360;
+    let y = 380;
      if (i === 0 || i === 5) {
     } else if (i === 1) {
         x = 1220;
