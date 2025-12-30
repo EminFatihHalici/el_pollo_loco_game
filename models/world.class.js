@@ -12,6 +12,7 @@ class World {
     statusBarHealth = new StatusBarHealth();
     statusBarCoin = new StatusBarCoin();
     statusBarBottle = new StatusBarBottle();
+    statusBarEndboss = new StatusBarEndboss(); 
     backgroundObjects = level1.backgroundObjects;
     throwableObjects = [];
     backgroundSound = new Sound('audio/background_wind_sound.mp3')
@@ -60,6 +61,7 @@ class World {
         this.addToMap(this.statusBarBottle)
         this.addToMap(this.statusBarCoin);
         this.addToMap(this.statusBarHealth);
+        this.addToMap(this.statusBarEndboss);
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.throwableObjects);
         this.addObjectsToMap(this.level.clouds);

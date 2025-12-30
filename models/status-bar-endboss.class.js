@@ -4,12 +4,12 @@ class StatusBarEndboss extends DrawableObject {
 
 
     IMAGES = [
-        'img/7_statusbars/2_statusbar_endboss/blue/blue100.png',
-        'img/7_statusbars/2_statusbar_endboss/blue/blue80.png',
-        'img/7_statusbars/2_statusbar_endboss/blue/blue60.png',
-        'img/7_statusbars/2_statusbar_endboss/blue/blue40.png',
-        'img/7_statusbars/2_statusbar_endboss/blue/blue20.png',
         'img/7_statusbars/2_statusbar_endboss/blue/blue0.png',
+        'img/7_statusbars/2_statusbar_endboss/blue/blue20.png',
+        'img/7_statusbars/2_statusbar_endboss/blue/blue40.png',
+        'img/7_statusbars/2_statusbar_endboss/blue/blue60.png',
+        'img/7_statusbars/2_statusbar_endboss/blue/blue80.png',
+        'img/7_statusbars/2_statusbar_endboss/blue/blue100.png',
     ]
 
 
@@ -19,8 +19,8 @@ class StatusBarEndboss extends DrawableObject {
         this.loadImages(this.IMAGES);
         this.animate();
         this.setPercantage(100);
-        this.y = 45;
-        this.x = 20;
+        this.y = 0;
+        this.x = 495;
         this.width = 200;
         this.height = 60;
     }
