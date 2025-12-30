@@ -8,6 +8,7 @@ class World {
     camera_x = 0;
     clouds = level1.clouds;
     coins = new Coins();
+    bottles = new Bottles();
     statusBarHealth = new StatusBarHealth();
     statusBarCoin = new StatusBarCoin();
     statusBarBottle = new StatusBarBottle();
@@ -63,6 +64,7 @@ class World {
         this.addObjectsToMap(this.throwableObjects);
         this.addObjectsToMap(this.level.clouds);
         this.addToMap(this.character);
+        this.addObjectsToMap(this.level.bottles)
         this.addObjectsToMap(this.level.coins);
         this.statusBarHealth.setPercantage(this.character.energy);
         this.addObjectsToMap(this.level.enemies);

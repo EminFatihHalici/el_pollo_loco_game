@@ -1,6 +1,15 @@
 let enemies = [];
 let coins = [];
+let bottles = [];
 
+
+
+for (let i = 0; i < 3; i++) {
+    let x = 300 + (i * 150);
+    let y = 300;
+  
+    bottles.push(new Bottles(x, y));
+}
 
 // array for coins , their positions and their arc style
 for (let i = 0; i < 5; i++) {
@@ -109,6 +118,7 @@ const level1 = new Level(
 
 
     coins,
+    bottles,
 
 );
 
