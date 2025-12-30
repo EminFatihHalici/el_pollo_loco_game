@@ -29,7 +29,7 @@ class Bottles extends MovableObject {
     animate() {
     setInterval(() => {
       this.playAnimation(this.IMAGES);
-        }, 200);
+        }, 5000);
 }
 
 }
