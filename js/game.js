@@ -30,6 +30,21 @@ function startGame() {
     world = new World(canvas, keyboard);
 }
 
+
+function toggleFullscreen() {
+    if (canvas.requestFullscreen) {
+        canvas.requestFullscreen();
+    } else if (canvas.mozRequestFullScreen) { /* Firefox */
+        canvas.mozRequestFullScreen();
+    } else if (canvas.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+        canvas.webkitRequestFullscreen();
+    } else if (canvas.msRequestFullscreen) { /* IE/Edge */
+        canvas.msRequestFullscreen();
+    }  else {
+        canvas.exitFullscreen();
+    }
+}
+
 //adding event listeners to detect key presses
 window.addEventListener("keydown", (e) => {
     if (e.keyCode == 39) {
