@@ -65,18 +65,6 @@ enemies.push(new Endboss());
 
 
 const level1 = new Level(
-    // [new Chicken(400),
-    // new Chicken(800),
-    // new Chicken(1200),
-    // new Chicken(2600),
-    // new Chicken(2650),
-    // new Chicken(2700),
-    // new SmallChicken(),
-    // new SmallChicken(), 
-    // new SmallChicken(),
-    // new Endboss()
-    // ],
-
     enemies,
 
 
