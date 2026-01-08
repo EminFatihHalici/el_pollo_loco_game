@@ -19,6 +19,7 @@
     <script src="models/status-bar-endboss.class.js"></script>
     <script src="models/status-bar-coin.class.js"></script>
     <script src="models/status-bar-health.class.js"></script>
+    <script src="models/display-manager.class.js"></script>
     <script src="models/world.class.js"></script>
     <script src="models/background-object.class.js"></script>
     <script src="models/keyboard.class.js"></script>
@@ -31,14 +32,19 @@
 </head>
 
 <body onload="init()">
+    <header></header>
 
     <div id="startScreen" class="start-screen">
         <img id="introImage" src="img/9_intro_outro_screens/start/startscreen_1.png">
         <button onclick="startGame()" class="play-btn">PLAY NOW</button>
     </div>
 
-    <canvas id="canvas" width="720" height="480">
-    </canvas>
+    <div class="game-canvas-div" id="cover">
+        <canvas id="canvas" width="720" height="480">
+        </canvas>
+        <button class="fullscreen-btn" id="fullscreen"></button>
+    </div>
+
 
 </body>
 
