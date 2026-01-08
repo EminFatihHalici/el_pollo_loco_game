@@ -11,6 +11,7 @@ class World {
     bottles = new Bottles();
     statusBarHealth = new StatusBarHealth();
     statusBarCoin = new StatusBarCoin();
+    displayManager = new DisplayManager();
     statusBarBottle = new StatusBarBottle();
     statusBarEndboss = new StatusBarEndboss(); 
     backgroundObjects = level1.backgroundObjects;
@@ -70,7 +71,7 @@ class World {
         this.addObjectsToMap(this.level.coins);
         this.statusBarHealth.setPercantage(this.character.energy);
         this.addObjectsToMap(this.level.enemies);
-        this.ctx.translate(-this.camera_x, 0); //Verschiebe das Koordinatensystem zurück
+        this.ctx.translate(-this.camera_x, 0);   //Verschiebe das Koordinatensystem zurück
 
         //draw() wird immer wieder aufgerufen
         let self = this;
