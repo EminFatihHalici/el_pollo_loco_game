@@ -28,6 +28,7 @@ function startGame() {
     clearInterval(intervalId);
     document.getElementById('startScreen').classList.add('d-none');
     world = new World(canvas, keyboard);
+    document.getElementById('fullscreen').classList.remove('d-none');
 }
 
 
