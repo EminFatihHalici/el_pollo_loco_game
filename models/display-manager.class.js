@@ -10,13 +10,13 @@ class DisplayManager {
         this.initListeners();
     }
 
-    
-initListeners() {
-    this.btn.addEventListener('click', () => this.toggleFullscreen());
-    document.addEventListener('fullscreenchange', () => this.resizeCanvas());
-}   
 
-toggleFullscreen() {
+    initListeners() {
+        this.btn.addEventListener('click', () => this.toggleFullscreen());
+        document.addEventListener('fullscreenchange', () => this.resizeCanvas());
+    }
+
+    toggleFullscreen() {
         if (!document.fullscreenElement) {
             this.wrapper.requestFullscreen();
         } else {
@@ -26,14 +26,21 @@ toggleFullscreen() {
 
     resizeCanvas() {
         if (document.fullscreenElement) {
-            this.canvas.width = window.innerWidth;
-            this.canvas.height = window.innerHeight;
+            // this.canvas.width = window.innerWidth;
+            // this.canvas.height = window.innerHeight;
+            this.canvas.style.width = '100vw';
+            this.canvas.style.height = '100vh';
+            this.canvas.style.objectFit = 'contain';
+
         } else {
-            this.canvas.width = this.originalWidth;
-            this.canvas.height = this.originalHeight;
+            // this.canvas.width = this.originalWidth;
+            // this.canvas.height = this.originalHeight;
+            this.canvas.style.width = '720px';
+            this.canvas.style.height = '480px';
+
         }
     }
 }
- 
+
 
 
