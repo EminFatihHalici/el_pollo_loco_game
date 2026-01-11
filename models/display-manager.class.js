@@ -28,12 +28,14 @@ class DisplayManager {
         if (document.fullscreenElement) {
             this.wrapper.style.width = window.innerWidth;
             this.wrapper.style.height = window.innerHeight;
-            this.canvas.style.objectFit = 'contain';
+            this.canvas.style.width = '100vw';
+            this.canvas.style.height = '100vh';
 
         } else {
             this.wrapper.style.width = this.originalWidth;
             this.wrapper.style.height = this.originalHeight;
-
+            this.canvas.style.width = '';
+            this.canvas.style.height = '';
         }
     }
 }
