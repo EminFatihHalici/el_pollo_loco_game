@@ -26,17 +26,13 @@ class DisplayManager {
 
     resizeCanvas() {
         if (document.fullscreenElement) {
-            // this.canvas.width = window.innerWidth;
-            // this.canvas.height = window.innerHeight;
-            this.canvas.style.width = '100vw';
-            this.canvas.style.height = '100vh';
+            this.wrapper.style.width = window.innerWidth;
+            this.wrapper.style.height = window.innerHeight;
             this.canvas.style.objectFit = 'contain';
 
         } else {
-            // this.canvas.width = this.originalWidth;
-            // this.canvas.height = this.originalHeight;
-            this.canvas.style.width = '720px';
-            this.canvas.style.height = '480px';
+            this.wrapper.style.width = this.originalWidth;
+            this.wrapper.style.height = this.originalHeight;
 
         }
     }
