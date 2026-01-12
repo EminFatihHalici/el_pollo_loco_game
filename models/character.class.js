@@ -89,6 +89,7 @@ class Character extends MovableObject {
 
         }, 1000 / 60); // 60fps
 
+        
 
         setInterval(() => {
             if (this.isHurt()) {
@@ -105,6 +106,10 @@ class Character extends MovableObject {
                     }
                 }
         }, 50);
+    }
+
+        collectCoin() {
+        this.coins += 1;
     }
 
 
