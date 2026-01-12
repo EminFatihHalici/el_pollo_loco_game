@@ -34,6 +34,7 @@ class World {
             this.checkCollisions();
             this.checkThrowObjects();
             this.checkCoinCollisions();
+            this.checkBottleCollisions();
         }, 200);
     }
 
@@ -66,9 +67,16 @@ class World {
         });
     }
 
-
-
-
+    checkBottleCollisions() {
+        this.level.bottles.forEach((bottle, index) => {
+            if (this.character.isColliding(bottle)) {
+                this.character.collectBottles();
+                let bottlePercent = this.character.bottles * 20; 
+                this.statusBarBottle.setPercantage(bottlePercent);
+                this.level.bottles.splice(index, 1);
+            }
+        });
+    }
 
 
 

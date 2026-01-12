@@ -7,6 +7,7 @@ class Character extends MovableObject {
     world;
     speed = 10;
     coins = 0;
+    bottles = 0;
 
     offset = {
         top: 116,
@@ -69,7 +70,7 @@ class Character extends MovableObject {
 
 
         setInterval(() => {
-            
+
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.moveRight();
                 this.otherDirection = false;
@@ -90,7 +91,7 @@ class Character extends MovableObject {
 
         }, 1000 / 60); // 60fps
 
-        
+
 
         setInterval(() => {
             if (this.isHurt()) {
@@ -109,9 +110,12 @@ class Character extends MovableObject {
         }, 50);
     }
 
-        collectCoin() {
+    collectCoin() {
         this.coins += 1;
     }
 
+    collectBottles() {
+        this.bottles += 1;
+    }
 
-} 
+}

@@ -1,5 +1,7 @@
 class StatusBarBottle extends DrawableObject {
 
+    percentage = 100;
+
 IMAGES = [
     'img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/0.png',
     'img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/20.png',
@@ -14,7 +16,7 @@ constructor() {
         super();
         this.loadImages(this.IMAGES);
         this.animate();
-        this.setPercantage(100);
+        this.setPercantage(0);
         this.y = 0;
         this.x = 20;
         this.width = 200;
