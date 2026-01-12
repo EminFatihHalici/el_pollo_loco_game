@@ -59,6 +59,8 @@ class World {
         this.level.coins.forEach((coin, index) => {
             if (this.character.isColliding(coin)) {
                 this.character.collectCoin();
+                let coinPercent = this.character.coins * 10; // 10 coins = 100%
+                this.statusBarCoin.setPercantage(coinPercent);
                 this.level.coins.splice(index, 1);
             }
         });
@@ -89,8 +91,7 @@ class World {
         this.addObjectsToMap(this.level.bottles)
         this.addObjectsToMap(this.level.coins);
         this.statusBarHealth.setPercantage(this.character.energy);
-        let coinPercent = this.character.coins * 10; // 10 coins = 100%
-        this.statusBarCoin.setPercantage(coinPercent);
+
         this.addObjectsToMap(this.level.enemies);
         this.ctx.translate(-this.camera_x, 0);   //Verschiebe das Koordinatensystem zurück
 
