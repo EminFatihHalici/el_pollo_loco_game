@@ -13,7 +13,7 @@ class World {
     statusBarCoin = new StatusBarCoin();
     displayManager = new DisplayManager();
     statusBarBottle = new StatusBarBottle();
-    statusBarEndboss = new StatusBarEndboss(); 
+    statusBarEndboss = new StatusBarEndboss();
     backgroundObjects = level1.backgroundObjects;
     throwableObjects = [];
     backgroundSound = new Sound('audio/background_wind_sound.mp3')
@@ -42,27 +42,27 @@ class World {
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
             this.throwableObjects.push(bottle);
         }
-    }  
+    }
 
-     checkCollisions() {
-            this.level.enemies.forEach((enemy) => {
-                if(this.character.isColliding(enemy)) {
-                    this.character.hit(); 
-                    console.log('Energy ', this.character.energy);
-                }
-            });
-        }
+    checkCollisions() {
+        this.level.enemies.forEach((enemy) => {
+            if (this.character.isColliding(enemy)) {
+                this.character.hit();
+                console.log('Energy ', this.character.energy);
+            }
+        });
+    }
 
 
-    
+
     checkCoinCollisions() {
         this.level.coins.forEach((coin, index) => {
-        if (this.character.isColliding(coin)) {
-            this.character.collectCoin();
-            this.level.coins.splice(index, 1); 
-        }
-    });
-}
+            if (this.character.isColliding(coin)) {
+                this.character.collectCoin();
+                this.level.coins.splice(index, 1);
+            }
+        });
+    }
 
 
 
@@ -89,6 +89,8 @@ class World {
         this.addObjectsToMap(this.level.bottles)
         this.addObjectsToMap(this.level.coins);
         this.statusBarHealth.setPercantage(this.character.energy);
+        let coinPercent = this.character.coins * 10;
+        this.statusBarCoin.setPercantage(coinPercent);
         this.addObjectsToMap(this.level.enemies);
         this.ctx.translate(-this.camera_x, 0);   //Verschiebe das Koordinatensystem zurück
 
@@ -122,7 +124,7 @@ class World {
 
     }
 
- 
+
 
 
     flipImage(mo) {
