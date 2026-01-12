@@ -33,6 +33,7 @@ class World {
         setInterval(() => {
             this.checkCollisions();
             this.checkThrowObjects();
+            this.checkCoinCollisions();
         }, 200);
     }
 
@@ -51,6 +52,24 @@ class World {
                 }
             });
         }
+
+
+    
+    checkCoinCollisions() {
+        this.level.coins.forEach((coin, index) => {
+        if (this.character.isColliding(coin)) {
+            this.character.collectCoin();
+            this.level.coins.splice(index, 1); 
+        }
+    });
+}
+
+
+
+
+
+
+
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); //Löscht die vorherigen Bilder im Canvas
