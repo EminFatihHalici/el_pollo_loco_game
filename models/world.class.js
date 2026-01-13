@@ -40,9 +40,13 @@ class World {
     }
 
     checkThrowObjects() {
-        if (this.keyboard.D) {
+        if (this.keyboard.D && this.character.bottles > 0) {
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, this.character.otherDirection);
             this.throwableObjects.push(bottle);
+            this.character.bottles--;
+            let bottlePercent = this.character.bottles * 20;
+            this.statusBarBottle.setPercantage(bottlePercent);  
+            this.keyboard.D = false;
         }
     }
 
