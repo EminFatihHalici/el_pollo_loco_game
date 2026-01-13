@@ -25,17 +25,37 @@ class ThrowableObject extends MovableObject {
         this.height = 60;
         this.width = 50;
         this.throw();
+        this.isBroken = false;
     }
 
     throw() {
         this.speedY = 15;
         this.applyGravity();
-        setInterval(() => {
+        this.movementTimer = setInterval(() => {
             this.x += 15;
+            if (this.y > 360 && !this.isBroken) {
+                this.isBroken = true;
+                this.splash();
+            }
         }, 25);
-        setInterval(() => {
+        this.animationTimer = setInterval(() => {
             this.playAnimation(this.IMAGES_ROTATE);
         }, 100);
     }
 
+
+    splash() {
+        clearInterval(this.movementTimer);
+        clearInterval(this.animationTimer);
+        clearInterval(this.gravityTimer);
+        this.speedY = 0;
+        this.y = 400;
+        this.splashTimer = setInterval(() => {
+            this.playAnimation(this.IMAGES_SPLASH);
+        }, 100);
+        setTimeout(() => {
+            clearInterval(this.splashTimer);
+        }, 300);
+    }
 }
+
