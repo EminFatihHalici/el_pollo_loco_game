@@ -55,6 +55,7 @@ class ThrowableObject extends MovableObject {
         }, 100);
         setTimeout(() => {
             clearInterval(this.splashTimer);
+            this.isGone = true;
         }, 300);
     }
 }
