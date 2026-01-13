@@ -15,7 +15,7 @@ class MovableObject extends DrawableObject {
 
     // setting gravity for movable objects / character falls down
     applyGravity() {
-        setInterval(() => {
+        this.gravityTimer = setInterval(() => {
             if (this.isAboveGround() || this.speedY > 0) {
                 this.y -= this.speedY;
                 this.speedY -= this.accelaration;
