@@ -35,6 +35,7 @@ class World {
             this.checkThrowObjects();
             this.checkCoinCollisions();
             this.checkBottleCollisions();
+            this.splashedBottlesCleanUp();
         }, 200);
     }
 
@@ -71,11 +72,20 @@ class World {
         this.level.bottles.forEach((bottle, index) => {
             if (this.character.isColliding(bottle)) {
                 this.character.collectBottles();
-                let bottlePercent = this.character.bottles * 20; 
+                let bottlePercent = this.character.bottles * 20;
                 this.statusBarBottle.setPercantage(bottlePercent);
                 this.level.bottles.splice(index, 1);
             }
         });
+    }
+
+    splashedBottlesCleanUp() {
+        for (let i = this.throwableObjects.length - 1; i >= 0; i--) {
+            let bottle = this.throwableObjects[i];
+            if (bottle.isGone) {
+                this.throwableObjects.splice(i, 1);
+            }
+        }
     }
 
 
