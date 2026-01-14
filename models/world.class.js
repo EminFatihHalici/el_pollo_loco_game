@@ -33,6 +33,7 @@ class World {
         setInterval(() => {
             this.checkCollisions();
             this.checkThrowObjects();
+            this.collisionBottlesWithEnemies();
             this.checkCoinCollisions();
             this.checkBottleCollisions();
             this.splashedBottlesCleanUp();
@@ -57,6 +58,26 @@ class World {
                 console.log('Energy ', this.character.energy);
             }
         });
+    }
+
+
+    collisionBottlesWithEnemies() {
+         for (let i = this.throwableObjects.length - 1; i >= 0; i--) {
+            let bottle = this.throwableObjects[i];
+            this.level.enemies.forEach((enemy, index) => {
+                if (bottle.isColliding(enemy) && !bottle.isBroken) {
+                    bottle.isBroken = true;
+                    bottle.splash();
+                    if (enemy instanceof Endboss) {
+                        enemy.hit(25);
+                    }
+                    else {
+                        enemy.energy = 0;
+                    }
+                }
+            });
+
+         }
     }
 
 
