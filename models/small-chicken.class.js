@@ -14,6 +14,12 @@ class SmallChicken extends MovableObject {
     'img/3_enemies_chicken/chicken_small/2_dead/dead.png'
   ]
 
+  offset = {
+    top: -15,
+    bottom: -15,
+    left: -15,
+    right: -15
+  }
 
   constructor(x) {
     super().loadImage('img/3_enemies_chicken/chicken_small/1_walk/1_w.png')
@@ -23,7 +29,6 @@ class SmallChicken extends MovableObject {
     this.animate();
     this.speed = 0.15 + Math.random() * 0.25; //Zufällige Geschwindigkeit der Hühner
 
-    this.offset = { top: -15, bottom: -15, left: -15, right: -15 }
   }
 
 
