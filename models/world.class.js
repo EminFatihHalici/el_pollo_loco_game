@@ -59,6 +59,7 @@ class World {
             }
         });
     }
+ 
 
 
     collisionBottlesWithEnemies() {
@@ -69,10 +70,11 @@ class World {
                     bottle.isBroken = true;
                     bottle.splash();
                     if (enemy instanceof Endboss) {
-                        enemy.hit(25);
+                        enemy.hit();
+                        console.log('Boss wurde getroffen!');
                     }
-                    else {
-                        enemy.energy = 0;
+                    else if (enemy instanceof SmallChicken || enemy instanceof Chicken) {
+                        enemy.energy = 0;                         
                     }
                 }
             });
