@@ -53,7 +53,7 @@ class World {
 
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy)) {
+            if (this.character.isColliding(enemy) && !enemy.isDead()) {
                 this.character.hit(5);
                 console.log('Energy ', this.character.energy);
             }
