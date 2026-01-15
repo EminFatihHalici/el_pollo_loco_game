@@ -54,7 +54,7 @@ class World {
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
-                this.character.hit();
+                this.character.hit(5);
                 console.log('Energy ', this.character.energy);
             }
         });
@@ -70,8 +70,9 @@ class World {
                     bottle.isBroken = true;
                     bottle.splash();
                     if (enemy instanceof Endboss) {
-                        enemy.hit();
+                        enemy.hit(25);
                         console.log('Boss wurde getroffen!');
+                        console.log('Boss Energy ', enemy.energy);
                     }
                     else if (enemy instanceof SmallChicken || enemy instanceof Chicken) {
                         enemy.energy = 0;                         
