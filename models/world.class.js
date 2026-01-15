@@ -64,7 +64,7 @@ class World {
     collisionBottlesWithEnemies() {
         for (let i = this.throwableObjects.length - 1; i >= 0; i--) {
             let bottle = this.throwableObjects[i];
-            this.level.enemies.forEach((enemy, index) => {
+            this.level.enemies.forEach((enemy) => {
                 if (bottle.isColliding(enemy) && !bottle.isBroken) {
                     bottle.isBroken = true;
                     bottle.splash();
