@@ -46,7 +46,7 @@ class World {
             this.throwableObjects.push(bottle);
             this.character.bottles--;
             let bottlePercent = this.character.bottles * 20;
-            this.statusBarBottle.setPercantage(bottlePercent);  
+            this.statusBarBottle.setPercantage(bottlePercent);
             this.keyboard.D = false;
         }
     }
@@ -62,7 +62,7 @@ class World {
 
 
     collisionBottlesWithEnemies() {
-         for (let i = this.throwableObjects.length - 1; i >= 0; i--) {
+        for (let i = this.throwableObjects.length - 1; i >= 0; i--) {
             let bottle = this.throwableObjects[i];
             this.level.enemies.forEach((enemy, index) => {
                 if (bottle.isColliding(enemy) && !bottle.isBroken) {
@@ -77,7 +77,7 @@ class World {
                 }
             });
 
-         }
+        }
     }
 
 
@@ -126,7 +126,9 @@ class World {
         this.addToMap(this.statusBarBottle)
         this.addToMap(this.statusBarCoin);
         this.addToMap(this.statusBarHealth);
-        this.addToMap(this.statusBarEndboss);
+        if (this.character.x >= 3000) {
+            this.addToMap(this.statusBarEndboss);
+        }
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.throwableObjects);
         this.addObjectsToMap(this.level.clouds);
