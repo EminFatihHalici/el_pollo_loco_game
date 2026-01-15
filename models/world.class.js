@@ -71,6 +71,8 @@ class World {
                     bottle.splash();
                     if (enemy instanceof Endboss) {
                         enemy.hit(25);
+                        let bossPercent = enemy.energy;
+                        this.statusBarEndboss.setPercantage(bossPercent);
                         console.log('Boss wurde getroffen!');
                         console.log('Boss Energy ', enemy.energy);
                     }
