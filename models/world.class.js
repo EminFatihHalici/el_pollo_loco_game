@@ -93,7 +93,7 @@ class World {
             this.character.isIdle = true;
         } else {
             this.character.isIdle = false;
-        }
+        } 
      }
 
     checkCoinCollisions() {
@@ -150,8 +150,6 @@ class World {
             }
         }
     }
-
-
 
 
     draw() {

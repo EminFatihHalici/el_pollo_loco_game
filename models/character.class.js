@@ -10,6 +10,7 @@ class Character extends MovableObject {
     bottles = 0;
     isIdle = false;
     longIdle = false;
+    lastAction = new Date().getTime();
 
     offset = {
         top: 1,
@@ -90,6 +91,7 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_IDLE);
+        this.loadImages(this.IMAGES_LONG_IDLE);
         this.applyGravity();
         this.animate();
     }
@@ -102,18 +104,21 @@ class Character extends MovableObject {
 
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.moveRight();
+                this.lastAction = new Date().getTime();
                 this.otherDirection = false;
                 this.world.camera_x = -this.x + 100;
             }
 
             if (this.world.keyboard.LEFT && this.x > 0) {
                 this.moveLeft();
+                this.lastAction = new Date().getTime();
                 this.otherDirection = true;
                 this.world.camera_x = -this.x + 100;
             }
 
             if (this.world.keyboard.SPACE && !this.isAboveGround()) {
                 this.jump();
+                this.lastAction = new Date().getTime();
             }
 
             //this.world.camera_x = -this.x + 100;
@@ -131,7 +136,9 @@ class Character extends MovableObject {
                 this.playAnimation(this.IMAGES_JUMPING);
             } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                 this.playAnimation(this.IMAGES_WALKING);
-                } else if (this.isIdle) {
+                } else if (this.lastAction && this.calculateIdleTime() > 5) {
+                this.playAnimation(this.IMAGES_LONG_IDLE);
+            } else if (this.lastAction && this.calculateIdleTime() > 2) {
                 this.playAnimation(this.IMAGES_IDLE);
             }
 
@@ -145,6 +152,12 @@ collectCoin() {
 
 collectBottles() {
     this.bottles += 1;
+}
+
+calculateIdleTime() {
+    let timepassed = new Date().getTime() - this.lastAction;
+    timepassed = timepassed / 1000; // difference in sec
+    return timepassed;
 }
 
 }
