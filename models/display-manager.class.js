@@ -24,6 +24,8 @@ class DisplayManager {
         }
     }
 
+
+
     resizeCanvas() {
         if (document.fullscreenElement) {
             this.wrapper.style.width = window.innerWidth;

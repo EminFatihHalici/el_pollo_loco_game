@@ -39,6 +39,7 @@ class World {
             this.checkBottleCollisions();
             this.splashedBottlesCleanUp();
             this.cleanUpEnemies();
+            this.checkCharacterIdle(); 
         }, 200);
     }
 
@@ -87,7 +88,13 @@ class World {
         }
     }
 
-
+     checkCharacterIdle() {
+        if (this.keyboard.LEFT == false && this.keyboard.RIGHT == false && this.keyboard.SPACE == false) {
+            this.character.isIdle = true;
+        } else {
+            this.character.isIdle = false;
+        }
+     }
 
     checkCoinCollisions() {
         this.level.coins.forEach((coin, index) => {
