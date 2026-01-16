@@ -38,6 +38,7 @@ class World {
             this.checkCoinCollisions();
             this.checkBottleCollisions();
             this.splashedBottlesCleanUp();
+            this.cleanUpEnemies();
         }, 200);
     }
 
@@ -112,6 +113,15 @@ class World {
                 }
             }
         });
+    }
+
+    cleanUpEnemies() {
+        for (let i = this.level.enemies.length - 1; i >= 0; i--) {
+            let enemy = this.level.enemies[i];
+            if (enemy.isGone) { 
+            this.level.enemies.splice(i, 1);
+        }
+        }
     }
 
     checkBottleCollisions() {
