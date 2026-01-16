@@ -37,6 +37,7 @@ class World {
             this.checkCoinCollisions();
             this.checkBottleCollisions();
             this.splashedBottlesCleanUp();
+            this.checkCharacterCollisionWithEnemy()
         }, 200);
     }
 
@@ -59,7 +60,7 @@ class World {
             }
         });
     }
- 
+
 
 
     collisionBottlesWithEnemies() {
@@ -77,7 +78,7 @@ class World {
                         console.log('Boss Energy ', enemy.energy);
                     }
                     else if (enemy instanceof SmallChicken || enemy instanceof Chicken) {
-                        enemy.energy = 0;                         
+                        enemy.energy = 0;
                     }
                 }
             });
@@ -94,6 +95,19 @@ class World {
                 let coinPercent = this.character.coins * 10; // 10 coins = 100%
                 this.statusBarCoin.setPercantage(coinPercent);
                 this.level.coins.splice(index, 1);
+            }
+        });
+    }
+
+    checkCharacterCollisionWithEnemy() {
+        this.level.enemies.forEach((enemy) => {
+            if (this.character.isColliding(enemy) && !enemy.isDead()) {
+                if (this.character.isAboveGround() && this.character.speedY < 0 && !(enemy instanceof Endboss)) {
+                    enemy.energy = 0;
+                } else {
+                    this.character.hit();
+                    this.statusBarHealth.setPercantage(this.character.energy);
+                }
             }
         });
     }
