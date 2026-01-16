@@ -104,6 +104,7 @@ class World {
             if (this.character.isColliding(enemy)&& !enemy.isDead()) {
                 if (this.character.isAboveGround() && this.character.speedY < 0 && !(enemy instanceof Endboss)) {
                     enemy.energy = 0;
+                    this.character.speedY = 15;
                 } else {
                     this.character.hit(5);
                     console.log('Energy ', this.character.energy);
