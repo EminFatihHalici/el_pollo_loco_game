@@ -31,13 +31,13 @@ class World {
 
     run() {
         setInterval(() => {
-            this.checkCollisions();
+            this.checkCharacterCollisionWithEnemy()
+            // this.checkCollisions();
             this.checkThrowObjects();
             this.collisionBottlesWithEnemies();
             this.checkCoinCollisions();
             this.checkBottleCollisions();
             this.splashedBottlesCleanUp();
-            this.checkCharacterCollisionWithEnemy()
         }, 200);
     }
 
@@ -52,14 +52,14 @@ class World {
         }
     }
 
-    checkCollisions() {
-        this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy) && !enemy.isDead()) {
-                this.character.hit(5);
-                console.log('Energy ', this.character.energy);
-            }
-        });
-    }
+    // checkCollisions() {
+    //     this.level.enemies.forEach((enemy) => {
+    //         if (this.character.isColliding(enemy) && !enemy.isDead()) {
+    //             this.character.hit(5);
+    //             console.log('Energy ', this.character.energy);
+    //         }
+    //     });
+    // }
 
 
 
@@ -101,11 +101,12 @@ class World {
 
     checkCharacterCollisionWithEnemy() {
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy) && !enemy.isDead()) {
+            if (this.character.isColliding(enemy)&& !enemy.isDead()) {
                 if (this.character.isAboveGround() && this.character.speedY < 0 && !(enemy instanceof Endboss)) {
                     enemy.energy = 0;
                 } else {
-                    this.character.hit();
+                    this.character.hit(5);
+                    console.log('Energy ', this.character.energy);
                     this.statusBarHealth.setPercantage(this.character.energy);
                 }
             }
