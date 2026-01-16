@@ -39,7 +39,7 @@ class World {
             this.checkBottleCollisions();
             this.splashedBottlesCleanUp();
             this.cleanUpEnemies();
-            this.checkCharacterIdle(); 
+            this.checkCharacterIdle();
         }, 200);
     }
 
@@ -88,13 +88,13 @@ class World {
         }
     }
 
-     checkCharacterIdle() {
+    checkCharacterIdle() {
         if (this.keyboard.LEFT == false && this.keyboard.RIGHT == false && this.keyboard.SPACE == false) {
             this.character.isIdle = true;
         } else {
             this.character.isIdle = false;
-        } 
-     }
+        }
+    }
 
     checkCoinCollisions() {
         this.level.coins.forEach((coin, index) => {
@@ -109,7 +109,7 @@ class World {
 
     checkCharacterCollisionWithEnemy() {
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy)&& !enemy.isDead()) {
+            if (this.character.isColliding(enemy) && !enemy.isDead()) {
                 if (this.character.isAboveGround() && this.character.speedY < 0 && !(enemy instanceof Endboss)) {
                     enemy.energy = 0;
                     this.character.speedY = 15;
@@ -125,9 +125,9 @@ class World {
     cleanUpEnemies() {
         for (let i = this.level.enemies.length - 1; i >= 0; i--) {
             let enemy = this.level.enemies[i];
-            if (enemy.isGone) { 
-            this.level.enemies.splice(i, 1);
-        }
+            if (enemy.isGone) {
+                this.level.enemies.splice(i, 1);
+            }
         }
     }
 
@@ -148,6 +148,12 @@ class World {
             if (bottle.isGone) {
                 this.throwableObjects.splice(i, 1);
             }
+        }
+    }
+
+    calculateDistanceOfChar() {
+        if (Math.abs(this.x - world.character.x) < 500) {
+            this.hadFirstContact = true;
         }
     }
 
