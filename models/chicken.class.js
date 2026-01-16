@@ -3,6 +3,8 @@ class Chicken extends MovableObject {
   width = 80;
   height = 80;
   y = 380;
+  isGone = false;
+  deathTimerStarted = false;
 
   offset = {
     top: -25,
@@ -46,6 +48,12 @@ class Chicken extends MovableObject {
       }
       else {
         this.playAnimation(this.IMAGES_DEAD);
+        if (!this.deathTimerStarted) {
+          this.deathTimerStarted = true;
+          setTimeout(() => {
+            this.isGone = true;
+          }, 1000);
+        }
       }
     }, 200);
 
