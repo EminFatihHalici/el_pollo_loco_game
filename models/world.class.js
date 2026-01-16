@@ -152,8 +152,10 @@ class World {
     }
 
     calculateDistanceOfChar() {
-        if (Math.abs(this.x - world.character.x) < 500) {
-            this.hadFirstContact = true;
+        if (this.world && this.world.character) {
+            if (Math.abs(this.x - this.world.character.x) < 500) {
+                this.hadFirstContact = true;
+            }
         }
     }
 
