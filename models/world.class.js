@@ -40,6 +40,7 @@ class World {
             this.splashedBottlesCleanUp();
             this.cleanUpEnemies();
             this.checkCharacterIdle();
+            this.calculateDistanceOfChar();
         }, 200);
     }
 
@@ -152,11 +153,14 @@ class World {
     }
 
     calculateDistanceOfChar() {
-        if (this.world && this.world.character) {
-            if (Math.abs(this.x - this.world.character.x) < 500) {
-                this.hadFirstContact = true;
+        this.level.enemies.forEach((enemy) => {
+            if (enemy instanceof Endboss) {
+                let distance = Math.abs(enemy.x - this.character.x);
+                if (distance < 500) {
+                    enemy.hadFirstContact = true;
+                }
             }
-        }
+        });
     }
 
 
@@ -235,7 +239,6 @@ class World {
     setWorld() {
         this.character.world = this;
     }
-
 
 
 }
