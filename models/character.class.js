@@ -10,10 +10,10 @@ class Character extends MovableObject {
     bottles = 0;
 
     offset = {
-        top: 116,
-        bottom: 10,
-        left: 20,
-        right: 40
+        top: 1,
+        bottom: 0,
+        left: 0,
+        right: 0
     };
 
     IMAGES_WALKING = [
