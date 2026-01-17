@@ -4,6 +4,9 @@ class Endboss extends MovableObject {
     height = 400;
     y = 75;
     hadFirstContact = false;
+    currentDistance = 5000;
+    isAttacking = false;
+    isStunned = false;
 
 
     IMAGES_WALKING = [
@@ -72,32 +75,70 @@ class Endboss extends MovableObject {
     animate() {
 
         setInterval(() => {
-            
-           if (this.hadFirstContact) {
-            if (this.x > this.world.character.x + 100) { 
+            if (this.world && this.world.character) {
+                this.currentDistance = Math.abs(this.x - this.world.character.x);
+            } else {
+                this.currentDistance = 0;
+            }
+        }, 1000 / 60);
+
+
+        setInterval(() => {
+            if (!this.hadFirstContact || this.isDead() || this.isAttacking || this.isStunned) return;
+            if (this.currentDistance > 80) {
                 this.moveLeft();
-                this.otherDirection = false;
-                } else if (this.x < this.world.character.x - 100) {
-                this.moveRight();
-                this.otherDirection = true;
-                }
-           }
+            } else {
+                this.attack();
+            }
         }, 1000 / 60);
 
         setInterval(() => {
-            if (this.isHurt()) {
-                this.playAnimation(this.IMAGES_HURT);
-            } else if (this.isDead()) {
+            if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
+            } else if (this.isHurt()) {
+                this.playAnimation(this.IMAGES_HURT);
+            } else if (this.isStunned) {
+                this.playAnimation(this.IMAGES_ALERT);
+            } else if (this.isAttacking) {
+                this.playAnimation(this.IMAGES_ATTACK);
             } else if (this.hadFirstContact) {
                 this.playAnimation(this.IMAGES_WALKING);
             } else {
                 this.playAnimation(this.IMAGES_ALERT);
             }
 
-        }, 80);
+        }, 100);
 
 
 
     }
+
+    attack() {
+        this.isAttacking = true;
+        this.speed = 0;
+        setTimeout(() => {
+            if (this.currentDistance < 150) {
+                this.world.character.hit(10);
+                this.world.statusBarHealth.setPercantage(this.world.character.energy);
+            }
+        }, 400);
+
+        setTimeout(() => {
+            this.x += 150;
+            this.isAttacking = false;
+            this.speed = 5;
+        }, 1000);
+    }
+
+    hit(damage) {
+        super.hit(damage);
+        this.x += 200;
+        this.isStunned = true;
+
+        setTimeout(() => {
+            this.isStunned = false;
+        }, 3000);
+    }
+
+
 }
