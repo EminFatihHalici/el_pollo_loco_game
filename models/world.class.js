@@ -41,6 +41,7 @@ class World {
             this.cleanUpEnemies();
             this.checkCharacterIdle();
             this.calculateDistanceOfChar();
+            this.checkBossAttack();
         }, 200);
     }
 
@@ -163,6 +164,17 @@ class World {
         });
     }
 
+    checkBossAttack() {
+         this.level.enemies.forEach((enemy) => {
+            if (enemy instanceof Endboss) {
+                if (enemy.currentDistance < 200) {
+                    this.character.hit(10);
+                    this.statusBarHealth.setPercantage(this.character.energy);
+                }
+            }
+        });
+    }
+
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); //Löscht die vorherigen Bilder im Canvas
@@ -238,6 +250,11 @@ class World {
 
     setWorld() {
         this.character.world = this;
+        if (this.level && this.level.enemies) {
+        this.level.enemies.forEach((enemy) => {
+            enemy.world = this;
+        });
+    }
     }
 
 
