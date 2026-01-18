@@ -230,7 +230,7 @@ class World {
 
         mo.draw(this.ctx);
 
-        mo.drawFrame(this.ctx); // Rahmen um Objekte zum Testen
+        // mo.drawFrame(this.ctx); // Rahmen um Objekte zum Testen
 
         if (mo.otherDirection) {
             this.flipImageBack(mo);
