@@ -76,7 +76,9 @@ class Endboss extends MovableObject {
 
         setInterval(() => {
             if (this.world && this.world.character) {
-                this.currentDistance = Math.abs(this.x - this.world.character.x);
+                this.currentDistance = Math.abs(this.bossMid - this.characterMid);
+                this.bossMid = this.x + (this.width / 2);
+                this.characterMid = this.world.character.x + (this.world.character.width / 2);
             } else {
                 this.currentDistance = 0;
             }
@@ -85,13 +87,15 @@ class Endboss extends MovableObject {
 
         setInterval(() => {
             if (!this.hadFirstContact || this.isDead() || this.isAttacking || this.isStunned) return;
+            this.bossMid = this.x + (this.width / 2);
+            this.characterMid = this.world.character.x + (this.world.character.width / 2);
             if (this.currentDistance < 100) {
                 this.attack();
             } else
-                if (this.x > this.world.character.x) {
+                if (this.characterMid < this.bossMid - 50) {
                     this.moveLeft();
                     this.otherDirection = false;
-                } else if (this.x < this.world.character.x) {
+                } else if (this.characterMid > this.bossMid + 50) {
                     this.moveRight();
                     this.otherDirection = true;
                 }
