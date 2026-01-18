@@ -76,9 +76,9 @@ class Endboss extends MovableObject {
 
         setInterval(() => {
             if (this.world && this.world.character) {
-                this.currentDistance = Math.abs(this.bossMid - this.characterMid);
                 this.bossMid = this.x + (this.width / 2);
                 this.characterMid = this.world.character.x + (this.world.character.width / 2);
+                this.currentDistance = Math.abs(this.bossMid - this.characterMid);
             } else {
                 this.currentDistance = 0;
             }
@@ -143,12 +143,28 @@ class Endboss extends MovableObject {
 
     hit(damage) {
         super.hit(damage);
-        this.x += 200;
         this.isStunned = true;
+
+        let levelEnd = 4400;
+        let levelStart = 2000;
+
+        if (this.world.character.x < this.x) {
+            if (this.x + 160 < levelEnd) {
+                this.x += 160;
+            } else {
+                this.x = levelEnd;
+            }
+        } else {
+            if (this.x - 160 > levelStart) {
+                this.x -= 160;
+            } else {
+                this.x = levelStart;
+            }
+        }
 
         setTimeout(() => {
             this.isStunned = false;
-        }, 3000);
+        }, 1500);
     }
 
 
