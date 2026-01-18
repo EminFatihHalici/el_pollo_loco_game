@@ -7,10 +7,10 @@ class Chicken extends MovableObject {
   deathTimerStarted = false;
 
   offset = {
-    top: -25,
-    bottom: -15,
-    left: -20,
-    right: -20
+    top: 10,
+    bottom: 5,
+    left: 5,
+    right: 5
   }
 
   IMAGES_WALKING = [

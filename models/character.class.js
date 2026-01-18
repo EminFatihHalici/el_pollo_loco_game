@@ -13,10 +13,10 @@ class Character extends MovableObject {
     lastAction = new Date().getTime();
 
     offset = {
-        top: 1,
-        bottom: 0,
-        left: 0,
-        right: 0
+        top: 120,
+        bottom: 10,
+        left: 40,
+        right: 40
     };
 
     IMAGES_WALKING = [

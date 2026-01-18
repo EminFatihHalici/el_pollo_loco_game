@@ -31,18 +31,24 @@ class World {
     }
 
     run() {
+
         setInterval(() => {
+            
             this.checkCharacterCollisionWithEnemy()
-            // this.checkCollisions();
             this.checkThrowObjects();
             this.collisionBottlesWithEnemies();
             this.checkCoinCollisions();
             this.checkBottleCollisions();
+            this.checkCharacterIdle();
+            this.checkBossAttack();
+        } , 1000 / 60);
+
+
+        setInterval(() => {
+            // this.checkCollisions();
             this.splashedBottlesCleanUp();
             this.cleanUpEnemies();
-            this.checkCharacterIdle();
             this.calculateDistanceOfChar();
-            this.checkBossAttack();
         }, 200);
     }
 

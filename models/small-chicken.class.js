@@ -17,10 +17,10 @@ class SmallChicken extends MovableObject {
   ]
 
   offset = {
-    top: -25,
-    bottom: -15,
-    left: -20,
-    right: -20
+    top: 5,
+    bottom: 5,
+    left: 5,
+    right: 5
   }
 
   constructor(x) {
