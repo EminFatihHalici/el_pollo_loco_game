@@ -145,7 +145,7 @@ class Endboss extends MovableObject {
         super.hit(damage);
         this.isStunned = true;
 
-        let levelEnd = 4400;
+        let levelEnd = 4500;
         let levelStart = 2000;
 
         if (this.world.character.x < this.x) {
