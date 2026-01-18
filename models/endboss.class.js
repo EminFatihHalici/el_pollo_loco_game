@@ -8,6 +8,13 @@ class Endboss extends MovableObject {
     isAttacking = false;
     isStunned = false;
 
+    offset = {
+        top: 60,
+        bottom: 10,
+        left: 90,
+        right: 70
+    }
+
 
     IMAGES_WALKING = [
         'img/4_enemie_boss_chicken/1_walk/G1.png',
