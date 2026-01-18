@@ -1,5 +1,12 @@
 class ThrowableObject extends MovableObject {
 
+    offset = {
+    top: 5,
+    bottom: 5,
+    left: 10,
+    right: 10
+};
+
     IMAGES_ROTATE = [
         'img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
         'img/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png',
