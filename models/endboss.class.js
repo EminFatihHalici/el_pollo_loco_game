@@ -11,8 +11,8 @@ class Endboss extends MovableObject {
     offset = {
         top: 60,
         bottom: 10,
-        left: 90,
-        right: 70
+        left: 40,
+        right: 40
     }
 
 
@@ -56,15 +56,6 @@ class Endboss extends MovableObject {
         'img/4_enemie_boss_chicken/5_dead/G25.png',
         'img/4_enemie_boss_chicken/5_dead/G26.png'
     ]
-
-    offset = {
-        top: 70,
-        left: 10,
-        right: 5,
-        bottom: 20
-    }
-
-
 
     constructor() {
         super().loadImage(this.IMAGES_ALERT[0]);
@@ -152,6 +143,8 @@ class Endboss extends MovableObject {
         super.hit(damage);
         this.isStunned = true;
 
+        setTimeout(() => {
+
         let levelEnd = 4500;
         let levelStart = 2000;
 
@@ -168,6 +161,8 @@ class Endboss extends MovableObject {
                 this.x = levelStart;
             }
         }
+ 
+        }, 800);
 
         setTimeout(() => {
             this.isStunned = false;
