@@ -3,6 +3,7 @@ let coins = [];
 let bottles = [];
 
 
+
 // array for bottles
 for (let i = 0; i < 5; i++) {
     let x = 300 + (i * 150);

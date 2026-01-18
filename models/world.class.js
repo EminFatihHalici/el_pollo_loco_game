@@ -17,6 +17,7 @@ class World {
     backgroundObjects = level1.backgroundObjects;
     throwableObjects = [];
     backgroundSound = new Sound('audio/background_wind_sound.mp3')
+    
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -186,7 +187,8 @@ class World {
         this.addToMap(this.statusBarBottle)
         this.addToMap(this.statusBarCoin);
         this.addToMap(this.statusBarHealth);
-        if (this.character.x >= 3000) {
+        // drawing healtbar of endboss only when boss fight starts
+        if (this.level.enemies.some(enemy => enemy instanceof Endboss && enemy.hadFirstContact)) {
             this.addToMap(this.statusBarEndboss);
         }
         this.ctx.translate(this.camera_x, 0);
