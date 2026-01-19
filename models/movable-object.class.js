@@ -78,4 +78,13 @@ class MovableObject extends DrawableObject {
     jump() {
         this.speedY = 30;
     }
+
+    setStoppableInterval(fn, time) {
+    let id = setInterval(fn, time);
+    if (this.world) {
+        this.world.addInterval(id);
+    }
+    return id;
+}
+
 }
