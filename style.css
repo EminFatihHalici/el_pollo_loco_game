@@ -2,6 +2,7 @@ canvas {
     background-color: black;
     box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.5);
     border-radius: 10px;
+    display: block;
 }
 
 body {
@@ -81,4 +82,17 @@ body {
     height: 40px;
     cursor: pointer;
     font-size: 32px;
+}
+
+
+@media only screen and (max-width: 720px) {
+    canvas {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-height: 480px) {
+    canvas {
+       height: 100vh;
+    }
 }
