@@ -32,7 +32,6 @@ class ThrowableObject extends MovableObject {
         this.height = 60;
         this.width = 50;
         this.isLookingLeft = direction;
-        this.throw();
         this.isBroken = false;
     }
 

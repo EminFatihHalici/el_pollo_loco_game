@@ -26,8 +26,6 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
-        this.addInterval();
-        this.stopGame();
         this.backgroundSound.volume(0.025);
         this.backgroundSound.loop();
         this.run();
@@ -44,10 +42,11 @@ class World {
             this.checkBottleCollisions();
             this.checkCharacterIdle();
             this.checkBossAttack();
+            this.checkGameOver()
         }, 1000 / 60);
         this.addInterval(id1);
 
-       let id2 = setInterval(() => {
+        let id2 = setInterval(() => {
             // this.checkCollisions();
             this.splashedBottlesCleanUp();
             this.cleanUpEnemies();
@@ -59,7 +58,9 @@ class World {
     checkThrowObjects() {
         if (this.keyboard.D && this.character.bottles > 0) {
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, this.character.otherDirection);
+            bottle.world = this;
             this.throwableObjects.push(bottle);
+            bottle.throw();
             this.character.bottles--;
             let bottlePercent = this.character.bottles * 20;
             this.statusBarBottle.setPercantage(bottlePercent);
@@ -122,7 +123,7 @@ class World {
 
     checkCharacterCollisionWithEnemy() {
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy) && !enemy.isDead()) {
+            if (this.character.isColliding(enemy) && !enemy.isDead() && !this.character.isHurt()) {
                 if (this.character.isAboveGround() && this.character.speedY < 0 && !(enemy instanceof Endboss)) {
                     enemy.energy = 0;
                     this.character.speedY = 15;
@@ -262,9 +263,13 @@ class World {
 
     setWorld() {
         this.character.world = this;
+        this.character.applyGravity();
+        this.character.animate();
         if (this.level && this.level.enemies) {
             this.level.enemies.forEach((enemy) => {
                 enemy.world = this;
+                enemy.applyGravity();
+                enemy.animate();
             });
         }
     }
@@ -274,9 +279,17 @@ class World {
     }
 
     stopGame() {
-        this.intervalIds.forEach(clearInterval);
+        this.intervalIds.forEach(id => {
+            clearInterval(id);
+        });
+        this.backgroundSound.pause();
     }
 
+    checkGameOver() {
+        if (this.character.isDead()) {
+            this.stopGame();
+        }
+    }
 
 
 

@@ -6,6 +6,7 @@ class MovableObject extends DrawableObject {
     accelaration = 3;
     energy = 100;
     lastHit = 0;
+    groundLevel = 160;
     offset = {
         top: 0,
         bottom: 0,
@@ -13,17 +14,14 @@ class MovableObject extends DrawableObject {
         right: 0
     };
 
-    // setting gravity for movable objects / character falls down
+    // setting gravity for movable objects / character falls downs
     applyGravity() {
-        this.gravityTimer = setInterval(() => {
+        this.gravityTimer =  this.setStoppableInterval(() => {
             if (this.isAboveGround() || this.speedY > 0) {
                 this.y -= this.speedY;
                 this.speedY -= this.accelaration;
             }
         }, 1000 / 25)
-        if (this.world) {
-            this.world.addInterval(this.gravityTimer);
-        }
     }
 
     hit(damage) {
@@ -54,13 +52,13 @@ class MovableObject extends DrawableObject {
     }
 
     // Abfrage
-    isAboveGround() {
-        if (this instanceof ThrowableObject) { // thurowable objects are allowed to fall down
-            return true;
-        } else {
-            return this.y < 160;
-        }
+  isAboveGround() {
+    if (this instanceof ThrowableObject) { 
+        return true; // Flaschen fallen immer
+    } else {
+        return this.y < this.groundLevel;
     }
+}
 
     playAnimation(images) {
         let i = this.currentIMage % images.length; // let i = 0 % 6; => Rest 0

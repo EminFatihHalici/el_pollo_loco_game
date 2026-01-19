@@ -92,8 +92,7 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_LONG_IDLE);
-        this.applyGravity();
-        this.animate();
+   
     }
 
     //currentImage is increased every second to change the image of the character and length calculated with modulo operator

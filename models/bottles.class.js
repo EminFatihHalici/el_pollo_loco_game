@@ -22,7 +22,7 @@ class Bottles extends MovableObject {
         this.loadImages(this.IMAGES);
         this.x = x;
         this.y = y;
-        this.animate();
+       
 
         this.offset = {
             top: 40,

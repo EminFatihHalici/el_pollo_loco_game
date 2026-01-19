@@ -66,8 +66,8 @@ class Endboss extends MovableObject {
         this.loadImages(this.IMAGES_DEAD);
         this.energy = 100;
         this.x = 4100;
+        this.groundLevel = 55;
         this.speed = 5;
-        this.animate();
     }
 
     animate() {
@@ -112,7 +112,7 @@ class Endboss extends MovableObject {
                 this.playAnimation(this.IMAGES_WALKING);
             }
 
-        }, 100);
+        }, 200);
 
 
 
@@ -169,5 +169,9 @@ class Endboss extends MovableObject {
         }, 1500);
     }
 
+
+    isAboveGround() {
+    return this.y < this.groundLevel;
+}
 
 }

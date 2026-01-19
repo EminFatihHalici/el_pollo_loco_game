@@ -28,7 +28,6 @@ class SmallChicken extends MovableObject {
     this.x = x + Math.random() * 500; //Zufällige Startposition der Hühner
     this.loadImages(this.IMAGES_WALKING);
     this.loadImages(this.IMAGES_DEAD);
-    this.animate();
     this.speed = 0.15 + Math.random() * 0.25; //Zufällige Geschwindigkeit der Hühner
 
   }
