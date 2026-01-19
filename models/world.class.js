@@ -18,7 +18,7 @@ class World {
     throwableObjects = [];
     backgroundSound = new Sound('audio/background_wind_sound.mp3')
     intervalIds = [];
-    
+
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -34,7 +34,7 @@ class World {
     run() {
 
         setInterval(() => {
-            
+
             this.checkCharacterCollisionWithEnemy()
             this.checkThrowObjects();
             this.collisionBottlesWithEnemies();
@@ -42,7 +42,7 @@ class World {
             this.checkBottleCollisions();
             this.checkCharacterIdle();
             this.checkBossAttack();
-        } , 1000 / 60);
+        }, 1000 / 60);
 
 
         setInterval(() => {
@@ -173,7 +173,7 @@ class World {
     }
 
     checkBossAttack() {
-         this.level.enemies.forEach((enemy) => {
+        this.level.enemies.forEach((enemy) => {
             if (enemy instanceof Endboss) {
                 if (enemy.currentDistance < 200) {
                     this.character.hit(10);
@@ -260,15 +260,22 @@ class World {
     setWorld() {
         this.character.world = this;
         if (this.level && this.level.enemies) {
-        this.level.enemies.forEach((enemy) => {
-            enemy.world = this;
-        });
-    }
+            this.level.enemies.forEach((enemy) => {
+                enemy.world = this;
+            });
+        }
     }
 
     addInterval(id) {
-    this.intervalIds.push(id);
-}
+        this.intervalIds.push(id);
+    }
+
+    stopGame() {
+        this.intervalIds.forEach(clearInterval);
+        this.backgroundSound.stop();
+    }
+
+
 
 
 }
