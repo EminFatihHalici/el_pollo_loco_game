@@ -16,13 +16,13 @@ class Bottles extends MovableObject {
         'img/6_salsa_bottle/2_salsa_bottle_on_ground.png'
     ]
 
-    constructor (x, y) {
+    constructor(x, y) {
         super();
         this.loadImage('img/6_salsa_bottle/1_salsa_bottle_on_ground.png');
         this.loadImages(this.IMAGES);
         this.x = x;
         this.y = y;
-       
+        this.animate();
 
         this.offset = {
             top: 40,
@@ -34,9 +34,9 @@ class Bottles extends MovableObject {
     }
 
     animate() {
-    this.setStoppableInterval(() => {
-      this.playAnimation(this.IMAGES);
+        this.setStoppableInterval(() => {
+            this.playAnimation(this.IMAGES);
         }, 5000);
-}
+    }
 
 }
