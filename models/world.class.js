@@ -179,7 +179,7 @@ class World {
     checkBossAttack() {
         this.level.enemies.forEach((enemy) => {
             if (enemy instanceof Endboss) {
-                if (enemy.currentDistance < 200 && !this.character.isHurt()) {
+                if (enemy.currentDistance < 200 && !this.character.isHurt() && !enemy.isDead()) {
                     this.character.hit(10);
                     this.statusBarHealth.setPercantage(this.character.energy);
                 }
