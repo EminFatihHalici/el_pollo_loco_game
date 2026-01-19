@@ -17,6 +17,7 @@ class World {
     backgroundObjects = level1.backgroundObjects;
     throwableObjects = [];
     backgroundSound = new Sound('audio/background_wind_sound.mp3')
+    intervalIds = [];
     
 
     constructor(canvas, keyboard) {
@@ -264,6 +265,10 @@ class World {
         });
     }
     }
+
+    addInterval(id) {
+    this.intervalIds.push(id);
+}
 
 
 }
