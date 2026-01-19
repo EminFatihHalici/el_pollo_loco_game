@@ -15,7 +15,7 @@ class DrawableObject {
 
     draw(ctx) {
         try {
-        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+        ctx.drawImage(this.img, this.x, this.y, this.width, this.height); // added try catch to handle image loading errors
         } catch (e) {
         console.warn('Error while drawing image: ' + e);
         console.log('Could nout load image', this.img.src);
