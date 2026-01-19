@@ -21,6 +21,9 @@ class MovableObject extends DrawableObject {
                 this.speedY -= this.accelaration;
             }
         }, 1000 / 25)
+        if (this.world) {
+            this.world.addInterval(this.gravityTimer);
+        }
     }
 
     hit(damage) {
@@ -55,7 +58,7 @@ class MovableObject extends DrawableObject {
         if (this instanceof ThrowableObject) { // thurowable objects are allowed to fall down
             return true;
         } else {
-        return this.y < 160;
+            return this.y < 160;
         }
     }
 
@@ -80,11 +83,11 @@ class MovableObject extends DrawableObject {
     }
 
     setStoppableInterval(fn, time) {
-    let id = setInterval(fn, time);
-    if (this.world) {
-        this.world.addInterval(id);
+        let id = setInterval(fn, time);
+        if (this.world) {
+            this.world.addInterval(id);
+        }
+        return id;
     }
-    return id;
-}
 
 }

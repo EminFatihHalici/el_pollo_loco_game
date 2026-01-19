@@ -20,7 +20,7 @@ class Cloud extends MovableObject {
 }
 
     moveLeft() {
-        setInterval(() => { 
+        this.setStoppableInterval(() => { 
         this.x -= this.speed;
         }, 1000 / 60); // 60fps
     }

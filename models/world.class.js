@@ -26,6 +26,8 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
+        this.addInterval();
+        this.stopGame();
         this.backgroundSound.volume(0.025);
         this.backgroundSound.loop();
         this.run();
@@ -33,7 +35,7 @@ class World {
 
     run() {
 
-        setInterval(() => {
+        let id1 = setInterval(() => {
 
             this.checkCharacterCollisionWithEnemy()
             this.checkThrowObjects();
@@ -43,14 +45,15 @@ class World {
             this.checkCharacterIdle();
             this.checkBossAttack();
         }, 1000 / 60);
+        this.addInterval(id1);
 
-
-        setInterval(() => {
+       let id2 = setInterval(() => {
             // this.checkCollisions();
             this.splashedBottlesCleanUp();
             this.cleanUpEnemies();
             this.calculateDistanceOfChar();
         }, 200);
+        this.addInterval(id2);
     }
 
     checkThrowObjects() {
@@ -272,7 +275,6 @@ class World {
 
     stopGame() {
         this.intervalIds.forEach(clearInterval);
-        this.backgroundSound.stop();
     }
 
 
