@@ -46,6 +46,14 @@ function toggleFullscreen() {
     }
 }
 
+function showLostScreen() {
+    document.getElementById('gameOverScreen').classList.remove('d-none');
+}
+
+function showWinScreen() {
+    document.getElementById('winScreen').classList.remove('d-none');
+}
+
 //adding event listeners to detect key presses
 window.addEventListener("keydown", (e) => {
     if (e.keyCode == 39) {
