@@ -35,32 +35,18 @@ function startGame() {
 
 
 function toggleFullscreen() {
-    let container = document.getElementById('game-container'); 
-
-    if (container.requestFullscreen) {
-        container.requestFullscreen();
-    } else if (container.mozRequestFullScreen) {
-        container.mozRequestFullScreen();
-    } else if (container.webkitRequestFullscreen) {
-        container.webkitRequestFullscreen();
-    } else if (container.msRequestFullscreen) {
-        container.msRequestFullscreen();
+    if (canvas.requestFullscreen) {
+        canvas.requestFullscreen();
+    } else if (canvas.mozRequestFullScreen) { /* Firefox */
+        canvas.mozRequestFullScreen();
+    } else if (canvas.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+        canvas.webkitRequestFullscreen();
+    } else if (canvas.msRequestFullscreen) { /* IE/Edge */
+        canvas.msRequestFullscreen();
+    }  else {
+        canvas.exitFullscreen();
     }
 }
-
-// function toggleFullscreen() {
-//     if (canvas.requestFullscreen) {
-//         canvas.requestFullscreen();
-//     } else if (canvas.mozRequestFullScreen) { /* Firefox */
-//         canvas.mozRequestFullScreen();
-//     } else if (canvas.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
-//         canvas.webkitRequestFullscreen();
-//     } else if (canvas.msRequestFullscreen) { /* IE/Edge */
-//         canvas.msRequestFullscreen();
-//     }  else {
-//         canvas.exitFullscreen();
-//     }
-// }
 
 function showLostScreen() {
     console.log('Lost Screen Triggered');
