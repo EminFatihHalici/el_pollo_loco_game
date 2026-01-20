@@ -288,6 +288,10 @@ class World {
     checkGameOver() {
         if (this.character.isDead()) {
             this.stopGame();
+            showLostScreen();
+        } else if (this.endbossDead()) {
+            this.stopGame();
+            showWinScreen();
         }
     }
 

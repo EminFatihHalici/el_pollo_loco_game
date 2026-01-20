@@ -27,26 +27,43 @@ function renderStartScreen() {
 function startGame() {
     clearInterval(intervalId);
     document.getElementById('startScreen').classList.add('d-none');
+    document.getElementById('gameOverScreen').classList.add('d-none');
+    document.getElementById('winScreen').classList.add('d-none');
     world = new World(canvas, keyboard);
     document.getElementById('fullscreen').classList.remove('d-none');
 }
 
 
 function toggleFullscreen() {
-    if (canvas.requestFullscreen) {
-        canvas.requestFullscreen();
-    } else if (canvas.mozRequestFullScreen) { /* Firefox */
-        canvas.mozRequestFullScreen();
-    } else if (canvas.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
-        canvas.webkitRequestFullscreen();
-    } else if (canvas.msRequestFullscreen) { /* IE/Edge */
-        canvas.msRequestFullscreen();
-    }  else {
-        canvas.exitFullscreen();
+    let container = document.getElementById('game-container'); 
+
+    if (container.requestFullscreen) {
+        container.requestFullscreen();
+    } else if (container.mozRequestFullScreen) {
+        container.mozRequestFullScreen();
+    } else if (container.webkitRequestFullscreen) {
+        container.webkitRequestFullscreen();
+    } else if (container.msRequestFullscreen) {
+        container.msRequestFullscreen();
     }
 }
 
+// function toggleFullscreen() {
+//     if (canvas.requestFullscreen) {
+//         canvas.requestFullscreen();
+//     } else if (canvas.mozRequestFullScreen) { /* Firefox */
+//         canvas.mozRequestFullScreen();
+//     } else if (canvas.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+//         canvas.webkitRequestFullscreen();
+//     } else if (canvas.msRequestFullscreen) { /* IE/Edge */
+//         canvas.msRequestFullscreen();
+//     }  else {
+//         canvas.exitFullscreen();
+//     }
+// }
+
 function showLostScreen() {
+    console.log('Lost Screen Triggered');
     document.getElementById('gameOverScreen').classList.remove('d-none');
 }
 
