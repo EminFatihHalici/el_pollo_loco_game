@@ -53,8 +53,13 @@
         </div>
 
 
-        <div class="game-over-screen d-none">
+        <div id="gameOverScreen" class="game-over-screen d-none">
             <img src="img/You won, you lost/You lost.png">
+            <button onclick="startGame()" class="play-btn">RESTART</button>
+        </div>
+
+        <div id="winScreen" class="game-over-screen d-none">
+            <img src="img/You won, you lost/You win B.png">
             <button onclick="startGame()" class="play-btn">RESTART</button>
         </div>
 
