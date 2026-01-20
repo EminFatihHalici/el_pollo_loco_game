@@ -12,6 +12,12 @@ function init() {
     canvas = document.getElementById('canvas');
     renderStartScreen();
 }
+//hard stop 
+// function stopAllIntervals() {
+//     for (let i = 1; i < 9999; i++) {
+//         window.clearInterval(i);
+//     }
+// }
 
 // rendering both intro pics
 function renderStartScreen() {
@@ -25,7 +31,7 @@ function renderStartScreen() {
 
 //function to dissappear the intro pic and show the canvas
 function startGame() {
-    clearInterval(intervalId);
+   
     document.getElementById('startScreen').classList.add('d-none');
     document.getElementById('gameOverScreen').classList.add('d-none');
     document.getElementById('winScreen').classList.add('d-none');
