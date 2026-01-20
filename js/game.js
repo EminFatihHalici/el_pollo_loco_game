@@ -48,12 +48,20 @@ function toggleFullscreen() {
     }
 }
 
+function exitFullscreen() {
+    if (document.fullscreenElement) {
+        document.exitFullscreen();
+    }
+}
+
 function showLostScreen() {
     console.log('Lost Screen Triggered');
+     exitFullscreen();
     document.getElementById('gameOverScreen').classList.remove('d-none');
 }
 
 function showWinScreen() {
+     exitFullscreen();
     document.getElementById('winScreen').classList.remove('d-none');
 }
 
