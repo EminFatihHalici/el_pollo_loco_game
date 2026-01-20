@@ -291,6 +291,10 @@ class World {
         }
     }
 
+    endbossDead() {
+        let boss = this.level.enemies.find(e => e instanceof Endboss);
+        return boss && boss.isDead();
+    }
 
 
 }
