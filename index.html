@@ -34,17 +34,34 @@
 <body onload="init()">
     <header></header>
 
-    <div id="startScreen" class="start-screen">
-        <img id="introImage" src="img/9_intro_outro_screens/start/startscreen_1.png">
-        <button onclick="startGame()" class="play-btn">PLAY NOW</button>
-    </div>
+    <main class="game-container">
 
-    <div class="game-canvas-div" id="cover">
-        <canvas id="canvas" width="720" height="480">
-        </canvas>
-        <button class="fullscreen-btn d-none" id="fullscreen">⛶</button>
-    </div>
+        
+        
+        
+        <div id="startScreen" class="start-screen">
+            <img id="introImage" src="img/9_intro_outro_screens/start/startscreen_1.png">
+            <button onclick="startGame()" class="play-btn">PLAY NOW</button>
+        </div>
+        
+        
+        
+        <div class="game-canvas-div" id="cover">
+            <canvas id="canvas" width="720" height="480">
+            </canvas>
+            <button class="fullscreen-btn d-none" id="fullscreen">⛶</button>
+        </div>
 
+
+        <div class="game-over-screen d-none">
+            <img src="img/You won, you lost/You lost.png">
+            <button onclick="startGame()" class="play-btn">RESTART</button>
+        </div>
+
+
+
+
+    </main>
 
 </body>
 
