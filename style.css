@@ -18,6 +18,13 @@ body {
     font-family: sans-serif;
 }
 
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 64px;
+}
+
 .start-screen {
     position: absolute;
     width: 720px;
