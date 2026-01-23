@@ -11,18 +11,32 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 64px;
     height: 100vh;
     margin: 0;
     background-image: url(img/desert_startscreen.jpg);
     background-size: cover;
-    font-family: 'zabars' , sans-serif;
+    font-family: 'zabars', sans-serif;
 }
 
-header{
+header {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
-    gap: 64px;
+    width: 100%;
+}
+
+footer {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+}
+
+.game-instructions-container {
+    display: flex;
+    gap: 16px;
+    flex-direction: column;
 }
 
 .start-screen {
@@ -100,10 +114,13 @@ header{
     left: 0;
     width: 100%;
     height: 100%;
-    display: flex; 
-    flex-direction: column; /* Stapelt Bild und Button untereinander */
-    justify-content: center; /* Zentriert vertikal */
-    align-items: center; /* Zentriert horizontal */
+    display: flex;
+    flex-direction: column;
+    /* Stapelt Bild und Button untereinander */
+    justify-content: center;
+    /* Zentriert vertikal */
+    align-items: center;
+    /* Zentriert horizontal */
     background-color: rgba(0, 0, 0, 0.7);
     border-radius: 10px;
     z-index: 10;
@@ -111,17 +128,21 @@ header{
 
 game-over-screen img {
     width: auto;
-    max-width: 60%; /* Etwas kleiner, damit Platz für den Button ist */
+    max-width: 60%;
+    /* Etwas kleiner, damit Platz für den Button ist */
     height: auto;
-    max-height: 40%; 
+    max-height: 40%;
     object-fit: contain;
-    margin-bottom: 20px; /* Abstand zum Button darunter */
+    margin-bottom: 20px;
+    /* Abstand zum Button darunter */
 }
 
 /* Wir erstellen eine extra Klasse für den Restart-Button oder nutzen die vorhandene */
 .game-over-screen .play-btn {
-    margin-top: 0; /* WICHTIG: Die 400px müssen hier weg! */
-    position: relative; /* Sicherstellen, dass er nicht absolut rumfliegt */
+    margin-top: 0;
+    /* WICHTIG: Die 400px müssen hier weg! */
+    position: relative;
+    /* Sicherstellen, dass er nicht absolut rumfliegt */
     padding: 10px 25px;
     font-size: 24px;
 }
@@ -137,10 +158,10 @@ game-over-screen img {
 
 .game-over-screen img {
     width: auto;
-    max-width: 80%; 
+    max-width: 80%;
     height: auto;
     border-radius: 10px;
-    max-height: 50%; 
+    max-height: 50%;
     object-fit: contain;
 }
 
@@ -161,4 +182,3 @@ game-over-screen img {
         height: 100vh;
     }
 }
-
