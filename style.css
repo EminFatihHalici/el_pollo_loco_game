@@ -39,6 +39,10 @@ footer {
     flex-direction: column;
 }
 
+.game-instruction {
+    border: 0.25em solid darkred;
+}
+
 .start-screen {
     position: absolute;
     width: 720px;
