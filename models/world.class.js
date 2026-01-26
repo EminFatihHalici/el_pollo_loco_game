@@ -1,12 +1,12 @@
 class World {
     character = new Character();
-    level = level1;
-    enemies = level1.enemies;
+    level;
+    enemies;
     canvas;
     ctx;
     keyboard;
     camera_x = 0;
-    clouds = level1.clouds;
+    clouds;
     coins = new Coins();
     bottles = new Bottles();
     statusBarHealth = new StatusBarHealth();
@@ -14,13 +14,17 @@ class World {
     displayManager = new DisplayManager();
     statusBarBottle = new StatusBarBottle();
     statusBarEndboss = new StatusBarEndboss();
-    backgroundObjects = level1.backgroundObjects;
+    backgroundObjects;
     throwableObjects = [];
     backgroundSound = new Sound('audio/background_wind_sound.mp3')
     intervalIds = [];
 
 
     constructor(canvas, keyboard) {
+        this.level = level1;
+this.enemies = level1.enemies;
+this.clouds = level1.clouds;
+this.backgroundObjects = level1.backgroundObjects;
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
@@ -278,12 +282,21 @@ class World {
         this.intervalIds.push(id);
     }
 
-    stopGame() {
+/*     stopGame() {
         this.intervalIds.forEach(id => {
             clearInterval(id);
         });
         this.backgroundSound.pause();
-    }
+    } */
+
+        stopGame() {
+    this.intervalIds.forEach(id => clearInterval(id));
+    this.character.stopAllMyIntervals();
+    this.level.enemies.forEach(enemy => {
+        enemy.stopAllMyIntervals();
+    });
+    this.backgroundSound.pause();
+}
 
     checkGameOver() {
         if (this.character.isDead()) {
