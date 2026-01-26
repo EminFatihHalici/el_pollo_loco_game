@@ -13,6 +13,8 @@ class MovableObject extends DrawableObject {
         left: 0,
         right: 0
     };
+    intervalIds = []
+    
 
     // setting gravity for movable objects / character falls downs
     applyGravity() {
@@ -80,12 +82,23 @@ class MovableObject extends DrawableObject {
         this.speedY = 30;
     }
 
-    setStoppableInterval(fn, time) {
+/*     setStoppableInterval(fn, time) {
         let id = setInterval(fn, time);
         if (this.world) {
             this.world.addInterval(id);
         }
         return id;
+    } */
+
+        setStoppableInterval(fn, time) {
+        let id = setInterval(fn, time);
+        this.intervalIds.push(id); 
+        return id;
+    }
+
+    stopAllMyIntervals() {
+        this.intervalIds.forEach(id => clearInterval(id));
+        this.intervalIds = []; 
     }
 
 }
