@@ -1,7 +1,16 @@
+let level1; 
+function initLevel() {
+
 let enemies = [];
 let coins = [];
 let bottles = [];
 
+
+/*     level1 = new Level(
+        [new Chicken(), new Chicken(), new Endboss()], // Neue Instanzen!
+        [new Cloud()],
+        [new BackgroundObject()]
+    ); */
 
 
 // array for bottles
@@ -65,7 +74,7 @@ for (let i = 0; i < 4; i++) {
 enemies.push(new Endboss());
 
 
-const level1 = new Level(
+level1 = new Level(
     enemies,
 
 
@@ -111,7 +120,7 @@ const level1 = new Level(
         new BackgroundObject('img/5_background/layers/air.png', 719 * 6),
         new BackgroundObject('img/5_background/layers/3_third_layer/1.png', 719 * 6),
         new BackgroundObject('img/5_background/layers/2_second_layer/1.png', 719 * 6),
-        new BackgroundObject('img/5_background/layers/1_first_layer/1.png', 719 * 6),
+        new BackgroundObject('img/5_background/layers/1_first_layer/1.png', 719 * 6)
 
     ],
 
@@ -122,3 +131,4 @@ const level1 = new Level(
 
 );
 
+}
