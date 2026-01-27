@@ -120,12 +120,9 @@ footer {
     height: 100%;
     display: flex;
     flex-direction: column;
-    /* Stapelt Bild und Button untereinander */
     justify-content: center;
-    /* Zentriert vertikal */
     align-items: center;
-    /* Zentriert horizontal */
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: darkred;
     border-radius: 10px;
     z-index: 10;
 }
@@ -133,20 +130,15 @@ footer {
 game-over-screen img {
     width: auto;
     max-width: 60%;
-    /* Etwas kleiner, damit Platz für den Button ist */
     height: auto;
     max-height: 40%;
     object-fit: contain;
     margin-bottom: 20px;
-    /* Abstand zum Button darunter */
 }
 
-/* Wir erstellen eine extra Klasse für den Restart-Button oder nutzen die vorhandene */
 .game-over-screen .play-btn {
     margin-top: 0;
-    /* WICHTIG: Die 400px müssen hier weg! */
     position: relative;
-    /* Sicherstellen, dass er nicht absolut rumfliegt */
     padding: 10px 25px;
     font-size: 24px;
 }
