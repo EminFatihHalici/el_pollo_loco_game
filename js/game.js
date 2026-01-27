@@ -2,17 +2,19 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 let startImages = [
-    'img/9_intro_outro_screens/start/startscreen_1.png',
-    'img/9_intro_outro_screens/start/startscreen_2.png'
+  "img/9_intro_outro_screens/start/startscreen_1.png",
+  "img/9_intro_outro_screens/start/startscreen_2.png",
 ];
 let currentImageIndex = 0;
 let intervalId;
+let introMusic;
 
 function init() {
-    canvas = document.getElementById('canvas');
-    renderStartScreen();
+  introMusic = new Sound("audio/intro.mp3");
+  canvas = document.getElementById("canvas");
+  renderStartScreen();
 }
-//hard stop 
+//hard stop
 // function stopAllIntervals() {
 //     for (let i = 1; i < 9999; i++) {
 //         window.clearInterval(i);
@@ -21,89 +23,91 @@ function init() {
 
 // rendering both intro pics
 function renderStartScreen() {
-    let imgElement = document.getElementById('introImage');
-    intervalId = setInterval(() => {
-        currentImageIndex = (currentImageIndex + 1) % startImages.length;
-        imgElement.src = startImages[currentImageIndex];
-
-    }, 3000);
+  let imgElement = document.getElementById("introImage");
+  intervalId = setInterval(() => {
+    currentImageIndex = (currentImageIndex + 1) % startImages.length;
+    imgElement.src = startImages[currentImageIndex];
+  }, 3000);
 }
 
 //function to dissappear the intro pic and show the canvas
 function startGame() {
-    initLevel();
-   if (world) {
-        world.stopGame();
-   } 
-    document.getElementById('startScreen').classList.add('d-none');
-    document.getElementById('gameOverScreen').classList.add('d-none');
-    document.getElementById('winScreen').classList.add('d-none');
-    world = new World(canvas, keyboard);
-    document.getElementById('fullscreen').classList.remove('d-none');
+  introMusic.play();
+  introMusic.volume(0.04);
+  initLevel();
+  if (world) {
+    world.stopGame();
+  }
+  document.getElementById("startScreen").classList.add("d-none");
+  document.getElementById("gameOverScreen").classList.add("d-none");
+  document.getElementById("winScreen").classList.add("d-none");
+  world = new World(canvas, keyboard);
+  document.getElementById("fullscreen").classList.remove("d-none");
 }
 
-
 function toggleFullscreen() {
-    if (canvas.requestFullscreen) {
-        canvas.requestFullscreen();
-    } else if (canvas.mozRequestFullScreen) { /* Firefox */
-        canvas.mozRequestFullScreen();
-    } else if (canvas.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
-        canvas.webkitRequestFullscreen();
-    } else if (canvas.msRequestFullscreen) { /* IE/Edge */
-        canvas.msRequestFullscreen();
-    }  else {
-        canvas.exitFullscreen();
-    }
+  if (canvas.requestFullscreen) {
+    canvas.requestFullscreen();
+  } else if (canvas.mozRequestFullScreen) {
+    /* Firefox */
+    canvas.mozRequestFullScreen();
+  } else if (canvas.webkitRequestFullscreen) {
+    /* Chrome, Safari & Opera */
+    canvas.webkitRequestFullscreen();
+  } else if (canvas.msRequestFullscreen) {
+    /* IE/Edge */
+    canvas.msRequestFullscreen();
+  } else {
+    canvas.exitFullscreen();
+  }
 }
 
 function exitFullscreen() {
-    if (document.fullscreenElement) {
-        document.exitFullscreen();
-    }
+  if (document.fullscreenElement) {
+    document.exitFullscreen();
+  }
 }
 
 function showLostScreen() {
-    console.log('Lost Screen Triggered');
-     exitFullscreen();
-    document.getElementById('gameOverScreen').classList.remove('d-none');
+  console.log("Lost Screen Triggered");
+  exitFullscreen();
+  document.getElementById("gameOverScreen").classList.remove("d-none");
 }
 
 function showWinScreen() {
-     exitFullscreen();
-    document.getElementById('winScreen').classList.remove('d-none');
+  exitFullscreen();
+  document.getElementById("winScreen").classList.remove("d-none");
 }
 
 //adding event listeners to detect key presses
 window.addEventListener("keydown", (e) => {
-    if (e.keyCode == 39) {
-        keyboard.RIGHT = true;
-    } else if (e.keyCode == 37) {
-        keyboard.LEFT = true;
-    } else if (e.keyCode == 38) {
-        keyboard.UP = true;
-    } else if (e.keyCode == 40) {
-        keyboard.DOWN = true;
-    } else if (e.keyCode == 32) {
-        keyboard.SPACE = true;
-    } else if (e.keyCode == 68) {
-        keyboard.D = true;
-    }
+  if (e.keyCode == 39) {
+    keyboard.RIGHT = true;
+  } else if (e.keyCode == 37) {
+    keyboard.LEFT = true;
+  } else if (e.keyCode == 38) {
+    keyboard.UP = true;
+  } else if (e.keyCode == 40) {
+    keyboard.DOWN = true;
+  } else if (e.keyCode == 32) {
+    keyboard.SPACE = true;
+  } else if (e.keyCode == 68) {
+    keyboard.D = true;
+  }
 });
 
-
 window.addEventListener("keyup", (e) => {
-    if (e.keyCode == 39) {
-        keyboard.RIGHT = false;
-    } else if (e.keyCode == 37) {
-        keyboard.LEFT = false;
-    } else if (e.keyCode == 38) {
-        keyboard.UP = false;
-    } else if (e.keyCode == 40) {
-        keyboard.DOWN = false;
-    } else if (e.keyCode == 32) {
-        keyboard.SPACE = false;
-    } else if (e.keyCode == 68) {
-        keyboard.D = false;
-    }
+  if (e.keyCode == 39) {
+    keyboard.RIGHT = false;
+  } else if (e.keyCode == 37) {
+    keyboard.LEFT = false;
+  } else if (e.keyCode == 38) {
+    keyboard.UP = false;
+  } else if (e.keyCode == 40) {
+    keyboard.DOWN = false;
+  } else if (e.keyCode == 32) {
+    keyboard.SPACE = false;
+  } else if (e.keyCode == 68) {
+    keyboard.D = false;
+  }
 });
