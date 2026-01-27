@@ -11,6 +11,7 @@ class Character extends MovableObject {
   longIdle = false;
   lastAction = new Date().getTime();
   jumpSound = new Sound("audio/jump.mp3");
+  walkingSound = new Sound("audio/character_walking.mp3");
 
   offset = {
     top: 120,
@@ -110,6 +111,17 @@ class Character extends MovableObject {
         this.lastAction = new Date().getTime();
         this.otherDirection = true;
         this.world.camera_x = -this.x + 100;
+      }
+
+      if (
+        (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) &&
+        !this.isAboveGround()
+      ) {
+        if (!this.walkingSound.isPlaying()) {
+          this.walkingSound.play();
+        }
+      } else {
+        this.walkingSound.pause();
       }
 
       if (this.world.keyboard.SPACE && !this.isAboveGround()) {
