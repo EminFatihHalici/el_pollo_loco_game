@@ -12,6 +12,7 @@ class Character extends MovableObject {
   lastAction = new Date().getTime();
   jumpSound = new Sound("audio/jump.mp3");
   walkingSound = new Sound("audio/character_walkling.mp3");
+  hurtSound = new Sound("audio/character_hurt.mp3");
 
   offset = {
     top: 120,
@@ -95,6 +96,7 @@ class Character extends MovableObject {
     this.loadImages(this.IMAGES_LONG_IDLE);
     this.jumpSound.volume(0.2);
     this.walkingSound.volume(0.3);
+    this.hurtSound.volume(0.3);
   }
 
   //currentImage is increased every second to change the image of the character and length calculated with modulo operator
@@ -163,5 +165,12 @@ class Character extends MovableObject {
     let timepassed = new Date().getTime() - this.lastAction;
     timepassed = timepassed / 1000; // difference in sec
     return timepassed;
+  }
+
+  hit() {
+    super.hit();
+    if (!this.isDead()) {
+      this.hurtSound.play();
+    }
   }
 }
