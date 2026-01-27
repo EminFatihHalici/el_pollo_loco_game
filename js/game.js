@@ -8,9 +8,13 @@ let startImages = [
 let currentImageIndex = 0;
 let intervalId;
 let introMusic;
+let winMusic;
+let loseMusic;
 
 function init() {
   introMusic = new Sound("audio/intro.mp3");
+  winMusic = new Sound("audio/win_sound.mp3");
+  loseMusic = new Sound("audio/lose_sound.mp3");
   canvas = document.getElementById("canvas");
   renderStartScreen();
 }
@@ -33,7 +37,7 @@ function renderStartScreen() {
 //function to dissappear the intro pic and show the canvas
 function startGame() {
   introMusic.play();
-  introMusic.volume(0.04);
+  introMusic.volume(0.06);
   initLevel();
   if (world) {
     world.stopGame();
@@ -69,12 +73,15 @@ function exitFullscreen() {
 }
 
 function showLostScreen() {
-  console.log("Lost Screen Triggered");
+  loseMusic.play();
+  loseMusic.volume(0.1);
   exitFullscreen();
   document.getElementById("gameOverScreen").classList.remove("d-none");
 }
 
 function showWinScreen() {
+  winMusic.play();
+  winMusic.volume(0.12);
   exitFullscreen();
   document.getElementById("winScreen").classList.remove("d-none");
 }
