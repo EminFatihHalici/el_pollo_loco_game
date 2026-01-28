@@ -119,7 +119,7 @@ class Endboss extends MovableObject {
     }, 150);
   }
 
-  attack() {
+  /* attack() {
     this.isAttacking = true;
     this.speed = 0;
     this.setStoppableInterval(() => {
@@ -138,13 +138,37 @@ class Endboss extends MovableObject {
       this.isAttacking = false;
       this.speed = 5;
     }, 1000);
+  } */
+
+  attack() {
+    this.isAttacking = true;
+    this.speed = 0;
+
+    let attackInterval = setInterval(() => {
+      if (this.currentDistance < 200 && !this.isDead()) {
+        this.world.character.hit(10);
+        this.world.statusBarHealth.setPercantage(this.world.character.energy);
+      }
+    }, 400);
+
+    setTimeout(() => {
+      clearInterval(attackInterval);
+
+      if (this.otherDirection) {
+        this.x -= 150;
+      } else {
+        this.x += 150;
+      }
+      this.isAttacking = false;
+      this.speed = 5;
+    }, 800);
   }
 
   hit(damage) {
-    if (this.world.gameEnded) return;
+    if (this.world.gameEnded || this.isDead()) return;
     super.hit(damage);
     this.isStunned = true;
-    this.endbossHurtSound.currentTime = 0.5;
+    this.endbossHurtSound.currentTime = 2.0;
     this.endbossHurtSound.play();
 
     if (this.energy > 0) {
@@ -165,7 +189,7 @@ class Endboss extends MovableObject {
             this.x = levelStart;
           }
         }
-      }, 800);
+      }, 200);
 
       setTimeout(() => {
         this.isStunned = false;
