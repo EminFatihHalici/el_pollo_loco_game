@@ -17,6 +17,8 @@ class World {
   backgroundObjects;
   throwableObjects = [];
   backgroundSound = new Sound("audio/background_wind_sound.mp3");
+  triggerSound = new Sound("audio/danger.mp3");
+
   intervalIds = [];
 
   constructor(canvas, keyboard) {
@@ -31,6 +33,7 @@ class World {
     this.setWorld();
     this.backgroundSound.volume(0.025);
     this.backgroundSound.loop();
+    this.triggerSound.volume(0.3);
     this.run();
   }
 
@@ -183,10 +186,11 @@ class World {
 
   calculateDistanceOfChar() {
     this.level.enemies.forEach((enemy) => {
-      if (enemy instanceof Endboss) {
+      if (enemy instanceof Endboss && !enemy.hadFirstContact) {
         let distance = Math.abs(enemy.x - this.character.x);
         if (distance < 500) {
           enemy.hadFirstContact = true;
+          this.triggerSound.play();
         }
       }
     });
