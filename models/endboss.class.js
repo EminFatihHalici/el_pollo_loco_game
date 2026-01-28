@@ -132,7 +132,6 @@ class Endboss extends MovableObject {
     this.setStoppableInterval(() => {
       if (this.otherDirection) {
         this.x -= 150;
-        a;
       } else {
         this.x += 150;
       }
@@ -142,33 +141,36 @@ class Endboss extends MovableObject {
   }
 
   hit(damage) {
+    if (this.world.gameEnded) return;
     super.hit(damage);
     this.isStunned = true;
     this.endbossHurtSound.currentTime = 0.5;
     this.endbossHurtSound.play();
 
-    setTimeout(() => {
-      let levelEnd = 4500;
-      let levelStart = 2000;
+    if (this.energy > 0) {
+      setTimeout(() => {
+        let levelEnd = 4500;
+        let levelStart = 2000;
 
-      if (this.world.character.x < this.x) {
-        if (this.x + 160 < levelEnd) {
-          this.x += 160;
+        if (this.world.character.x < this.x) {
+          if (this.x + 160 < levelEnd) {
+            this.x += 160;
+          } else {
+            this.x = levelEnd;
+          }
         } else {
-          this.x = levelEnd;
+          if (this.x - 160 > levelStart) {
+            this.x -= 160;
+          } else {
+            this.x = levelStart;
+          }
         }
-      } else {
-        if (this.x - 160 > levelStart) {
-          this.x -= 160;
-        } else {
-          this.x = levelStart;
-        }
-      }
-    }, 800);
+      }, 800);
 
-    setTimeout(() => {
-      this.isStunned = false;
-    }, 1500);
+      setTimeout(() => {
+        this.isStunned = false;
+      }, 1500);
+    }
   }
 
   isAboveGround() {
