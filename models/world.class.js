@@ -18,6 +18,7 @@ class World {
   throwableObjects = [];
   backgroundSound = new Sound("audio/background_wind_sound.mp3");
   triggerSound = new Sound("audio/danger.mp3");
+  gameEnded = false;
 
   intervalIds = [];
 
@@ -316,12 +317,18 @@ class World {
   }
 
   checkGameOver() {
+    if (this.gameEnded) return;
     if (this.character.isDead()) {
-      this.stopGame();
-      showLostScreen();
+      setTimeout(() => {
+        this.stopGame();
+        showLostScreen();
+      }, 1000);
     } else if (this.endbossDead()) {
-      this.stopGame();
-      showWinScreen();
+      this.gameEnded = true;
+      setTimeout(() => {
+        this.stopGame();
+        showWinScreen();
+      }, 1750);
     }
   }
 

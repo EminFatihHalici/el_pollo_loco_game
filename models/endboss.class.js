@@ -6,6 +6,7 @@ class Endboss extends MovableObject {
   currentDistance = 5000;
   isAttacking = false;
   isStunned = false;
+  endbossHurtSound = new Sound("audio/endboss.mp3");
 
   offset = {
     top: 60,
@@ -66,6 +67,7 @@ class Endboss extends MovableObject {
     this.x = 4100;
     this.groundLevel = 55;
     this.speed = 5;
+    this.endbossHurtSound.volume(0.3);
   }
 
   animate() {
@@ -130,6 +132,7 @@ class Endboss extends MovableObject {
     this.setStoppableInterval(() => {
       if (this.otherDirection) {
         this.x -= 150;
+        a;
       } else {
         this.x += 150;
       }
@@ -141,6 +144,8 @@ class Endboss extends MovableObject {
   hit(damage) {
     super.hit(damage);
     this.isStunned = true;
+    this.endbossHurtSound.currentTime = 0.5;
+    this.endbossHurtSound.play();
 
     setTimeout(() => {
       let levelEnd = 4500;
