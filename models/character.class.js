@@ -167,8 +167,8 @@ class Character extends MovableObject {
     return timepassed;
   }
 
-  hit() {
-    super.hit();
+  hit(damage = 5) {
+    super.hit(damage);
     if (!this.isDead()) {
       this.hurtSound.play();
     }
