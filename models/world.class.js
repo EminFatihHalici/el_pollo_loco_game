@@ -103,7 +103,7 @@ class World {
             enemy instanceof SmallChicken ||
             enemy instanceof Chicken
           ) {
-            enemy.energy = 0;
+            enemy.hit();
           }
         }
       });
@@ -145,7 +145,7 @@ class World {
           this.character.speedY < 0 &&
           !(enemy instanceof Endboss)
         ) {
-          enemy.energy = 0;
+          enemy.hit();
           this.character.speedY = 15;
         } else {
           this.character.hit(5);
