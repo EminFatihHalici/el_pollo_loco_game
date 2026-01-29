@@ -1,6 +1,7 @@
 class Bottles extends MovableObject {
   width = 70;
   height = 70;
+  botlleCollectSound = new Sound("audio/bottle_collect.mp3");
 
   offset = {
     top: 20,
@@ -28,6 +29,10 @@ class Bottles extends MovableObject {
       left: 40,
       right: 40,
     };
+  }
+
+  collectBottleSound() {
+    this.botlleCollectSound.play();
   }
 
   animate() {
