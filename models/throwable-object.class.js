@@ -1,85 +1,88 @@
 class ThrowableObject extends MovableObject {
+  offset = {
+    top: 5,
+    bottom: 5,
+    left: 10,
+    right: 10,
+  };
+  splashSound = new Sound("audio/bottle_break.mp3");
 
-    offset = {
-        top: 5,
-        bottom: 5,
-        left: 10,
-        right: 10
-    };
+  IMAGES_ROTATE = [
+    "img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png",
+    "img/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png",
+    "img/6_salsa_bottle/bottle_rotation/3_bottle_rotation.png",
+    "img/6_salsa_bottle/bottle_rotation/4_bottle_rotation.png",
+  ];
 
-    IMAGES_ROTATE = [
-        'img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
-        'img/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png',
-        'img/6_salsa_bottle/bottle_rotation/3_bottle_rotation.png',
-        'img/6_salsa_bottle/bottle_rotation/4_bottle_rotation.png'
-    ]
+  IMAGES_SPLASH = [
+    "img/6_salsa_bottle/bottle_rotation/bottle_splash/1_bottle_splash.png",
+    "img/6_salsa_bottle/bottle_rotation/bottle_splash/2_bottle_splash.png",
+    "img/6_salsa_bottle/bottle_rotation/bottle_splash/3_bottle_splash.png",
+    "img/6_salsa_bottle/bottle_rotation/bottle_splash/4_bottle_splash.png",
+    "img/6_salsa_bottle/bottle_rotation/bottle_splash/5_bottle_splash.png",
+    "img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png",
+  ];
 
-    IMAGES_SPLASH = [
-        'img/6_salsa_bottle/bottle_rotation/bottle_splash/1_bottle_splash.png',
-        'img/6_salsa_bottle/bottle_rotation/bottle_splash/2_bottle_splash.png',
-        'img/6_salsa_bottle/bottle_rotation/bottle_splash/3_bottle_splash.png',
-        'img/6_salsa_bottle/bottle_rotation/bottle_splash/4_bottle_splash.png',
-        'img/6_salsa_bottle/bottle_rotation/bottle_splash/5_bottle_splash.png',
-        'img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png'
-    ]
+  constructor(x, y, direction) {
+    super().loadImage(
+      "img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png",
+    );
+    this.loadImages(this.IMAGES_ROTATE);
+    this.loadImages(this.IMAGES_SPLASH);
+    this.x = x;
+    this.y = y;
+    this.height = 60;
+    this.width = 50;
+    this.isLookingLeft = direction;
+    this.isBroken = false;
+  }
 
-    constructor(x, y, direction) {
-        super().loadImage('img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png');
-        this.loadImages(this.IMAGES_ROTATE);
-        this.loadImages(this.IMAGES_SPLASH);
-        this.x = x;
-        this.y = y;
-        this.height = 60;
-        this.width = 50;
-        this.isLookingLeft = direction;
-        this.isBroken = false;
+  bottleSound() {
+    this.splashSound.play();
+  }
+
+  throw() {
+    this.speedY = 15;
+
+    this.applyGravity();
+    this.movementTimer = setInterval(() => {
+      if (this.isLookingLeft) {
+        this.x -= 15;
+      } else {
+        this.x += 15;
+      }
+      if (this.y > 360 && !this.isBroken) {
+        this.isBroken = true;
+        this.splash();
+      }
+    }, 25);
+    if (this.world) {
+      this.world.addInterval(this.movementTimer);
     }
 
-    throw() {
-
-        this.speedY = 15;
-
-        this.applyGravity();
-        this.movementTimer = setInterval(() => {
-            if (this.isLookingLeft) {
-                this.x -= 15;
-            } else {
-                this.x += 15;
-            }
-            if (this.y > 360 && !this.isBroken) {
-                this.isBroken = true;
-                this.splash();
-            }
-        }, 25);
-        if (this.world) {
-            this.world.addInterval(this.movementTimer);
-        }
-
-        this.animationTimer = setInterval(() => {
-            this.playAnimation(this.IMAGES_ROTATE);
-        }, 100);
-        if (this.world) {
-            this.world.addInterval(this.animationTimer);
-        }
-
+    this.animationTimer = setInterval(() => {
+      this.playAnimation(this.IMAGES_ROTATE);
+    }, 100);
+    if (this.world) {
+      this.world.addInterval(this.animationTimer);
     }
+  }
 
-
-    splash() {
-        clearInterval(this.movementTimer);
-        clearInterval(this.animationTimer);
-        clearInterval(this.gravityTimer);
-        this.speedY = 0;
-        this.splashTimer = setInterval(() => {
-            this.playAnimation(this.IMAGES_SPLASH);
-        }, 100);
-        if (this.world) {
-            this.world.addInterval(this.splashTimer);
-        }
-        setTimeout(() => {
-            clearInterval(this.splashTimer);
-            this.isGone = true;
-        }, 700);
+  splash() {
+    clearInterval(this.movementTimer);
+    clearInterval(this.animationTimer);
+    clearInterval(this.gravityTimer);
+    this.bottleSound();
+    this.speedY = 0;
+    this.splashTimer = setInterval(() => {
+      this.playAnimation(this.IMAGES_SPLASH);
+    }, 100);
+    if (this.world) {
+      this.world.addInterval(this.splashTimer);
     }
+    setTimeout(() => {
+      clearInterval(this.splashTimer);
+      this.isGone = true;
+    }, 700);
+  }
 }
-
