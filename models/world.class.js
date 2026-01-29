@@ -126,6 +126,7 @@ class World {
     this.level.coins.forEach((coin, index) => {
       if (this.character.isColliding(coin)) {
         this.character.collectCoin();
+        coin.collect();
         let coinPercent = this.character.coins * 10; // 10 coins = 100%
         this.statusBarCoin.setPercantage(coinPercent);
         this.level.coins.splice(index, 1);
