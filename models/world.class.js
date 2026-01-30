@@ -19,6 +19,7 @@ class World {
   backgroundSound = new Sound("audio/background_wind_sound.mp3");
   triggerSound = new Sound("audio/danger.mp3");
   gameEnded = false;
+  gamePaused = false;
 
   intervalIds = [];
 
@@ -40,6 +41,7 @@ class World {
 
   run() {
     let id1 = setInterval(() => {
+      if (this.gamePaused) return;
       this.checkCharacterCollisionWithEnemy();
       this.checkThrowObjects();
       this.collisionBottlesWithEnemies();
@@ -53,6 +55,7 @@ class World {
 
     let id2 = setInterval(() => {
       // this.checkCollisions();
+      if (this.gamePaused) return;
       this.splashedBottlesCleanUp();
       this.cleanUpEnemies();
       this.calculateDistanceOfChar();
