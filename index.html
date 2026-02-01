@@ -39,8 +39,10 @@
     <main id="game-container" class="game-container">
 
         <div id="startScreen" class="start-screen">
-            <div class="info-btn">i</div>
-            <div id="info-overlay" class="overlay">
+
+            <div class="info-btn" onclick="toggleOverlay()">i</div>
+
+            <div id="info-overlay" class="overlay d-none">
                 <div class="info-card" onclick="event.stopPropagation()"> 
                     
                     <div id="instruction">
@@ -54,32 +56,33 @@
                     <div id="about">
                         Welcome to the Desert! Join Pepe, our brave hero, on his quest through the burning sands of Mexico. Face the angry chickens, collect salsa bottles, and prepare for the ultimate showdown against the Endboss.
                         El Pollo Loco is a tribute to classic arcade platformers, combining fast-paced gameplay with a unique western aesthetic. Grab your bottles and get ready for a spicy adventure!
+                        <hr> <p><small>Created with ❤️ in 2026</small></p>
                     </div>
 
                     <div id="legal">
-                                Game Title
+                                <h4>Game Title</h4>
                                 El Pollo Loco
 
-                                Publisher
+                                <h4>Publisher</h4>
                                 Emin Fatih Halici
                                 Waldschulstraße 57
                                 65933 Frankfurt a. Main
                                 Germany
 
-                                Contact
+                                <h4>Contact</h4>
                                 Email: halicieminfatih@gmail.com
                                 Phone: 017687336598
 
-                                Disclaimer
+                                <h4>Disclaimer</h4>
                                 The contents of this game were created with care. However, we cannot guarantee the accuracy, completeness, or timeliness of the content.
                                 
-                                Liability for Links
+                                <h4>Liability for Links</h4>
                                 Our game may contain links to external websites we cannot control. We are not responsible for the content of these websites. The provider or operator is always responsible for their content.
                                 
-                                Privacy Policy
+                                <h4>Privacy Policy</h4>
                                 We respect your privacy and do not collect personal data without your consent. Any information you choose to provide (such as through contact forms or support requests) will be handled securely and never shared with third parties, except as required by law.
                                 
-                                Copyright
+                                <h4>Copyright</h4>
                                 All graphics, sounds, and texts in this game are protected by copyright. Any reproduction, distribution, or public reproduction requires prior written consent from the copyright holder.
                     </div>
 
