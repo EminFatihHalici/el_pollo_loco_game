@@ -72,6 +72,10 @@ function exitFullscreen() {
   }
 }
 
+function toggleOverlay() {
+  document.getElementById("info-overlay").classList.toggle("d-none");
+}
+
 function showLostScreen() {
   loseMusic.play();
   loseMusic.volume(0.1);
