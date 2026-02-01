@@ -33,16 +33,62 @@
 
 <body onload="init()">
     <header>
-        <button>legal notice</button>
-        <div>
             <h1>El pollo loco</h1>
-        </div>
-        <div>about game</div>
     </header>
 
     <main id="game-container" class="game-container">
 
         <div id="startScreen" class="start-screen">
+            <div class="info-btn">i</div>
+            <div id="info-overlay" class="overlay">
+                <div class="info-card" onclick="event.stopPropagation()"> 
+                    
+                    <div id="instruction">
+                        <div class="game-instruction">Press <span style="color: darkred">D</span> to throw bottle</div>
+                        <div class="game-instruction">Press <span style="color: darkred">SPACE</span> to jump</div>   
+                        <div class="game-instruction">Arrow right <span style="color: darkred">&#129146;</span> walk right</div>
+                        <div class="game-instruction">Arrow left <span style="color: darkred">&#129144;</span> walk left</div>
+
+                    </div>
+
+                    <div id="about">
+                        Welcome to the Desert! Join Pepe, our brave hero, on his quest through the burning sands of Mexico. Face the angry chickens, collect salsa bottles, and prepare for the ultimate showdown against the Endboss.
+                        El Pollo Loco is a tribute to classic arcade platformers, combining fast-paced gameplay with a unique western aesthetic. Grab your bottles and get ready for a spicy adventure!
+                    </div>
+
+                    <div id="legal">
+                                Game Title
+                                El Pollo Loco
+
+                                Publisher
+                                Emin Fatih Halici
+                                Waldschulstraße 57
+                                65933 Frankfurt a. Main
+                                Germany
+
+                                Contact
+                                Email: halicieminfatih@gmail.com
+                                Phone: 017687336598
+
+                                Disclaimer
+                                The contents of this game were created with care. However, we cannot guarantee the accuracy, completeness, or timeliness of the content.
+                                
+                                Liability for Links
+                                Our game may contain links to external websites we cannot control. We are not responsible for the content of these websites. The provider or operator is always responsible for their content.
+                                
+                                Privacy Policy
+                                We respect your privacy and do not collect personal data without your consent. Any information you choose to provide (such as through contact forms or support requests) will be handled securely and never shared with third parties, except as required by law.
+                                
+                                Copyright
+                                All graphics, sounds, and texts in this game are protected by copyright. Any reproduction, distribution, or public reproduction requires prior written consent from the copyright holder.
+                    </div>
+
+
+
+
+
+                </div>
+            </div>
             <img id="introImage" src="img/9_intro_outro_screens/start/startscreen_1.png">
             <button onclick="startGame()" class="play-btn">PLAY NOW</button>
         </div>
@@ -52,7 +98,12 @@
         <div class="game-canvas-div" id="cover">
             <canvas id="canvas" width="720" height="480">
             </canvas>
+
             <button class="fullscreen-btn d-none" id="fullscreen">⛶</button>
+
+            <div class="game-instructions">
+                testtesttesttesttesttesttesttesttest
+            </div>
         </div>
 
 
@@ -72,14 +123,7 @@
     </main>
 
     <footer>
-        <div class="game-instructions-container">
-            <div class="game-instruction">Press <span style="color: darkred">D</span> to throw bottle</div>
-            <div class="game-instruction">Press <span style="color: darkred">SPACE</span> to jump</div>
-        </div>
-         <div class="game-instructions-container">
-            <div class="game-instruction">Arrow right <span style="color: darkred">&#129146;</span> walk right</div>
-            <div class="game-instruction">Arrow left <span style="color: darkred">&#129144;</span> walk left</div>
-        </div>
+
     </footer>
 
 </body>
