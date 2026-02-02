@@ -44,6 +44,12 @@
 
             <div id="info-overlay" class="overlay d-none">
                 <div class="info-card" onclick="event.stopPropagation()"> 
+
+                    <div class="tab-nav">
+                        <button onclick="openTab('instruction')" class="show-tab">Controls</button>
+                        <button onclick="openTab('about')">About</button>
+                        <button onclick="openTab('legal')">Legal</button>
+                    </div>
                     
                     <div id="instruction">
                         <div class="game-instruction">Press <span style="color: darkred">D</span> to throw bottle</div>
