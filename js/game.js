@@ -98,11 +98,14 @@ function showWinScreen() {
 
 function togglePause() {
   if (world) {
+    let icon = document.getElementById("pause-icon");
     world.gamePaused = !world.gamePaused;
     if (world.gamePaused) {
+      icon.src = "img/play-fill.svg";
       world.backgroundSound.pause();
     } else {
       world.backgroundSound.play();
+      icon.src = "img/pause-fill.svg";
     }
   }
 }
