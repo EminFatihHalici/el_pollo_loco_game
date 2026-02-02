@@ -330,6 +330,7 @@ class World {
       enemy.stopAllMyIntervals();
     });
     this.backgroundSound.pause();
+    document.getElementById("pause-btn").classList.add("d-none");
   }
 
   checkGameOver() {

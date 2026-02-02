@@ -46,6 +46,7 @@ function startGame() {
   document.getElementById("gameOverScreen").classList.add("d-none");
   document.getElementById("winScreen").classList.add("d-none");
   world = new World(canvas, keyboard);
+  document.getElementById("pause-btn").classList.remove("d-none");
   document.getElementById("fullscreen").classList.remove("d-none");
 }
 
