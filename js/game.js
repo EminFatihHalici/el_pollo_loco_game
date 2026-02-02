@@ -73,7 +73,11 @@ function exitFullscreen() {
 }
 
 function toggleOverlay() {
-  document.getElementById("info-overlay").classList.toggle("d-none");
+  let overlay = document.getElementById("info-overlay");
+  overlay.classList.toggle("d-none");
+  if (!overlay.classList.contains("d-none")) {
+    openTab("instruction");
+  }
 }
 
 function showLostScreen() {
@@ -88,6 +92,13 @@ function showWinScreen() {
   winMusic.volume(0.12);
   exitFullscreen();
   document.getElementById("winScreen").classList.remove("d-none");
+}
+
+function openTab(tabId) {
+  document.getElementById("instruction").classList.add("d-none");
+  document.getElementById("about").classList.add("d-none");
+  document.getElementById("legal").classList.add("d-none");
+  document.getElementById(tabId).classList.remove("d-none");
 }
 
 //adding event listeners to detect key presses

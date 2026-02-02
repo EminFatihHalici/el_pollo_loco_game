@@ -193,10 +193,6 @@ footer {
     box-shadow: 0 10px 25px rgba(0,0,0,0.5);
 }
 
-#instruction, #about, #legal {
-    display: none;
-}
-
 .show-tab {
     display: block;
 }
