@@ -251,7 +251,10 @@ class World {
       this.ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
       this.ctx.font = "60px Zabars";
       this.ctx.textAlign = "center";
+      this.ctx.shadowColor = "black";
+      this.ctx.shadowBlur = 4;
       this.ctx.fillText("PAUSE", this.canvas.width / 2, this.canvas.height / 2);
+      this.ctx.shadowBlur = 0;
     }
 
     //draw() wird immer wieder aufgerufen
