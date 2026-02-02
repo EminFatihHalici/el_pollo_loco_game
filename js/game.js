@@ -46,6 +46,8 @@ function startGame() {
   document.getElementById("gameOverScreen").classList.add("d-none");
   document.getElementById("winScreen").classList.add("d-none");
   world = new World(canvas, keyboard);
+  document.getElementById("mute-btn").classList.remove("d-none");
+  document.getElementById("pause-btn").classList.remove("d-none");
   document.getElementById("fullscreen").classList.remove("d-none");
 }
 
@@ -96,11 +98,14 @@ function showWinScreen() {
 
 function togglePause() {
   if (world) {
+    let icon = document.getElementById("pause-icon");
     world.gamePaused = !world.gamePaused;
     if (world.gamePaused) {
+      icon.src = "img/play-fill.svg";
       world.backgroundSound.pause();
     } else {
       world.backgroundSound.play();
+      icon.src = "img/pause-fill.svg";
     }
   }
 }
