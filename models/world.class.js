@@ -246,6 +246,14 @@ class World {
     this.addObjectsToMap(this.level.enemies);
     this.ctx.translate(-this.camera_x, 0); //Verschiebe das Koordinatensystem zurück
 
+    if (this.gamePaused) {
+      this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+      this.ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+      this.ctx.font = "60px Zabars";
+      this.ctx.textAlign = "center";
+      this.ctx.fillText("PAUSE", this.canvas.width / 2, this.canvas.height / 2);
+    }
+
     //draw() wird immer wieder aufgerufen
     let self = this;
     requestAnimationFrame(function () {

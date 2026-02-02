@@ -44,6 +44,12 @@
 
             <div id="info-overlay" class="overlay d-none">
                 <div class="info-card" onclick="event.stopPropagation()"> 
+
+                    <div class="tab-nav">
+                        <button onclick="openTab('instruction')">Controls</button>
+                        <button onclick="openTab('about')">About</button>
+                        <button onclick="openTab('legal')">Legal</button>
+                    </div>
                     
                     <div id="instruction">
                         <div class="game-instruction">Press <span style="color: darkred">D</span> to throw bottle</div>
@@ -53,13 +59,13 @@
 
                     </div>
 
-                    <div id="about">
+                    <div id="about" class="d-none">
                         Welcome to the Desert! Join Pepe, our brave hero, on his quest through the burning sands of Mexico. Face the angry chickens, collect salsa bottles, and prepare for the ultimate showdown against the Endboss.
                         El Pollo Loco is a tribute to classic arcade platformers, combining fast-paced gameplay with a unique western aesthetic. Grab your bottles and get ready for a spicy adventure!
                         <hr> <p><small>Created with ❤️ in 2026</small></p>
                     </div>
 
-                    <div id="legal">
+                    <div id="legal" class="d-none">
                                 <h4>Game Title</h4>
                                 El Pollo Loco
 
