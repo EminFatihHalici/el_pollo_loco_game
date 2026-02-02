@@ -94,6 +94,17 @@ function showWinScreen() {
   document.getElementById("winScreen").classList.remove("d-none");
 }
 
+function togglePause() {
+  if (world) {
+    world.gamePaused = !world.gamePaused;
+    if (world.gamePaused) {
+      world.backgroundSound.pause();
+    } else {
+      world.backgroundSound.play();
+    }
+  }
+}
+
 function openTab(tabId) {
   document.getElementById("instruction").classList.add("d-none");
   document.getElementById("about").classList.add("d-none");
