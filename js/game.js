@@ -36,6 +36,7 @@ function renderStartScreen() {
 
 //function to dissappear the intro pic and show the canvas
 function startGame() {
+  let currentMuteState = world ? world.gameMuted : false;
   introMusic.play();
   introMusic.volume(0.06);
   initLevel();
@@ -46,6 +47,8 @@ function startGame() {
   document.getElementById("gameOverScreen").classList.add("d-none");
   document.getElementById("winScreen").classList.add("d-none");
   world = new World(canvas, keyboard);
+  world.gameMuted = currentMuteState;
+  world.updateAllSounds();
   document.getElementById("mute-btn").classList.remove("d-none");
   document.getElementById("pause-btn").classList.remove("d-none");
   document.getElementById("fullscreen").classList.remove("d-none");
