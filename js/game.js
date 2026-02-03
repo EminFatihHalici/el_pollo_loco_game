@@ -54,23 +54,24 @@ function startGame() {
   document.getElementById("fullscreen").classList.remove("d-none");
 }
 
-function toggleFullscreen() {
-  if (canvas.requestFullscreen) {
-    canvas.requestFullscreen();
-  } else if (canvas.mozRequestFullScreen) {
-    /* Firefox */
-    canvas.mozRequestFullScreen();
-  } else if (canvas.webkitRequestFullscreen) {
-    /* Chrome, Safari & Opera */
-    canvas.webkitRequestFullscreen();
-  } else if (canvas.msRequestFullscreen) {
-    /* IE/Edge */
-    canvas.msRequestFullscreen();
+/* function toggleFullscreen() {
+  let container = document.getElementById("cover");
+  let icon = document.getElementById("fullscreen-icon");
+  if (!document.fullscreenElement) {
+    if (container.requestFullscreen) {
+      container.requestFullscreen();
+    } else if (container.webkitRequestFullscreen) {
+      container.webkitRequestFullscreen();
+    }
+    this.icon.src = "img/fullscreen-exit.svg";
   } else {
-    canvas.exitFullscreen();
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    }
+    this.icon.src = "img/fullscreen.svg";
   }
 }
-
+ */
 function exitFullscreen() {
   if (document.fullscreenElement) {
     document.exitFullscreen();
