@@ -36,6 +36,7 @@ function renderStartScreen() {
 
 //function to dissappear the intro pic and show the canvas
 function startGame() {
+  let currentMuteState = world ? world.gameMuted : false;
   introMusic.play();
   introMusic.volume(0.06);
   initLevel();
@@ -46,28 +47,31 @@ function startGame() {
   document.getElementById("gameOverScreen").classList.add("d-none");
   document.getElementById("winScreen").classList.add("d-none");
   world = new World(canvas, keyboard);
+  world.gameMuted = currentMuteState;
+  world.updateAllSounds();
   document.getElementById("mute-btn").classList.remove("d-none");
   document.getElementById("pause-btn").classList.remove("d-none");
   document.getElementById("fullscreen").classList.remove("d-none");
 }
 
-function toggleFullscreen() {
-  if (canvas.requestFullscreen) {
-    canvas.requestFullscreen();
-  } else if (canvas.mozRequestFullScreen) {
-    /* Firefox */
-    canvas.mozRequestFullScreen();
-  } else if (canvas.webkitRequestFullscreen) {
-    /* Chrome, Safari & Opera */
-    canvas.webkitRequestFullscreen();
-  } else if (canvas.msRequestFullscreen) {
-    /* IE/Edge */
-    canvas.msRequestFullscreen();
+/* function toggleFullscreen() {
+  let container = document.getElementById("cover");
+  let icon = document.getElementById("fullscreen-icon");
+  if (!document.fullscreenElement) {
+    if (container.requestFullscreen) {
+      container.requestFullscreen();
+    } else if (container.webkitRequestFullscreen) {
+      container.webkitRequestFullscreen();
+    }
+    this.icon.src = "img/fullscreen-exit.svg";
   } else {
-    canvas.exitFullscreen();
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    }
+    this.icon.src = "img/fullscreen.svg";
   }
 }
-
+ */
 function exitFullscreen() {
   if (document.fullscreenElement) {
     document.exitFullscreen();
@@ -100,12 +104,28 @@ function togglePause() {
   if (world) {
     let icon = document.getElementById("pause-icon");
     world.gamePaused = !world.gamePaused;
+
     if (world.gamePaused) {
       icon.src = "img/play-fill.svg";
-      world.backgroundSound.pause();
+      world.allSounds.forEach((s) => s.pause());
     } else {
-      world.backgroundSound.play();
       icon.src = "img/pause-fill.svg";
+      if (!world.gameMuted) {
+        world.backgroundSound.play();
+      }
+    }
+  }
+}
+
+function toggleMute() {
+  if (world) {
+    let icon = document.getElementById("mute-icon");
+    world.gameMuted = !world.gameMuted;
+    world.updateAllSounds();
+    if (world.gameMuted) {
+      icon.src = "img/volume-mute-fill.svg";
+    } else {
+      icon.src = "img/volume-up-fill.svg";
     }
   }
 }

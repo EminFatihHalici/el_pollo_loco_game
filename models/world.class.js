@@ -20,7 +20,9 @@ class World {
   triggerSound = new Sound("audio/danger.mp3");
   gameEnded = false;
   gamePaused = false;
+  gameMuted = false;
 
+  allSounds = [];
   intervalIds = [];
 
   constructor(canvas, keyboard) {
@@ -37,6 +39,8 @@ class World {
     this.backgroundSound.loop();
     this.triggerSound.volume(0.3);
     this.run();
+    this.allSounds.push(this.backgroundSound);
+    this.allSounds.push(this.triggerSound);
   }
 
   run() {
@@ -352,5 +356,16 @@ class World {
   endbossDead() {
     let boss = this.level.enemies.find((e) => e instanceof Endboss);
     return boss && boss.isDead();
+  }
+
+  addSound(sound) {
+    this.allSounds.push(sound);
+    sound.setMute(this.gameMuted);
+  }
+
+  updateAllSounds() {
+    this.allSounds.forEach((s) => {
+      s.setMute(this.gameMuted);
+    });
   }
 }
