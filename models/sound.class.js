@@ -1,47 +1,46 @@
 class Sound {
-    audio;
+  audio;
 
-    constructor(path) {
-        this.audio = new Audio(path);
-    }
+  constructor(path) {
+    this.audio = new Audio(path);
+  }
 
- 
+  pause() {
+    this.audio.pause();
+  }
 
-    pause() {
-        this.audio.pause();
-    }
+  volume(vol) {
+    this.audio.volume = vol;
+  }
 
-    volume(vol) {
-        this.audio.volume = vol;
-    }
+  setMute(status) {
+    this.audio.muted = status;
+  }
 
+  isPlaying() {
+    return !this.audio.paused;
+  }
 
-
-    isPlaying() {
-        return !this.audio.paused;
-    }
-
-    play() {
+  play() {
     this.audio.currentTime = 0;
     let playPromise = this.audio.play();
 
     if (playPromise !== undefined) {
-        playPromise.catch(error => {
-            // Wir fangen den "AbortError" ab, damit die Konsole sauber bleibt
-            console.warn("Audio play interrupted:", error.message);
-        });
+      playPromise.catch((error) => {
+        // Wir fangen den "AbortError" ab, damit die Konsole sauber bleibt
+        console.warn("Audio play interrupted:", error.message);
+      });
     }
-}
+  }
 
-loop() {
+  loop() {
     this.audio.loop = true;
     let playPromise = this.audio.play();
 
     if (playPromise !== undefined) {
-        playPromise.catch(error => {
-            console.warn("Audio loop interrupted:", error.message);
-        });
+      playPromise.catch((error) => {
+        console.warn("Audio loop interrupted:", error.message);
+      });
     }
-}
-
+  }
 }
