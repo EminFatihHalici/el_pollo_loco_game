@@ -1,8 +1,16 @@
 class Sound {
   audio;
+  isRegistered = false;
 
   constructor(path) {
     this.audio = new Audio(path);
+  }
+
+  registerWorld() {
+    if (typeof world !== "undefined" && world.addSound) {
+      world.addSound(this);
+      this.isRegistered = true;
+    }
   }
 
   pause() {
@@ -22,6 +30,7 @@ class Sound {
   }
 
   play() {
+    this.registerWorld();
     this.audio.currentTime = 0;
     let playPromise = this.audio.play();
 
@@ -34,6 +43,7 @@ class Sound {
   }
 
   loop() {
+    this.registerWorld();
     this.audio.loop = true;
     let playPromise = this.audio.play();
 

@@ -114,6 +114,7 @@ function toggleMute() {
   if (world) {
     let icon = document.getElementById("mute-icon");
     world.gameMuted = !world.gameMuted;
+    world.updateAllSounds();
     if (world.gameMuted) {
       icon.src = "img/volume-mute-fill.svg";
     } else {
