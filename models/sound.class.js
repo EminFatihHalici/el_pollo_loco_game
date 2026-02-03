@@ -30,13 +30,17 @@ class Sound {
   }
 
   play() {
+    if (typeof world !== "undefined" && world.gamePaused) {
+      return;
+    }
     this.registerWorld();
     this.audio.currentTime = 0;
+    if (typeof world !== "undefined") {
+      this.setMute(world.gameMuted);
+    }
     let playPromise = this.audio.play();
-
     if (playPromise !== undefined) {
       playPromise.catch((error) => {
-        // Wir fangen den "AbortError" ab, damit die Konsole sauber bleibt
         console.warn("Audio play interrupted:", error.message);
       });
     }

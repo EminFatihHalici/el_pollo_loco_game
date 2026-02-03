@@ -100,12 +100,15 @@ function togglePause() {
   if (world) {
     let icon = document.getElementById("pause-icon");
     world.gamePaused = !world.gamePaused;
+
     if (world.gamePaused) {
       icon.src = "img/play-fill.svg";
-      world.backgroundSound.pause();
+      world.allSounds.forEach((s) => s.pause());
     } else {
-      world.backgroundSound.play();
       icon.src = "img/pause-fill.svg";
+      if (!world.gameMuted) {
+        world.backgroundSound.play();
+      }
     }
   }
 }
