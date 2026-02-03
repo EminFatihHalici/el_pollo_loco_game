@@ -110,6 +110,18 @@ function togglePause() {
   }
 }
 
+function toggleMute() {
+  if (world) {
+    let icon = document.getElementById("mute-icon");
+    world.gameMuted = !world.gameMuted;
+    if (world.gameMuted) {
+      icon.src = "img/volume-mute-fill.svg";
+    } else {
+      icon.src = "img/volume-up-fill.svg";
+    }
+  }
+}
+
 function openTab(tabId) {
   document.getElementById("instruction").classList.add("d-none");
   document.getElementById("about").classList.add("d-none");

@@ -20,7 +20,9 @@ class World {
   triggerSound = new Sound("audio/danger.mp3");
   gameEnded = false;
   gamePaused = false;
+  gameMuted = false;
 
+  allSounds = [];
   intervalIds = [];
 
   constructor(canvas, keyboard) {
