@@ -168,9 +168,10 @@ footer {
 }
 
 .info-card {
-    background-color: white;
+    background-color: #f4e4bc;
     padding: 24px;
     border-radius: 12px;
+    border: 6px double darkred;
     width: 75%;
     max-height: 90%; 
     overflow-y: auto;
@@ -183,11 +184,29 @@ footer {
     display: block;
 }
 
+.close-btn{
+  position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 25px;
+    height: 25px;
+    background-image: url('img/x.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+.close-btn:hover {
+    transform: scale(1.2);
+    filter: drop-shadow(0 0 5px rgba(0,0,0,0.3));
+}
+
 .tab-nav {
     display: flex;
     justify-content: space-around;
     margin-bottom: 20px;
-    border-bottom: 2px solid #eee;
+    border-bottom: 2px solid darkred;
     padding-bottom: 10px;
 }
 
