@@ -42,9 +42,9 @@
 
             <div class="info-btn" onclick="toggleOverlay()">i</div>
 
-            <div id="info-overlay" class="overlay d-none">
+            <div id="info-overlay" class="overlay d-none" onclick="toggleOverlay()">
                 <div class="info-card" onclick="event.stopPropagation()"> 
-
+                    <div class="close-btn" onclick="toggleOverlay()"></div>
                     <div class="tab-nav">
                         <button onclick="openTab('instruction')">Controls</button>
                         <button onclick="openTab('about')">About</button>
