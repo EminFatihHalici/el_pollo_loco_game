@@ -379,6 +379,59 @@ footer {
   filter: invert(1);
 }
 
+.rotate-device {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000;
+  color: #f4e4bc;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+  text-align: center;
+}
+
+.phone-icon {
+  width: 50px;
+  height: 90px;
+  border: 3px solid #f4e4bc;
+  border-radius: 6px;
+  position: relative;
+  margin-bottom: 20px;
+  animation: rotateHandy 2s infinite ease-in-out;
+}
+
+.phone-screen {
+  width: 40px;
+  height: 70px;
+  background-color: rgba(244, 228, 188, 0.2);
+  margin: 5px auto;
+}
+
+@keyframes rotateHandy {
+  0% {
+    transform: rotate(0deg);
+  }
+  30% {
+    transform: rotate(-90deg);
+  }
+  70% {
+    transform: rotate(-90deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.rotate-device p {
+  font-family: "zabars", sans-serif;
+  font-size: 24px;
+}
+
 @font-face {
   font-family: "zabars";
   src: url(fonts/zabars.ttf);
@@ -393,5 +446,25 @@ footer {
 @media only screen and (max-height: 480px) {
   canvas {
     height: 100vh;
+  }
+}
+
+@media (max-width: 720px) {
+  .game-container,
+  .start-screen {
+    width: 100vw;
+    height: 100vh;
+    border-radius: 0;
+  }
+
+  canvas {
+    width: 100%;
+    height: auto;
+    max-height: 100vh;
+    object-fit: contain;
+  }
+
+  body {
+    gap: 0;
   }
 }

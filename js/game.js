@@ -16,6 +16,7 @@ function init() {
   winMusic = new Sound("audio/win_sound.mp3");
   loseMusic = new Sound("audio/lose_sound.mp3");
   canvas = document.getElementById("canvas");
+  checkOrientation();
   renderStartScreen();
 }
 //hard stop
@@ -130,6 +131,17 @@ function toggleMute() {
   }
 }
 
+function checkOrientation() {
+  let rotateElement = document.getElementById("rotateDevice");
+  let isPortrait = window.innerHeight > window.innerWidth;
+  let isTooSmall = window.innerWidth < 720;
+  if (isPortrait && isTooSmall) {
+    rotateElement.classList.remove("d-none");
+  } else {
+    rotateElement.classList.add("d-none");
+  }
+}
+
 function openTab(tabId) {
   let contents = document.querySelectorAll(
     ".tab-content, #instruction, #about, #legal",
@@ -173,3 +185,6 @@ window.addEventListener("keyup", (e) => {
     keyboard.D = false;
   }
 });
+
+window.addEventListener("load", checkOrientation);
+window.addEventListener("resize", checkOrientation);
