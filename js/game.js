@@ -130,6 +130,15 @@ function toggleMute() {
   }
 }
 
+function checkOrientation() {
+  let rotateElement = document.getElementById("rotateDevice");
+  if (window.innerWidth < 720) {
+    rotateElement.classList.remove("d-none");
+  } else {
+    rotateElement.classList.add("d-none");
+  }
+}
+
 function openTab(tabId) {
   let contents = document.querySelectorAll(
     ".tab-content, #instruction, #about, #legal",
@@ -173,3 +182,6 @@ window.addEventListener("keyup", (e) => {
     keyboard.D = false;
   }
 });
+
+window.addEventListener("load", checkOrientation);
+window.addEventListener("resize", checkOrientation);
