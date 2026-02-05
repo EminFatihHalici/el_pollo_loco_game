@@ -448,3 +448,23 @@ footer {
     height: 100vh;
   }
 }
+
+@media (max-width: 720px) {
+  .game-container,
+  .start-screen {
+    width: 100vw;
+    height: 100vh;
+    border-radius: 0;
+  }
+
+  canvas {
+    width: 100%;
+    height: auto;
+    max-height: 100vh;
+    object-fit: contain;
+  }
+
+  body {
+    gap: 0;
+  }
+}
