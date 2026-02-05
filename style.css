@@ -89,6 +89,7 @@ footer {
 }
 
 #instruction, #about, #legal {
+    font-size: 22px;
     padding: 30px;
     max-height: 400px;
 }
@@ -117,6 +118,34 @@ footer {
 #legal p {
     margin-bottom: 20px;
     line-height: 1.4;
+}
+
+#about {
+    text-align: center;
+    line-height: 1.8;
+}
+
+.intro-text {
+    font-size: 36px;
+    color: #8B0000;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.highlight-box {
+    background-color: rgba(139, 0, 0, 0.05);
+    border-left: 4px solid #8B0000;
+    padding: 15px;
+    margin: 20px 0;
+    font-size: 20px;
+    font-style: italic;
+    text-align: left;
+}
+
+.about-footer {
+    margin-top: 40px;
+    opacity: 0.7;
 }
 
 
@@ -229,7 +258,7 @@ footer {
     border-radius: 12px;
     border: 6px double darkred;
     width: 90%;
-    max-width: 600px;
+    max-width: 800px;
     max-height: 90%;
     overflow-y: auto;
     color: #333;
