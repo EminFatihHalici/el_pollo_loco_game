@@ -134,8 +134,8 @@ function toggleMute() {
 function checkOrientation() {
   let rotateElement = document.getElementById("rotateDevice");
   let isPortrait = window.innerHeight > window.innerWidth;
-  let isSmall = window.innerWidth < 720 || window.screen.width < 720;
-  if (isPortrait && isSmall) {
+  let isTooSmall = window.innerWidth < 720;
+  if (isPortrait && isTooSmall) {
     rotateElement.classList.remove("d-none");
   } else {
     rotateElement.classList.add("d-none");
