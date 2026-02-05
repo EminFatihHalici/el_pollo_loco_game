@@ -16,6 +16,7 @@ function init() {
   winMusic = new Sound("audio/win_sound.mp3");
   loseMusic = new Sound("audio/lose_sound.mp3");
   canvas = document.getElementById("canvas");
+  checkOrientation();
   renderStartScreen();
 }
 //hard stop
@@ -132,7 +133,9 @@ function toggleMute() {
 
 function checkOrientation() {
   let rotateElement = document.getElementById("rotateDevice");
-  if (window.innerWidth < 720) {
+  let isPortrait = window.innerHeight > window.innerWidth;
+  let isSmall = window.innerWidth < 720 || window.screen.width < 720;
+  if (isPortrait && isSmall) {
     rotateElement.classList.remove("d-none");
   } else {
     rotateElement.classList.add("d-none");
