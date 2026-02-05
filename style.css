@@ -1,279 +1,397 @@
 canvas {
-    background-color: black;
-    box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.5);
-    border-radius: 10px;
-    display: block;
-    z-index: 1;
+  background-color: black;
+  box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  display: block;
+  z-index: 1;
 }
 
 body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 64px;
-    height: 100vh;
-    margin: 0;
-    background-image: url(img/desert_startscreen.jpg);
-    background-size: cover;
-    font-family: 'zabars', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 64px;
+  height: 100vh;
+  margin: 0;
+  background-image: url(img/desert_startscreen.jpg);
+  background-size: cover;
+  font-family: "zabars", sans-serif;
 }
 
 header {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
 }
 
 footer {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
 }
 
 .game-instructions-container {
-    display: flex;
-    gap: 16px;
-    flex-direction: column;
+  display: flex;
+  gap: 16px;
+  flex-direction: column;
 }
 
-.game-instructions{
-    position: absolute; 
-    top: 0; 
-    left: 0; 
-    width: 100%; 
-    height: 100%
+.game-instructions {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
-.game-instruction {
-    border: 0.25em solid darkred;
+.tab-content {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.control-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(139, 0, 0, 0.1);
+  padding-bottom: 8px;
+  font-size: 22px;
+}
+
+.key {
+  background: #fafafa;
+  border: 1px solid #999;
+  border-radius: 4px;
+  padding: 4px 10px;
+  box-shadow: 0 3px 0 #bbb;
+  color: #333;
+  font-family: sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  margin-left: 5px;
 }
 
 .start-screen {
-    position: absolute;
-    width: 720px;
-    border-radius: 10px;
-    height: 480px;
-    z-index: 999;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  position: absolute;
+  width: 720px;
+  border-radius: 10px;
+  height: 480px;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#instruction,
+#about,
+#legal {
+  font-size: 22px;
+  padding: 30px;
+  max-height: 400px;
 }
 
 .start-screen:fullscreen {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .start-screen img {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    z-index: -1;
-    border-radius: 10px;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: -1;
+  border-radius: 10px;
+}
+
+#legal h4 {
+  color: #8b0000;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  font-size: 18px;
+  border-bottom: 1px solid rgba(139, 0, 0, 0.2);
+}
+
+#legal p {
+  margin-bottom: 20px;
+  line-height: 1.4;
+}
+
+#about {
+  text-align: center;
+  line-height: 1.8;
+}
+
+.intro-text {
+  font-size: 36px;
+  color: #8b0000;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+.highlight-box {
+  background-color: rgba(139, 0, 0, 0.05);
+  border-left: 4px solid #8b0000;
+  padding: 15px;
+  margin: 20px 0;
+  font-size: 20px;
+  font-style: italic;
+  text-align: left;
+}
+
+.about-footer {
+  margin-top: 40px;
+  opacity: 0.7;
+}
+
+.info-card::-webkit-scrollbar {
+  width: 6px;
+}
+
+.info-card::-webkit-scrollbar-thumb {
+  background: #8b0000;
+  border-radius: 10px;
 }
 
 .play-btn {
-    padding: 15px;
-    font-size: 32px;
-    margin-top: 400px;
-    background-color: #FFA500;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: all 0.1s ease-in-out;
+  padding: 12px 18px;
+  letter-spacing: 2px;
+  font-size: 28px;
+  margin-top: 400px;
+  background-color: #ffa500;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.1s ease-in-out;
 }
 
 .play-btn:hover {
-    background-color: #FF8C00;
-    transform: scale(1.1);
+  background-color: #ff8c00;
+  transform: scale(1.1);
 }
 
 .d-none {
-    display: none !important;
+  display: none !important;
 }
 
 .game-canvas-div {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    border-radius: 10px;
-    align-items: center;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  border-radius: 10px;
+  align-items: center;
 }
 
 .game-over-screen {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: darkred;
-    border-radius: 10px;
-    z-index: 10;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: darkred;
+  border-radius: 10px;
+  z-index: 10;
 }
 
 .game-over-screen img {
-    width: auto;
-    max-width: 60%;
-    height: auto;
-    max-height: 40%;
-    object-fit: contain;
-    margin-bottom: 20px;
+  width: auto;
+  max-width: 60%;
+  height: auto;
+  max-height: 40%;
+  object-fit: contain;
+  margin-bottom: 20px;
 }
 
 .game-over-screen .play-btn {
-    margin-top: 0;
-    position: relative;
-    padding: 10px 25px;
-    font-size: 24px;
+  margin-top: 0;
+  position: relative;
+  padding: 10px 25px;
+  font-size: 24px;
 }
 
 .game-container {
-    position: relative;
-    width: 720px;
-    height: 480px;
-    border-radius: 10px;
-    margin: 0 auto;
-    overflow: hidden;
+  position: relative;
+  width: 720px;
+  height: 480px;
+  border-radius: 10px;
+  margin: 0 auto;
+  overflow: hidden;
 }
 
 .game-over-screen img {
-    width: auto;
-    max-width: 80%;
-    height: auto;
-    border-radius: 10px;
-    max-height: 50%;
-    object-fit: contain;
+  width: auto;
+  max-width: 80%;
+  height: auto;
+  border-radius: 10px;
+  max-height: 50%;
+  object-fit: contain;
 }
 
 .overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.9); 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
 }
 
 .info-card {
-    background-color: #f4e4bc;
-    padding: 24px;
-    border-radius: 12px;
-    border: 6px double darkred;
-    width: 75%;
-    max-height: 90%; 
-    overflow-y: auto;
-    color: #333;
-    position: relative;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+  background-color: #f4e4bc;
+  padding: 24px;
+  border-radius: 12px;
+  border: 6px double darkred;
+  width: 90%;
+  max-width: 800px;
+  max-height: 90%;
+  overflow-y: auto;
+  color: #333;
+  position: relative;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  scroll-behavior: smooth;
+}
+
+.info-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 35px;
+  height: 35px;
+  background-image: url("img/info-lg.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  z-index: 1001;
+  filter: invert(72%) sepia(85%) saturate(1945%) hue-rotate(359deg)
+    brightness(103%) contrast(105%);
+}
+
+.info-btn:hover {
+  transform: scale(1.2);
+  filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.3));
+  filter: invert(72%) sepia(85%) saturate(3000%) hue-rotate(359deg)
+    brightness(110%);
 }
 
 .show-tab {
-    display: block;
+  display: block;
 }
 
-.close-btn{
+.close-btn {
   position: absolute;
-    top: 15px;
-    right: 15px;
-    width: 25px;
-    height: 25px;
-    background-image: url('img/x.svg');
-    background-size: contain;
-    background-repeat: no-repeat;
-    cursor: pointer;
-    z-index: 1001;
+  top: 15px;
+  right: 15px;
+  width: 25px;
+  height: 25px;
+  background-image: url("img/x.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  z-index: 1001;
 }
 
 .close-btn:hover {
-    transform: scale(1.2);
-    filter: drop-shadow(0 0 5px rgba(0,0,0,0.3));
+  transform: scale(1.2);
+  filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.3));
 }
 
 .tab-nav {
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: 20px;
-    border-bottom: 2px solid darkred;
-    padding-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 30px;
+  padding: 10px;
 }
 
 .tab-nav button {
-    background: #f39c12; /* Ein schönes Orange */
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-family: 'zabars', sans-serif;
-    font-size: 16px;
+  background: #ff9d00;
+  color: white;
+  border: 2px solid #8b0000;
+  padding: 12px 20px;
+  font-family: zabars;
+  font-size: 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  box-shadow: 0 4px 0 #8b0000;
+  transition: all 0.1s;
 }
 
 .tab-nav button:hover {
-    background: #e67e22;
+  background: #ffb74d;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 #8b0000;
 }
 
+.tab-nav button.active {
+  background: #8b0000;
+  color: #f4e4bc;
+  transform: translateY(4px);
+  box-shadow: none;
+  gap: 30px;
+}
 .ingame-controls {
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
-    display: flex;
-    gap: 10px;
-    z-index: 10;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  gap: 10px;
+  z-index: 10;
 }
 
 .ingame-controls button {
-    width: 45px;
-    height: 45px;
-    background-color: rgba(0, 0, 0, 0.4); 
-    border: 2px solid rgba(255, 255, 255, 0.8);
-    border-radius: 12px; 
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.1s ease-in-out;
+  width: 45px;
+  height: 45px;
+  background-color: rgba(0, 0, 0, 0.4);
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.1s ease-in-out;
 }
 
 .ingame-controls button:hover {
-    background-color: rgba(0, 0, 0, 0.6);
-    transform: scale(1.05);
-    border-color: #ff9d00; 
+  background-color: rgba(0, 0, 0, 0.6);
+  transform: scale(1.05);
+  border-color: #ff9d00;
 }
 
 .ingame-controls button img {
-    width: 24px;
-    height: 24px;
-    filter: invert(1); 
+  width: 24px;
+  height: 24px;
+  filter: invert(1);
 }
-
 
 @font-face {
-    font-family: 'zabars';
-    src: url(fonts/zabars.ttf);
+  font-family: "zabars";
+  src: url(fonts/zabars.ttf);
 }
 
-
 @media only screen and (max-width: 720px) {
-    canvas {
-        width: 100%;
-    }
+  canvas {
+    width: 100%;
+  }
 }
 
 @media only screen and (max-height: 480px) {
-    canvas {
-        height: 100vh;
-    }
+  canvas {
+    height: 100vh;
+  }
 }

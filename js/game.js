@@ -131,10 +131,14 @@ function toggleMute() {
 }
 
 function openTab(tabId) {
-  document.getElementById("instruction").classList.add("d-none");
-  document.getElementById("about").classList.add("d-none");
-  document.getElementById("legal").classList.add("d-none");
+  let contents = document.querySelectorAll(
+    ".tab-content, #instruction, #about, #legal",
+  );
+  contents.forEach((c) => c.classList.add("d-none"));
   document.getElementById(tabId).classList.remove("d-none");
+  let buttons = document.querySelectorAll(".tab-nav button");
+  buttons.forEach((b) => b.classList.remove("active"));
+  event.currentTarget.classList.add("active");
 }
 
 //adding event listeners to detect key presses
