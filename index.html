@@ -1,12 +1,15 @@
-<!DOCTYPE html>
+<!doctype html>
 <html translate="no" lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>El Pollo Loco</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="shortcut icon" href="img/6_salsa_bottle/salsa_bottle.png" type="image/x-icon">
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="shortcut icon"
+      href="img/6_salsa_bottle/salsa_bottle.png"
+      type="image/x-icon"
+    />
     <script src="models/drawable-object.class.js"></script>
     <script src="models/sound.class.js"></script>
     <script src="models/movable-object.class.js"></script>
@@ -29,123 +32,121 @@
     <script src="models/small-chicken.class.js"></script>
     <script src="levels/level1.js"></script>
     <script src="js/game.js"></script>
-</head>
+  </head>
 
-<body onload="init()">
-    <header>
-            <h1>El pollo loco</h1>
-    </header>
-
+  <body onload="init()">
     <main id="game-container" class="game-container">
+      <div id="startScreen" class="start-screen">
+        <div class="info-btn" onclick="toggleOverlay()"></div>
 
-        <div id="startScreen" class="start-screen">
-
-            <div class="info-btn" onclick="toggleOverlay()"></div>
-
-            <div id="info-overlay" class="overlay d-none" onclick="toggleOverlay()">
-                <div class="info-card" onclick="event.stopPropagation()"> 
-                    <div class="close-btn" onclick="toggleOverlay()"></div>
-                    <div class="tab-nav">
-                        <button onclick="openTab('instruction')">Controls</button>
-                        <button onclick="openTab('about')">About</button>
-                        <button onclick="openTab('legal')">Legal</button>
-                    </div>
-                    
-                    <div id="instruction">
-                        <div class="game-instruction">Press <span style="color: darkred">D</span> to throw bottle</div>
-                        <div class="game-instruction">Press <span style="color: darkred">SPACE</span> to jump</div>   
-                        <div class="game-instruction">Arrow right <span style="color: darkred">&#129146;</span> walk right</div>
-                        <div class="game-instruction">Arrow left <span style="color: darkred">&#129144;</span> walk left</div>
-
-                    </div>
-
-                    <div id="about" class="d-none">
-                        Welcome to the Desert! Join Pepe, our brave hero, on his quest through the burning sands of Mexico. Face the angry chickens, collect salsa bottles, and prepare for the ultimate showdown against the Endboss.
-                        El Pollo Loco is a tribute to classic arcade platformers, combining fast-paced gameplay with a unique western aesthetic. Grab your bottles and get ready for a spicy adventure!
-                        <hr> <p><small>Created with ❤️ in 2026</small></p>
-                    </div>
-
-                    <div id="legal" class="d-none">
-                                <h4>Game Title</h4>
-                                El Pollo Loco
-
-                                <h4>Publisher</h4>
-                                Emin Fatih Halici
-                                Waldschulstraße 57
-                                65933 Frankfurt a. Main
-                                Germany
-
-                                <h4>Contact</h4>
-                                Email: halicieminfatih@gmail.com
-                                Phone: 017687336598
-
-                                <h4>Disclaimer</h4>
-                                The contents of this game were created with care. However, we cannot guarantee the accuracy, completeness, or timeliness of the content.
-                                
-                                <h4>Liability for Links</h4>
-                                Our game may contain links to external websites we cannot control. We are not responsible for the content of these websites. The provider or operator is always responsible for their content.
-                                
-                                <h4>Privacy Policy</h4>
-                                We respect your privacy and do not collect personal data without your consent. Any information you choose to provide (such as through contact forms or support requests) will be handled securely and never shared with third parties, except as required by law.
-                                
-                                <h4>Copyright</h4>
-                                All graphics, sounds, and texts in this game are protected by copyright. Any reproduction, distribution, or public reproduction requires prior written consent from the copyright holder.
-                    </div>
-
-
-
-
-
-                </div>
-            </div>
-            <img id="introImage" src="img/9_intro_outro_screens/start/startscreen_1.png">
-            <button onclick="startGame()" class="play-btn">PLAY NOW</button>
-        </div>
-
-
-
-        <div class="game-canvas-div" id="cover">
-            <canvas id="canvas" width="720" height="480">
-            </canvas>
-
-            <div class="ingame-controls">
-            
-                <button id="pause-btn" class="d-none" onclick="togglePause()">
-                    <img src="img/pause-fill.svg" id="pause-icon">
-                </button>
-
-                <button id="mute-btn" class="d-none" onclick="toggleMute()">
-                    <img src="img/volume-up-fill.svg" id="mute-icon">
-                </button>
-
-                <button class="d-none" id="fullscreen">
-                    <img src="img/fullscreen.svg" id="fullscreen-icon">
-                </button>
+        <div id="info-overlay" class="overlay d-none" onclick="toggleOverlay()">
+          <div class="info-card" onclick="event.stopPropagation()">
+            <div class="close-btn" onclick="toggleOverlay()"></div>
+            <div class="tab-nav">
+              <button onclick="openTab('instruction')">Controls</button>
+              <button onclick="openTab('about')">About</button>
+              <button onclick="openTab('legal')">Legal</button>
             </div>
 
+            <div id="instruction">
+              <div class="game-instruction">
+                Press <span style="color: darkred">D</span> to throw bottle
+              </div>
+              <div class="game-instruction">
+                Press <span style="color: darkred">SPACE</span> to jump
+              </div>
+              <div class="game-instruction">
+                Arrow right <span style="color: darkred">&#129146;</span> walk
+                right
+              </div>
+              <div class="game-instruction">
+                Arrow left <span style="color: darkred">&#129144;</span> walk
+                left
+              </div>
+            </div>
 
+            <div id="about" class="d-none">
+              Welcome to the Desert! Join Pepe, our brave hero, on his quest
+              through the burning sands of Mexico. Face the angry chickens,
+              collect salsa bottles, and prepare for the ultimate showdown
+              against the Endboss. El Pollo Loco is a tribute to classic arcade
+              platformers, combining fast-paced gameplay with a unique western
+              aesthetic. Grab your bottles and get ready for a spicy adventure!
+              <hr />
+              <p><small>Created with ❤️ in 2026</small></p>
+            </div>
+
+            <div id="legal" class="d-none">
+              <h4>Game Title</h4>
+              El Pollo Loco
+
+              <h4>Publisher</h4>
+              Emin Fatih Halici Waldschulstraße 57 65933 Frankfurt a. Main
+              Germany
+
+              <h4>Contact</h4>
+              Email: halicieminfatih@gmail.com Phone: 017687336598
+
+              <h4>Disclaimer</h4>
+              The contents of this game were created with care. However, we
+              cannot guarantee the accuracy, completeness, or timeliness of the
+              content.
+
+              <h4>Liability for Links</h4>
+              Our game may contain links to external websites we cannot control.
+              We are not responsible for the content of these websites. The
+              provider or operator is always responsible for their content.
+
+              <h4>Privacy Policy</h4>
+              We respect your privacy and do not collect personal data without
+              your consent. Any information you choose to provide (such as
+              through contact forms or support requests) will be handled
+              securely and never shared with third parties, except as required
+              by law.
+
+              <h4>Copyright</h4>
+              All graphics, sounds, and texts in this game are protected by
+              copyright. Any reproduction, distribution, or public reproduction
+              requires prior written consent from the copyright holder.
+            </div>
+          </div>
         </div>
+        <img
+          id="introImage"
+          src="img/9_intro_outro_screens/start/startscreen_1.png"
+        />
+        <button onclick="startGame()" class="play-btn">PLAY NOW</button>
+      </div>
 
+      <div class="game-canvas-div" id="cover">
+        <canvas id="canvas" width="720" height="480"> </canvas>
 
-        <div id="gameOverScreen" class="game-over-screen">
-            <img src="img/You won, you lost/You lost.png">
-            <button onclick="startGame()" class="play-btn">RESTART</button>
+        <div class="ingame-controls">
+          <button id="pause-btn" class="d-none" onclick="togglePause()">
+            <img src="img/pause-fill.svg" id="pause-icon" />
+          </button>
+
+          <button id="mute-btn" class="d-none" onclick="toggleMute()">
+            <img src="img/volume-up-fill.svg" id="mute-icon" />
+          </button>
+
+          <button class="d-none" id="fullscreen">
+            <img src="img/fullscreen.svg" id="fullscreen-icon" />
+          </button>
         </div>
+      </div>
 
-        <div id="winScreen" class="game-over-screen">
-            <img src="img/You won, you lost/You win B.png">
-            <button onclick="startGame()" class="play-btn">RESTART</button>
-        </div>
+      <div id="gameOverScreen" class="game-over-screen">
+        <img src="img/You won, you lost/You lost.png" />
+        <button onclick="startGame()" class="play-btn">RESTART</button>
+      </div>
 
-
-
-
+      <div id="winScreen" class="game-over-screen">
+        <img src="img/You won, you lost/You win B.png" />
+        <button onclick="startGame()" class="play-btn">RESTART</button>
+      </div>
     </main>
 
-    <footer>
-
-    </footer>
-
-</body>
-
+    <footer></footer>
+  </body>
 </html>
