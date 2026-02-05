@@ -343,6 +343,7 @@ footer {
   color: #f4e4bc;
   transform: translateY(4px);
   box-shadow: none;
+  gap: 30px;
 }
 .ingame-controls {
   position: absolute;
