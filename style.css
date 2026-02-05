@@ -91,7 +91,6 @@ footer {
 #instruction, #about, #legal {
     padding: 30px;
     max-height: 400px;
-    text-align: left;
 }
 
 .start-screen:fullscreen {
@@ -105,6 +104,19 @@ footer {
     position: absolute;
     z-index: -1;
     border-radius: 10px;
+}
+
+#legal h4 {
+    color: #8B0000;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    font-size: 18px;
+    border-bottom: 1px solid rgba(139, 0, 0, 0.2);
+}
+
+#legal p {
+    margin-bottom: 20px;
+    line-height: 1.4;
 }
 
 
@@ -223,6 +235,7 @@ footer {
     color: #333;
     position: relative;
     box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    scroll-behavior: smooth;
 }
 
 .info-btn{
