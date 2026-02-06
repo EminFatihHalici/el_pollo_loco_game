@@ -58,7 +58,6 @@ class World {
     this.addInterval(id1);
 
     let id2 = setInterval(() => {
-      // this.checkCollisions();
       if (this.gamePaused) return;
       this.splashedBottlesCleanUp();
       this.cleanUpEnemies();
@@ -83,15 +82,6 @@ class World {
       this.keyboard.D = false;
     }
   }
-
-  // checkCollisions() {
-  //     this.level.enemies.forEach((enemy) => {
-  //         if (this.character.isColliding(enemy) && !enemy.isDead()) {
-  //             this.character.hit(5);
-  //             console.log('Energy ', this.character.energy);
-  //         }
-  //     });
-  // }
 
   collisionBottlesWithEnemies() {
     for (let i = this.throwableObjects.length - 1; i >= 0; i--) {
@@ -222,8 +212,8 @@ class World {
   }
 
   draw() {
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); //Löscht die vorherigen Bilder im Canvas
-    this.ctx.translate(this.camera_x, 0); //Verschiebe das Koordinatensystem nach links
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.ctx.translate(this.camera_x, 0);
     this.addObjectsToMap(this.level.backgroundObjects);
 
     this.ctx.translate(-this.camera_x, 0);
@@ -248,7 +238,7 @@ class World {
     this.statusBarHealth.setPercantage(this.character.energy);
 
     this.addObjectsToMap(this.level.enemies);
-    this.ctx.translate(-this.camera_x, 0); //Verschiebe das Koordinatensystem zurück
+    this.ctx.translate(-this.camera_x, 0);
 
     if (this.gamePaused) {
       this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
@@ -261,14 +251,12 @@ class World {
       this.ctx.shadowBlur = 0;
     }
 
-    //draw() wird immer wieder aufgerufen
     let self = this;
     requestAnimationFrame(function () {
       self.draw();
     });
   }
 
-  //vereinfache die Schleifen // eine für alle
   addObjectsToMap(objects) {
     objects.forEach((o) => {
       this.addToMap(o);
@@ -279,11 +267,7 @@ class World {
     if (mo.otherDirection) {
       this.flipImage(mo);
     }
-
     mo.draw(this.ctx);
-
-    // mo.drawFrame(this.ctx); // Rahmen um Objekte zum Testen
-
     if (mo.otherDirection) {
       this.flipImageBack(mo);
     }
@@ -291,9 +275,7 @@ class World {
 
   flipImage(mo) {
     this.ctx.save();
-    // verschiebe das Koordinatensystem
     this.ctx.translate(mo.width, 0);
-    // Spiegeln
     this.ctx.scale(-1, 1);
     mo.x = mo.x * -1;
   }
@@ -319,13 +301,6 @@ class World {
   addInterval(id) {
     this.intervalIds.push(id);
   }
-
-  /*     stopGame() {
-        this.intervalIds.forEach(id => {
-            clearInterval(id);
-        });
-        this.backgroundSound.pause();
-    } */
 
   stopGame() {
     this.intervalIds.forEach((id) => clearInterval(id));

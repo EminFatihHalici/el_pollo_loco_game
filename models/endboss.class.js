@@ -119,27 +119,6 @@ class Endboss extends MovableObject {
     }, 150);
   }
 
-  /* attack() {
-    this.isAttacking = true;
-    this.speed = 0;
-    this.setStoppableInterval(() => {
-      if (this.currentDistance < 200) {
-        this.world.character.hit(10);
-        this.world.statusBarHealth.setPercantage(this.world.character.energy);
-      }
-    }, 400);
-
-    this.setStoppableInterval(() => {
-      if (this.otherDirection) {
-        this.x -= 150;
-      } else {
-        this.x += 150;
-      }
-      this.isAttacking = false;
-      this.speed = 5;
-    }, 1000);
-  } */
-
   attack() {
     this.isAttacking = true;
     this.speed = 0;

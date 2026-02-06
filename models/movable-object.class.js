@@ -29,7 +29,7 @@ class MovableObject extends DrawableObject {
     if (this.energy < 0) {
       this.energy = 0;
     } else {
-      this.lastHit = new Date().getTime(); // letzter Zeitpunkt der Verletzung
+      this.lastHit = new Date().getTime();
     }
   }
 
@@ -43,7 +43,6 @@ class MovableObject extends DrawableObject {
     return timepassed < 1;
   }
 
-  //character.isColliding(chicken);
   isColliding(mo) {
     return (
       this.x + this.width - this.offset.right > mo.x + mo.offset.left &&
@@ -53,10 +52,9 @@ class MovableObject extends DrawableObject {
     );
   }
 
-  // Abfrage
   isAboveGround() {
     if (this instanceof ThrowableObject) {
-      return true; // Flaschen fallen immer
+      return true;
     } else {
       return this.y < this.groundLevel;
     }
@@ -81,14 +79,6 @@ class MovableObject extends DrawableObject {
   jump() {
     this.speedY = 30;
   }
-
-  /*     setStoppableInterval(fn, time) {
-        let id = setInterval(fn, time);
-        if (this.world) {
-            this.world.addInterval(id);
-        }
-        return id;
-    } */
 
   setStoppableInterval(fn, time) {
     let id = setInterval(() => {

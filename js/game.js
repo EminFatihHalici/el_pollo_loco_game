@@ -19,12 +19,6 @@ function init() {
   checkOrientation();
   renderStartScreen();
 }
-//hard stop
-// function stopAllIntervals() {
-//     for (let i = 1; i < 9999; i++) {
-//         window.clearInterval(i);
-//     }
-// }
 
 // rendering both intro pics
 function renderStartScreen() {
@@ -55,24 +49,6 @@ function startGame() {
   document.getElementById("fullscreen").classList.remove("d-none");
 }
 
-/* function toggleFullscreen() {
-  let container = document.getElementById("cover");
-  let icon = document.getElementById("fullscreen-icon");
-  if (!document.fullscreenElement) {
-    if (container.requestFullscreen) {
-      container.requestFullscreen();
-    } else if (container.webkitRequestFullscreen) {
-      container.webkitRequestFullscreen();
-    }
-    this.icon.src = "img/fullscreen-exit.svg";
-  } else {
-    if (document.exitFullscreen) {
-      document.exitFullscreen();
-    }
-    this.icon.src = "img/fullscreen.svg";
-  }
-}
- */
 function exitFullscreen() {
   if (document.fullscreenElement) {
     document.exitFullscreen();
