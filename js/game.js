@@ -109,12 +109,17 @@ function toggleMute() {
 
 function checkOrientation() {
   let rotateElement = document.getElementById("rotateDevice");
+  let gameContainer = document.getElementById("game-container");
+
   let isPortrait = window.innerHeight > window.innerWidth;
-  let isTooSmall = window.innerWidth < 720;
-  if (isPortrait && isTooSmall) {
+  let isMobile = window.innerWidth < 1024;
+
+  if (isPortrait && isMobile) {
     rotateElement.classList.remove("d-none");
+    gameContainer.classList.add("d-none");
   } else {
     rotateElement.classList.add("d-none");
+    gameContainer.classList.remove("d-none");
   }
 }
 
