@@ -499,6 +499,14 @@ footer {
     margin-top: 0;
   }
 
+  .overlay {
+    height: 100dvh;
+  }
+
+  .info-card {
+    max-height: 85dvh;
+  }
+
   .ingame-controls {
     display: flex;
     bottom: 25px;
