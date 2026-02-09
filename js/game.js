@@ -18,6 +18,7 @@ function init() {
   canvas = document.getElementById("canvas");
   checkOrientation();
   renderStartScreen();
+  bindTouchEvents();
 }
 
 // rendering both intro pics
