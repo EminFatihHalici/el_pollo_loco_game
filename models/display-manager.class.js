@@ -23,8 +23,9 @@ class DisplayManager {
   }
 
   toggleFullscreen() {
+    let element = document.getElementById("game-container");
     if (!document.fullscreenElement) {
-      this.wrapper.requestFullscreen();
+      element.requestFullscreen();
     } else {
       document.exitFullscreen();
     }
