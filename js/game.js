@@ -18,6 +18,7 @@ function init() {
   canvas = document.getElementById("canvas");
   checkOrientation();
   renderStartScreen();
+  bindTouchEvents();
 }
 
 // rendering both intro pics
@@ -47,6 +48,8 @@ function startGame() {
   document.getElementById("mute-btn").classList.remove("d-none");
   document.getElementById("pause-btn").classList.remove("d-none");
   document.getElementById("fullscreen").classList.remove("d-none");
+  document.getElementById("startScreen").classList.add("d-none");
+  document.getElementById("mobile-controls").classList.remove("d-none");
 }
 
 function exitFullscreen() {

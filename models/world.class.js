@@ -310,6 +310,7 @@ class World {
     });
     this.backgroundSound.pause();
     document.getElementById("pause-btn").classList.add("d-none");
+    document.getElementById("mobile-controls").classList.add("d-none");
   }
 
   checkGameOver() {
