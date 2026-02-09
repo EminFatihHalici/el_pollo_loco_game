@@ -456,25 +456,29 @@ footer {
   }
 }
 
-@media screen and (orientation: landscape) and (max-height: 480px) {
+@media screen and (orientation: landscape) and (max-height: 500px) {
   body {
-    height: 100vh;
+    height: 100dvh;
     width: 100vw;
     overflow: hidden;
     gap: 0;
   }
 
-  .game-container {
+  .game-container,
+  #game-container {
     width: 100vw;
-    height: 100vh;
+    height: 100dvh;
     max-width: none;
     max-height: none;
     border-radius: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   canvas {
     width: auto;
-    height: 100vh;
+    height: 100dvh;
     max-width: 100vw;
     object-fit: contain;
     border-radius: 0;
@@ -493,5 +497,12 @@ footer {
 
   .play-btn {
     margin-top: 0;
+  }
+
+  .ingame-controls {
+    display: flex;
+    bottom: 25px;
+    right: 25px;
+    gap: 20px;
   }
 }
