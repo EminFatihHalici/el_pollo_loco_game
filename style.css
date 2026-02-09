@@ -415,6 +415,10 @@ footer {
   margin: 5px auto;
 }
 
+.mobile-controls-wrapper {
+  display: none;
+}
+
 @keyframes rotateHandy {
   0% {
     transform: rotate(0deg);
@@ -513,4 +517,55 @@ footer {
     right: 25px;
     gap: 20px;
   }
+
+  .mobile-controls-wrapper {
+    display: flex;
+    position: absolute;
+    bottom: 12px;
+    left: 0;
+    right: 0;
+    justify-content: space-between;
+    padding: 0 15px;
+    z-index: 1000;
+    pointer-events: none;
+  }
+
+  .control-btn,
+  .ingame-controls button {
+    width: 45px;
+    height: 45px;
+    background-color: rgba(0, 0, 0, 0.4);
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.1s ease;
+    cursor: pointer;
+  }
+
+  .control-btn:active,
+  .ingame-controls button:active {
+    background-color: rgba(255, 255, 255, 0.3);
+    transform: scale(0.9);
+  }
+
+  .movement-side,
+  .action-side {
+    display: flex;
+    gap: 8px;
+    pointer-events: auto;
+  }
+
+  .control-btn img,
+  .ingame-controls img {
+    width: 22px;
+    height: 22px;
+    filter: invert(1);
+  }
+}
+
+:fullscreen .mobile-controls-wrapper,
+:-webkit-full-screen .mobile-controls-wrapper {
+  display: flex;
 }
