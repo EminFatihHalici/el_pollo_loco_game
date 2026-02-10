@@ -232,7 +232,7 @@ footer {
   overflow: hidden;
   border-radius: 10px;
 }
-
+/* 
 .game-over-screen img {
   width: auto;
   max-width: 80%;
@@ -240,7 +240,7 @@ footer {
   border-radius: 10px;
   max-height: 50%;
   object-fit: contain;
-}
+} */
 
 .overlay {
   position: fixed;
@@ -522,9 +522,7 @@ footer {
     display: flex;
     position: absolute;
     bottom: 60px;
-    left: 4;
-    right: 4;
-    width: 100%;
+    width: 98%;
     height: 100%;
     align-items: flex-end;
     justify-content: space-between;
