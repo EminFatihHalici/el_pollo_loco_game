@@ -35,6 +35,14 @@ function renderStartScreen() {
 
 //function to dissappear the intro pic and show the canvas
 function startGame() {
+  if (winMusic) {
+    winMusic.pause();
+    winMusic.currentTime = 0;
+  }
+  if (loseMusic) {
+    loseMusic.pause();
+    loseMusic.currentTime = 0;
+  }
   document.getElementById("loader").classList.remove("d-none");
   setTimeout(() => {
     let currentMuteState = world ? world.gameMuted : false;
