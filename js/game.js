@@ -10,6 +10,8 @@ let intervalId;
 let introMusic;
 let winMusic;
 let loseMusic;
+let totalImages = 0;
+let imagesLoaded = 0;
 
 function init() {
   introMusic = new Sound("audio/intro.mp3");
@@ -19,6 +21,7 @@ function init() {
   checkOrientation();
   renderStartScreen();
   bindTouchEvents();
+  preloadAllAssets();
 }
 
 // rendering both intro pics
@@ -32,24 +35,27 @@ function renderStartScreen() {
 
 //function to dissappear the intro pic and show the canvas
 function startGame() {
-  let currentMuteState = world ? world.gameMuted : false;
-  introMusic.play();
-  introMusic.volume(0.06);
-  initLevel();
-  if (world) {
-    world.stopGame();
-  }
-  document.getElementById("startScreen").classList.add("d-none");
-  document.getElementById("gameOverScreen").classList.add("d-none");
-  document.getElementById("winScreen").classList.add("d-none");
-  world = new World(canvas, keyboard);
-  world.gameMuted = currentMuteState;
-  world.updateAllSounds();
-  document.getElementById("mute-btn").classList.remove("d-none");
-  document.getElementById("pause-btn").classList.remove("d-none");
-  document.getElementById("fullscreen").classList.remove("d-none");
-  document.getElementById("startScreen").classList.add("d-none");
-  document.getElementById("mobile-controls").classList.remove("d-none");
+  document.getElementById("loader").classList.remove("d-none");
+  setTimeout(() => {
+    let currentMuteState = world ? world.gameMuted : false;
+    introMusic.play();
+    introMusic.volume(0.06);
+    initLevel();
+    if (world) {
+      world.stopGame();
+    }
+    document.getElementById("startScreen").classList.add("d-none");
+    document.getElementById("gameOverScreen").classList.add("d-none");
+    document.getElementById("winScreen").classList.add("d-none");
+    world = new World(canvas, keyboard);
+    world.gameMuted = currentMuteState;
+    world.updateAllSounds();
+    document.getElementById("mute-btn").classList.remove("d-none");
+    document.getElementById("pause-btn").classList.remove("d-none");
+    document.getElementById("fullscreen").classList.remove("d-none");
+    document.getElementById("startScreen").classList.add("d-none");
+    document.getElementById("mobile-controls").classList.remove("d-none");
+  }, 500);
 }
 
 function exitFullscreen() {
@@ -135,6 +141,28 @@ function openTab(tabId) {
   let buttons = document.querySelectorAll(".tab-nav button");
   buttons.forEach((b) => b.classList.remove("active"));
   event.currentTarget.classList.add("active");
+}
+
+function preloadAllAssets() {
+  new Bottles();
+  new Character();
+  new Chicken();
+  new Cloud();
+  new Coins();
+  new Endboss();
+  new SmallChicken();
+  new StatusBarBottle();
+  new StatusBarCoin();
+  new StatusBarEndboss();
+  new StatusBarHealth();
+  new ThrowableObject();
+}
+
+function imageLoaded() {
+  imagesLoaded++;
+  if (imagesLoaded >= totalImages && totalImages > 0) {
+    document.getElementById("loader").classList.add("d-none");
+  }
 }
 
 //adding event listeners to detect key presses
