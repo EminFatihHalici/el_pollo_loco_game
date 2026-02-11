@@ -167,9 +167,13 @@ function preloadAllAssets() {
 }
 
 function imageLoaded() {
-  imagesLoaded++;
-  if (imagesLoaded >= totalImages && totalImages > 0) {
-    document.getElementById("loader").classList.add("d-none");
+  try {
+    imagesLoaded++;
+    if (imagesLoaded >= totalImages && totalImages > 0) {
+      document.getElementById("loader").classList.add("d-none");
+    }
+  } catch (e) {
+    console.log("No Images" + e);
   }
 }
 
