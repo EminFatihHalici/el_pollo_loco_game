@@ -13,6 +13,7 @@ class DrawableObject {
     this.img.onload = () => {
       imageLoaded();
     };
+    this.img.onerror = () => imageLoaded();
     this.img.src = path;
   }
 
@@ -55,6 +56,7 @@ class DrawableObject {
       img.onload = () => {
         imageLoaded();
       };
+      img.onerror = () => imageLoaded();
       img.src = path;
       this.imageCache[path] = img;
     });
