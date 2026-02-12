@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: models/chicken.class.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: models/chicken.class.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/** * Simple enemy chicken that walks left and dies upon impact.
+ * @extends MovableObject
+ */
+class Chicken extends MovableObject {
+  width = 80;
+  height = 80;
+  y = 380;
+  isGone = false;
+  deathTimerStarted = false;
+  chickenDeadSound = new Sound("audio/rooster_crowing.mp3");
+
+  offset = {
+    top: 10,
+    bottom: 5,
+    left: 5,
+    right: 5,
+  };
+
+  IMAGES_WALKING = [
+    "img/3_enemies_chicken/chicken_normal/1_walk/1_w.png",
+    "img/3_enemies_chicken/chicken_normal/1_walk/2_w.png",
+    "img/3_enemies_chicken/chicken_normal/1_walk/3_w.png",
+  ];
+
+  IMAGES_DEAD = ["img/3_enemies_chicken/chicken_normal/2_dead/dead.png"];
+
+  /** @param {number} x - Initial horizontal position */
+  constructor(x) {
+    super().loadImage("img/3_enemies_chicken/chicken_normal/1_walk/1_w.png");
+    this.x = x || 200 + Math.random() * 500;
+    this.loadImages(this.IMAGES_WALKING);
+    this.loadImages(this.IMAGES_DEAD);
+    this.chickenDeadSound.volume(0.3);
+    this.speed = 0.15 + Math.random() * 0.25;
+  }
+
+  /** Starts movement and animation loops */
+  animate() {
+    this.setStoppableInterval(
+      () => !this.isDead() &amp;&amp; this.moveLeft(),
+      1000 / 60,
+    );
+    this.setStoppableInterval(() => this.updateAnimation(), 200);
+  }
+
+  /** Updates the visual state based on life status (7 LOC) */
+  updateAnimation() {
+    if (!this.isDead()) {
+      this.playAnimation(this.IMAGES_WALKING);
+    } else {
+      this.playAnimation(this.IMAGES_DEAD);
+      this.handleDeath();
+    }
+  }
+
+  /** Handles the removal of the chicken after death */
+  handleDeath() {
+    if (!this.deathTimerStarted) {
+      this.deathTimerStarted = true;
+      setTimeout(() => (this.isGone = true), 1000);
+    }
+  }
+
+  /** @param {number} damage - Kills the chicken instantly by default */
+  hit(damage = 100) {
+    if (!this.isDead()) {
+      super.hit(damage);
+      this.chickenDeadSound.play();
+      setTimeout(() => {
+        this.isGone = true;
+      }, 1000);
+    }
+  }
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="BackgroundObject.html">BackgroundObject</a></li><li><a href="Bottles.html">Bottles</a></li><li><a href="Character.html">Character</a></li><li><a href="Chicken.html">Chicken</a></li><li><a href="Cloud.html">Cloud</a></li><li><a href="Coins.html">Coins</a></li><li><a href="CollisionHandler.html">CollisionHandler</a></li><li><a href="DisplayManager.html">DisplayManager</a></li><li><a href="DrawableObject.html">DrawableObject</a></li><li><a href="Endboss.html">Endboss</a></li><li><a href="Keyboard.html">Keyboard</a></li><li><a href="Level.html">Level</a></li><li><a href="MovableObject.html">MovableObject</a></li><li><a href="SmallChicken.html">SmallChicken</a></li><li><a href="Sound.html">Sound</a></li><li><a href="StatusBarBottle.html">StatusBarBottle</a></li><li><a href="StatusBarCoin.html">StatusBarCoin</a></li><li><a href="StatusBarEndboss.html">StatusBarEndboss</a></li><li><a href="StatusBarHealth.html">StatusBarHealth</a></li><li><a href="ThrowableObject.html">ThrowableObject</a></li><li><a href="World.html">World</a></li></ul><h3>Global</h3><ul><li><a href="global.html#aboutTemplate">aboutTemplate</a></li><li><a href="global.html#backToMenu">backToMenu</a></li><li><a href="global.html#bindTouchEvents">bindTouchEvents</a></li><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#checkOrientation">checkOrientation</a></li><li><a href="global.html#createLevelBackground">createLevelBackground</a></li><li><a href="global.html#createLevelBottles">createLevelBottles</a></li><li><a href="global.html#createLevelCoins">createLevelCoins</a></li><li><a href="global.html#createLevelEnemies">createLevelEnemies</a></li><li><a href="global.html#exitFullscreen">exitFullscreen</a></li><li><a href="global.html#hideScreens">hideScreens</a></li><li><a href="global.html#imageLoaded">imageLoaded</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initLevel">initLevel</a></li><li><a href="global.html#initializeWorld">initializeWorld</a></li><li><a href="global.html#instructionTemplate">instructionTemplate</a></li><li><a href="global.html#legalTemplate">legalTemplate</a></li><li><a href="global.html#level1">level1</a></li><li><a href="global.html#openTab">openTab</a></li><li><a href="global.html#playIntroMusic">playIntroMusic</a></li><li><a href="global.html#preloadAllAssets">preloadAllAssets</a></li><li><a href="global.html#renderStartScreen">renderStartScreen</a></li><li><a href="global.html#resetMusic">resetMusic</a></li><li><a href="global.html#showAboutTemplate">showAboutTemplate</a></li><li><a href="global.html#showInstructionTemplate">showInstructionTemplate</a></li><li><a href="global.html#showLegalTemplate">showLegalTemplate</a></li><li><a href="global.html#showLoader">showLoader</a></li><li><a href="global.html#showLostScreen">showLostScreen</a></li><li><a href="global.html#showWinScreen">showWinScreen</a></li><li><a href="global.html#startGame">startGame</a></li><li><a href="global.html#toggleMute">toggleMute</a></li><li><a href="global.html#toggleOverlay">toggleOverlay</a></li><li><a href="global.html#togglePause">togglePause</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Thu Feb 12 2026 14:40:38 GMT+0100 (Central European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
