@@ -144,7 +144,7 @@ class Character extends MovableObject {
       const isMoving = this.world.keyboard.RIGHT || this.world.keyboard.LEFT;
       const idleTime = this.calculateIdleTime();
       const isLongIdle =
-        idleTime > 5 &&
+        idleTime > 10 &&
         !this.isAboveGround() &&
         !this.isDead() &&
         !isMoving &&
@@ -160,7 +160,7 @@ class Character extends MovableObject {
         this.playAnimation(this.IMAGES_WALKING);
       } else if (isLongIdle) {
         this.playAnimation(this.IMAGES_LONG_IDLE);
-      } else if (idleTime > 2) {
+      } else if (idleTime > 3) {
         this.playAnimation(this.IMAGES_IDLE);
       }
       this.handleSnoreSound(isLongIdle);
