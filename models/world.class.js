@@ -318,15 +318,32 @@ class World {
     if (this.character.isDead()) {
       setTimeout(() => {
         this.stopGame();
+        this.cleanUp();
         showLostScreen();
       }, 1000);
     } else if (this.endbossDead()) {
       this.gameEnded = true;
       setTimeout(() => {
         this.stopGame();
+        this.cleanUp();
         showWinScreen();
       }, 1750);
     }
+  }
+
+  cleanUp() {
+    keyboard = {
+      LEFT: false,
+      RIGHT: false,
+      UP: false,
+      SPACE: false,
+      D: false,
+      SPACE: false,
+    };
+    document.querySelectorAll("audio").forEach((audio) => {
+      audio.pause();
+      audio.currentTime = 0;
+    });
   }
 
   endbossDead() {
