@@ -121,8 +121,6 @@ class Character extends MovableObject {
     "img/2_character_pepe/1_idle/long_idle/I-20.png",
   ];
 
-  /*  currentImage = 0; */
-
   constructor() {
     super().loadImage("img/2_character_pepe/1_idle/idle/I-1.png");
     this.loadImages(this.IMAGES_WALKING);
@@ -137,7 +135,6 @@ class Character extends MovableObject {
     this.snoreSound.volume(0.3);
   }
 
-  //currentImage is increased every second to change the image of the character and length calculated with modulo operator
   animate() {
     this.setStoppableInterval(() => {
       if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {

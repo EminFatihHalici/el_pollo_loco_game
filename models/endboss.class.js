@@ -71,109 +71,137 @@ class Endboss extends MovableObject {
   }
 
   animate() {
-    this.setStoppableInterval(() => {
-      if (this.world && this.world.character) {
-        this.bossMid = this.x + this.width / 2;
-        this.characterMid =
-          this.world.character.x + this.world.character.width / 2;
-        this.currentDistance = Math.abs(this.bossMid - this.characterMid);
-      } else {
-        this.currentDistance = 0;
-      }
-    }, 1000 / 60);
+    this.setStoppableInterval(() => this.updateDistance(), 1000 / 60);
+    this.setStoppableInterval(() => this.handleMovement(), 1000 / 60);
+    this.setStoppableInterval(() => this.playCurrentAnimation(), 150);
+  }
 
-    this.setStoppableInterval(() => {
-      if (
-        !this.hadFirstContact ||
-        this.isDead() ||
-        this.isAttacking ||
-        this.isStunned
-      )
-        return;
-      this.bossMid = this.x + this.width / 2;
-      this.characterMid =
-        this.world.character.x + this.world.character.width / 2;
-      if (this.currentDistance < 100) {
-        this.attack();
-      } else if (this.characterMid < this.bossMid - 50) {
-        this.moveLeft();
-        this.otherDirection = false;
-      } else if (this.characterMid > this.bossMid + 50) {
-        this.moveRight();
-        this.otherDirection = true;
-      }
-    }, 1000 / 60);
+  updateDistance() {
+    if (this.world && this.world.character) {
+      this.currentDistance = Math.abs(
+        this.getBossMid() - this.getCharacterMid(),
+      );
+    } else {
+      this.currentDistance = 0;
+    }
+  }
 
-    this.setStoppableInterval(() => {
-      if (this.isDead()) {
-        this.playAnimation(this.IMAGES_DEAD);
-      } else if (this.isHurt()) {
-        this.playAnimation(this.IMAGES_HURT);
-      } else if (this.isStunned) {
-        this.playAnimation(this.IMAGES_ALERT);
-      } else if (this.isAttacking) {
-        this.playAnimation(this.IMAGES_ATTACK);
-      } else if (this.hadFirstContact) {
-        this.playAnimation(this.IMAGES_WALKING);
-      }
-    }, 150);
+  handleMovement() {
+    if (this.shouldNotMove()) return;
+    if (this.currentDistance < 100) {
+      this.attack();
+    } else {
+      this.moveBasedOnCharacter();
+    }
+  }
+
+  playCurrentAnimation() {
+    if (this.isDead()) {
+      this.playAnimation(this.IMAGES_DEAD);
+    } else if (this.isHurt()) {
+      this.playAnimation(this.IMAGES_HURT);
+    } else if (this.isStunned) {
+      this.playAnimation(this.IMAGES_ALERT);
+    } else if (this.isAttacking) {
+      this.playAnimation(this.IMAGES_ATTACK);
+    } else if (this.hadFirstContact) {
+      this.playAnimation(this.IMAGES_WALKING);
+    }
+  }
+
+  getBossMid() {
+    return this.x + this.width / 2;
+  }
+
+  getCharacterMid() {
+    return this.world.character.x + this.world.character.width / 2;
+  }
+
+  shouldNotMove() {
+    return (
+      !this.hadFirstContact ||
+      this.isDead() ||
+      this.isAttacking ||
+      this.isStunned
+    );
+  }
+
+  moveBasedOnCharacter() {
+    const bossMid = this.getBossMid();
+    const characterMid = this.getCharacterMid();
+    if (characterMid < bossMid - 50) {
+      this.moveLeft();
+      this.otherDirection = false;
+    } else if (characterMid > bossMid + 50) {
+      this.moveRight();
+      this.otherDirection = true;
+    }
   }
 
   attack() {
     this.isAttacking = true;
     this.speed = 0;
 
-    let attackInterval = setInterval(() => {
-      if (this.currentDistance < 200 && !this.isDead()) {
-        this.world.character.hit(10);
-        this.world.statusBarHealth.setPercantage(this.world.character.energy);
+    const attackInterval = this.startAttackInterval();
+    setTimeout(() => this.endAttack(attackInterval), 800);
+  }
+
+  startAttackInterval() {
+    return setInterval(() => {
+      if (this.canAttack()) {
+        this.performAttack();
       }
     }, 400);
+  }
 
-    setTimeout(() => {
-      clearInterval(attackInterval);
+  canAttack() {
+    return this.currentDistance < 200 && !this.isDead();
+  }
 
-      if (this.otherDirection) {
-        this.x -= 150;
-      } else {
-        this.x += 150;
-      }
-      this.isAttacking = false;
-      this.speed = 5;
-    }, 800);
+  performAttack() {
+    this.world.character.hit(10);
+    this.world.statusBarHealth.setPercantage(this.world.character.energy);
+  }
+
+  endAttack(attackInterval) {
+    clearInterval(attackInterval);
+    this.adjustPositionAfterAttack();
+    this.isAttacking = false;
+    this.speed = 5;
+  }
+
+  adjustPositionAfterAttack() {
+    this.x += this.otherDirection ? -150 : 150;
   }
 
   hit(damage) {
     if (this.world.gameEnded || this.isDead()) return;
     super.hit(damage);
     this.isStunned = true;
-    this.endbossHurtSound.currentTime = 2.0;
-    this.endbossHurtSound.play();
+    this.playHurtSound();
 
     if (this.energy > 0) {
-      setTimeout(() => {
-        let levelEnd = 4500;
-        let levelStart = 2000;
-
-        if (this.world.character.x < this.x) {
-          if (this.x + 160 < levelEnd) {
-            this.x += 160;
-          } else {
-            this.x = levelEnd;
-          }
-        } else {
-          if (this.x - 160 > levelStart) {
-            this.x -= 160;
-          } else {
-            this.x = levelStart;
-          }
-        }
-      }, 200);
-
-      setTimeout(() => {
-        this.isStunned = false;
-      }, 1500);
+      this.handlePositionAfterHit();
+      this.resetStun();
     }
+  }
+
+  playHurtSound() {
+    this.endbossHurtSound.currentTime = 2.0;
+    this.endbossHurtSound.play();
+  }
+
+  handlePositionAfterHit() {
+    setTimeout(() => {
+      this.x +=
+        this.world.character.x < this.x
+          ? Math.min(160, 4500 - this.x)
+          : Math.max(-160, 2000 - this.x);
+    }, 200);
+  }
+
+  resetStun() {
+    setTimeout(() => (this.isStunned = false), 1500);
   }
 
   isAboveGround() {

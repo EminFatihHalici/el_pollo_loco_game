@@ -22,9 +22,7 @@ class StatusBarBottle extends DrawableObject {
   }
 
   animate() {
-    setInterval(() => {
-      // this.playAnimation(this.IMAGES);
-    }, 200);
+    setInterval(() => {}, 200);
   }
 
   setPercantage(percentage) {

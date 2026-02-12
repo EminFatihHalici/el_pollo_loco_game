@@ -50,7 +50,6 @@ class Sound {
     this.registerWorld();
     this.audio.loop = true;
     let playPromise = this.audio.play();
-
     if (playPromise !== undefined) {
       playPromise.catch((error) => {
         console.warn("Audio loop interrupted:", error.message);

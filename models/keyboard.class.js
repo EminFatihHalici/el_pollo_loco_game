@@ -15,18 +15,14 @@ function bindTouchEvents() {
     "btn-throw": "D",
   };
 
-  Object.keys(controls).forEach((id) => {
+  Object.entries(controls).forEach(([id, key]) => {
     const btn = document.getElementById(id);
-    const key = controls[id];
-
-    btn.addEventListener("touchstart", (e) => {
-      e.preventDefault();
-      keyboard[key] = true;
-    });
-
-    btn.addEventListener("touchend", (e) => {
-      e.preventDefault();
-      keyboard[key] = false;
-    });
+    btn.addEventListener("touchstart", (e) => handleTouch(e, key, true));
+    btn.addEventListener("touchend", (e) => handleTouch(e, key, false));
   });
+}
+
+function handleTouch(event, key, state) {
+  event.preventDefault();
+  keyboard[key] = state;
 }
