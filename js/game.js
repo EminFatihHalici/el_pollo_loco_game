@@ -22,6 +22,9 @@ function init() {
   renderStartScreen();
   bindTouchEvents();
   preloadAllAssets();
+  showInstructionTemplate();
+  showAboutTemplate();
+  showLegalTemplate();
 }
 
 // rendering both intro pics
@@ -179,6 +182,24 @@ function imageLoaded() {
 
 function backToMenu() {
   location.reload();
+}
+
+function showInstructionTemplate() {
+  let container = document.getElementById("instruction");
+  container.innerHTML = "";
+  container.innerHTML += instructionTemplate();
+}
+
+function showAboutTemplate() {
+  let container = document.getElementById("about");
+  container.innerHTML = "";
+  container.innerHTML += aboutTemplate();
+}
+
+function showLegalTemplate() {
+  let container = document.getElementById("legal");
+  container.innerHTML = "";
+  container.innerHTML += legalTemplate();
 }
 
 //adding event listeners to detect key presses
