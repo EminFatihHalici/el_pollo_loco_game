@@ -1,3 +1,5 @@
+/** * Small enemy chicken with faster movement and distinct sounds.
+ * @extends MovableObject */
 class SmallChicken extends MovableObject {
   width = 60;
   height = 60;
@@ -21,6 +23,7 @@ class SmallChicken extends MovableObject {
     right: 5,
   };
 
+  /** @param {number} x - Horizontal starting position */
   constructor(x) {
     super().loadImage("img/3_enemies_chicken/chicken_small/1_walk/1_w.png");
     this.x = x + Math.random() * 500;
@@ -30,17 +33,20 @@ class SmallChicken extends MovableObject {
     this.smallChickenDeadSound.volume(0.3);
   }
 
+  /** Starts movement and animation loops */
   animate() {
     this.setStoppableInterval(this.moveChicken.bind(this), 1000 / 60);
     this.setStoppableInterval(this.playChickenAnimation.bind(this), 200);
   }
 
+  /** Handles the leftward movement if alive */
   moveChicken() {
     if (!this.isDead()) {
       this.moveLeft();
     }
   }
 
+  /** Manages walking vs death animation frames */
   playChickenAnimation() {
     if (!this.isDead()) {
       this.playAnimation(this.IMAGES_WALKING);
@@ -50,6 +56,7 @@ class SmallChicken extends MovableObject {
     }
   }
 
+  /** Triggers the removal of the object after 1 second */
   startDeathTimer() {
     if (!this.deathTimerStarted) {
       this.deathTimerStarted = true;
@@ -59,6 +66,7 @@ class SmallChicken extends MovableObject {
     }
   }
 
+  /** @param {number} damage - Handles hit logic and death sound */
   hit(damage = 100) {
     if (!this.isDead()) {
       super.hit(damage);

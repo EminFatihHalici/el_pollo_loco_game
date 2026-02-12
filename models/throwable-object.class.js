@@ -1,3 +1,5 @@
+/** * Projectile object with parabolic flight path and splash effect.
+ * @extends MovableObject */
 class ThrowableObject extends MovableObject {
   offset = {
     top: 5,
@@ -23,6 +25,7 @@ class ThrowableObject extends MovableObject {
     "img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png",
   ];
 
+  /** @param {number} x @param {number} y @param {boolean} direction */
   constructor(x, y, direction) {
     super().loadImage(
       "img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png",
@@ -37,10 +40,12 @@ class ThrowableObject extends MovableObject {
     this.isBroken = false;
   }
 
+  /** Plays the bottle breaking sound */
   bottleSound() {
     this.splashSound.play();
   }
 
+  /** Initiates the throwing physics and animations */
   throw() {
     this.speedY = 15;
     this.applyGravity();
@@ -48,6 +53,7 @@ class ThrowableObject extends MovableObject {
     this.startAnimation();
   }
 
+  /** Sets up the horizontal movement interval */
   startMovement() {
     this.movementTimer = setInterval(() => {
       this.updatePosition();
@@ -58,14 +64,17 @@ class ThrowableObject extends MovableObject {
     this.addToWorld(this.movementTimer);
   }
 
+  /** Updates X-coordinate based on direction */
   updatePosition() {
     this.x += this.isLookingLeft ? -15 : 15;
   }
 
+  /** @returns {boolean} Checks if bottle hit ground or target */
   shouldSplash() {
     return this.y > 360 && !this.isBroken;
   }
 
+  /** Starts the rotation animation interval */
   startAnimation() {
     this.animationTimer = setInterval(() => {
       this.playAnimation(this.IMAGES_ROTATE);
@@ -73,12 +82,14 @@ class ThrowableObject extends MovableObject {
     this.addToWorld(this.animationTimer);
   }
 
+  /** @param {number} timer - Registers interval in the world for pausing */
   addToWorld(timer) {
     if (this.world) {
       this.world.addInterval(timer);
     }
   }
 
+  /** Handles the transition from flight to impact */
   splash() {
     this.stopMovement();
     this.bottleSound();
@@ -86,6 +97,7 @@ class ThrowableObject extends MovableObject {
     this.scheduleRemoval();
   }
 
+  /** Clears all physics and movement intervals */
   stopMovement() {
     clearInterval(this.movementTimer);
     clearInterval(this.animationTimer);
@@ -93,6 +105,7 @@ class ThrowableObject extends MovableObject {
     this.speedY = 0;
   }
 
+  /** Starts the splash animation sequence */
   startSplashAnimation() {
     this.splashTimer = setInterval(() => {
       this.playAnimation(this.IMAGES_SPLASH);
@@ -100,6 +113,7 @@ class ThrowableObject extends MovableObject {
     this.addToWorld(this.splashTimer);
   }
 
+  /** Removes the object from the game after animation finishes */
   scheduleRemoval() {
     setTimeout(() => {
       clearInterval(this.splashTimer);

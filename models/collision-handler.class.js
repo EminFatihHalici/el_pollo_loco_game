@@ -1,8 +1,11 @@
+/** * Handles all collision detection and resulting game logic. */
 class CollisionHandler {
+  /** @param {World} world - Reference to the game world */
   constructor(world) {
     this.world = world;
   }
 
+  /** Executes all collision and state checks */
   checkCollisions() {
     this.checkCharacterCollisionWithEnemy();
     this.checkThrowObjects();
@@ -13,6 +16,7 @@ class CollisionHandler {
     this.checkBossAttack();
   }
 
+  /** Checks if player initiates a bottle throw */
   checkThrowObjects() {
     if (this.canThrowBottle()) {
       const bottle = this.createBottle();
@@ -33,6 +37,7 @@ class CollisionHandler {
     return bottle;
   }
 
+  /** Updates bottle inventory and UI */
   updateBottleCount() {
     this.world.character.bottles--;
     const bottlePercent = this.world.character.bottles * 20;
@@ -40,6 +45,7 @@ class CollisionHandler {
     this.world.keyboard.D = false;
   }
 
+  /** Checks for collisions between thrown bottles and enemies */
   collisionBottlesWithEnemies() {
     this.world.throwableObjects.forEach((bottle) => {
       if (bottle.isBroken) return;
@@ -51,6 +57,7 @@ class CollisionHandler {
     });
   }
 
+  /** @param {Object} bottle @param {Object} enemy - Handles bottle impact logic */
   handleBottleCollision(bottle, enemy) {
     bottle.isBroken = true;
     bottle.splash();
@@ -66,6 +73,7 @@ class CollisionHandler {
     this.world.statusBarEndboss.setPercantage(enemy.energy);
   }
 
+  /** Sets character idle state based on keyboard input */
   checkCharacterIdle() {
     if (
       this.world.keyboard.LEFT == false &&
@@ -78,6 +86,7 @@ class CollisionHandler {
     }
   }
 
+  /** Checks for coin collection */
   checkCoinCollisions() {
     this.world.level.coins.forEach((coin, index) => {
       if (this.world.character.isColliding(coin)) {
@@ -90,6 +99,7 @@ class CollisionHandler {
     });
   }
 
+  /** Manages physical contact between character and enemies */
   checkCharacterCollisionWithEnemy() {
     this.world.level.enemies.forEach((enemy) => {
       if (this.shouldHandleCollision(enemy)) {
@@ -125,6 +135,7 @@ class CollisionHandler {
     this.world.statusBarHealth.setPercantage(this.world.character.energy);
   }
 
+  /** Checks for bottle item collection */
   checkBottleCollisions() {
     this.world.level.bottles.forEach((bottle, index) => {
       if (this.world.character.isColliding(bottle)) {
@@ -137,6 +148,7 @@ class CollisionHandler {
     });
   }
 
+  /** Handles damage from Endboss proximity attack */
   checkBossAttack() {
     this.world.level.enemies.forEach((enemy) => {
       if (enemy instanceof Endboss) {

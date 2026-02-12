@@ -1,3 +1,4 @@
+/** * Manages fullscreen transitions and canvas resizing logic. */
 class DisplayManager {
   constructor() {
     this.iconImg = document.getElementById("fullscreen-icon");
@@ -10,6 +11,7 @@ class DisplayManager {
     this.initListeners();
   }
 
+  /** Sets up event listeners for fullscreen buttons and state changes */
   initListeners() {
     this.btn.addEventListener("click", () => this.toggleFullscreen());
     document.addEventListener("fullscreenchange", () => this.resizeCanvas());
@@ -22,6 +24,7 @@ class DisplayManager {
     });
   }
 
+  /** Toggles the fullscreen state of the game container */
   toggleFullscreen() {
     let element = document.getElementById("game-container");
     if (!document.fullscreenElement) {
@@ -31,6 +34,7 @@ class DisplayManager {
     }
   }
 
+  /** Adjusts canvas and wrapper dimensions based on fullscreen state */
   resizeCanvas() {
     if (document.fullscreenElement) {
       this.wrapper.style.width = window.innerWidth;

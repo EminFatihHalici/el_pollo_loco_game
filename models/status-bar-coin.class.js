@@ -1,3 +1,5 @@
+/** * Visual status bar for collected coins.
+ * @extends DrawableObject */
 class StatusBarCoin extends DrawableObject {
   percentage = 0;
 
@@ -13,7 +15,6 @@ class StatusBarCoin extends DrawableObject {
   constructor() {
     super();
     this.loadImages(this.IMAGES);
-    this.animate();
     this.setPercantage(0);
     this.y = 90;
     this.x = 20;
@@ -21,18 +22,14 @@ class StatusBarCoin extends DrawableObject {
     this.height = 60;
   }
 
-  animate() {
-    setInterval(() => {
-      // this.playAnimation(this.IMAGES);
-    }, 200);
-  }
-
+  /** @param {number} percentage - Updates coin bar visual */
   setPercantage(percentage) {
     this.percentage = percentage;
     let imagePath = this.IMAGES[this.resolveImageIndex()];
     this.img = this.imageCache[imagePath];
   }
 
+  /** @returns {number} Index for the IMAGES array */
   resolveImageIndex() {
     if (this.percentage == 100) {
       return 5;

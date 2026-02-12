@@ -1,3 +1,4 @@
+/** * Represents the keyboard state and input tracking. */
 class Keyboard {
   LEFT = false;
   RIGHT = false;
@@ -7,6 +8,7 @@ class Keyboard {
   D = false;
 }
 
+/** Binds touch events to mobile control buttons */
 function bindTouchEvents() {
   const controls = {
     "btn-left": "LEFT",

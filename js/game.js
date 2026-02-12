@@ -1,3 +1,6 @@
+/** @type {HTMLCanvasElement} */
+/** @type {World} */
+/** @type {Keyboard} */
 let canvas;
 let world;
 let keyboard = new Keyboard();
@@ -13,6 +16,7 @@ let loseMusic;
 let totalImages = 0;
 let imagesLoaded = 0;
 
+/** Initializes the game, sounds, and UI components */
 function init() {
   introMusic = new Sound("audio/intro.mp3");
   winMusic = new Sound("audio/win_sound.mp3");
@@ -27,6 +31,7 @@ function init() {
   showLegalTemplate();
 }
 
+/** Animates the start screen images in an interval */
 function renderStartScreen() {
   let imgElement = document.getElementById("introImage");
   intervalId = setInterval(() => {
@@ -35,6 +40,7 @@ function renderStartScreen() {
   }, 3000);
 }
 
+/** Prepares and starts the game world and music */
 function startGame() {
   resetMusic();
   showLoader();
@@ -48,6 +54,7 @@ function startGame() {
   }, 500);
 }
 
+/** Resets all game-over related music */
 function resetMusic() {
   [winMusic, loseMusic].forEach((music) => {
     if (music) {
@@ -57,21 +64,25 @@ function resetMusic() {
   });
 }
 
+/** Shows the loading spinner */
 function showLoader() {
   document.getElementById("loader").classList.remove("d-none");
 }
 
+/** Plays the intro background music at low volume */
 function playIntroMusic() {
   introMusic.play();
   introMusic.volume(0.06);
 }
 
+/** Hides all menu and game-over screens */
 function hideScreens() {
   ["startScreen", "gameOverScreen", "winScreen"].forEach((id) => {
     document.getElementById(id).classList.add("d-none");
   });
 }
 
+/** @param {boolean} currentMuteState - Sets up the world with current settings */
 function initializeWorld(currentMuteState) {
   world = new World(canvas, keyboard);
   world.gameMuted = currentMuteState;
@@ -82,12 +93,14 @@ function initializeWorld(currentMuteState) {
   document.getElementById("mobile-controls").classList.remove("d-none");
 }
 
+/** Exits fullscreen mode if active */
 function exitFullscreen() {
   if (document.fullscreenElement) {
     document.exitFullscreen();
   }
 }
 
+/** Toggles the information/instruction overlay */
 function toggleOverlay() {
   let overlay = document.getElementById("info-overlay");
   overlay.classList.toggle("d-none");
@@ -96,6 +109,7 @@ function toggleOverlay() {
   }
 }
 
+/** Displays the game over screen and plays loss music */
 function showLostScreen() {
   loseMusic.play();
   loseMusic.volume(0.1);
@@ -103,6 +117,7 @@ function showLostScreen() {
   document.getElementById("gameOverScreen").classList.remove("d-none");
 }
 
+/** Displays the win screen and plays victory music */
 function showWinScreen() {
   winMusic.play();
   winMusic.volume(0.12);
@@ -110,6 +125,7 @@ function showWinScreen() {
   document.getElementById("winScreen").classList.remove("d-none");
 }
 
+/** Toggles game pause state and handles audio accordingly */
 function togglePause() {
   if (world) {
     let icon = document.getElementById("pause-icon");
@@ -127,6 +143,7 @@ function togglePause() {
   }
 }
 
+/** Toggles the global mute state and updates UI icons */
 function toggleMute() {
   if (world) {
     let icon = document.getElementById("mute-icon");
@@ -140,13 +157,12 @@ function toggleMute() {
   }
 }
 
+/** Checks and handles device orientation for mobile support */
 function checkOrientation() {
   let rotateElement = document.getElementById("rotateDevice");
   let gameContainer = document.getElementById("game-container");
-
   let isPortrait = window.innerHeight > window.innerWidth;
   let isMobile = window.innerWidth < 1024;
-
   if (isPortrait && isMobile) {
     rotateElement.classList.remove("d-none");
     gameContainer.classList.add("d-none");
@@ -156,6 +172,7 @@ function checkOrientation() {
   }
 }
 
+/** @param {string} tabId - Switches between tabs in the overlay */
 function openTab(tabId) {
   let contents = document.querySelectorAll(
     ".tab-content, #instruction, #about, #legal",
@@ -167,6 +184,7 @@ function openTab(tabId) {
   event.currentTarget.classList.add("active");
 }
 
+/** Instantiates all models once to trigger image preloading */
 function preloadAllAssets() {
   new Bottles();
   new Character();
@@ -182,6 +200,7 @@ function preloadAllAssets() {
   new ThrowableObject();
 }
 
+/** Tracks image loading progress to hide the loader */
 function imageLoaded() {
   try {
     imagesLoaded++;
@@ -193,28 +212,33 @@ function imageLoaded() {
   }
 }
 
+/** Reloads the page to return to the main menu */
 function backToMenu() {
   location.reload();
 }
 
+/** Renders the instruction template content */
 function showInstructionTemplate() {
   let container = document.getElementById("instruction");
   container.innerHTML = "";
   container.innerHTML += instructionTemplate();
 }
 
+/** Renders the about template content */
 function showAboutTemplate() {
   let container = document.getElementById("about");
   container.innerHTML = "";
   container.innerHTML += aboutTemplate();
 }
 
+/** Renders the legal/imprint template content */
 function showLegalTemplate() {
   let container = document.getElementById("legal");
   container.innerHTML = "";
   container.innerHTML += legalTemplate();
 }
 
+/** Event listener for keyboard input (press) */
 window.addEventListener("keydown", (e) => {
   if (e.keyCode == 39) {
     keyboard.RIGHT = true;
@@ -231,6 +255,7 @@ window.addEventListener("keydown", (e) => {
   }
 });
 
+/** Event listener for keyboard input (release) */
 window.addEventListener("keyup", (e) => {
   if (e.keyCode == 39) {
     keyboard.RIGHT = false;

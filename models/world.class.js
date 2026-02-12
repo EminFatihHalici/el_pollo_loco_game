@@ -1,3 +1,4 @@
+/** * Main game world managing rendering, game loops, and object lifecycles. */
 class World {
   character = new Character();
   level;
@@ -24,6 +25,10 @@ class World {
   allSounds = [];
   intervalIds = [];
 
+  /**
+   * @param {HTMLCanvasElement} canvas
+   * @param {Object} keyboard
+   */
   constructor(canvas, keyboard) {
     this.level = level1;
     this.enemies = level1.enemies;
@@ -43,11 +48,13 @@ class World {
     this.allSounds.push(this.triggerSound);
   }
 
+  /** Starts the core game intervals */
   run() {
     this.startMainLoop();
     this.startCleanupLoop();
   }
 
+  /** Sets up the 60FPS state update interval */
   startMainLoop() {
     let id = setInterval(() => {
       if (this.gamePaused) return;
@@ -56,11 +63,13 @@ class World {
     this.addInterval(id);
   }
 
+  /** Triggers collision checks and game over status */
   updateGameState() {
     this.collisionHandler.checkCollisions();
     this.checkGameOver();
   }
 
+  /** Sets up the slower interval for object removal */
   startCleanupLoop() {
     let id = setInterval(() => {
       if (this.gamePaused) return;
@@ -69,12 +78,14 @@ class World {
     this.addInterval(id);
   }
 
+  /** Groups all cleanup-related tasks */
   cleanupGameObjects() {
     this.splashedBottlesCleanUp();
     this.cleanUpEnemies();
     this.calculateDistanceOfChar();
   }
 
+  /** Removes enemies marked as gone from the level */
   cleanUpEnemies() {
     for (let i = this.level.enemies.length - 1; i >= 0; i--) {
       let enemy = this.level.enemies[i];
@@ -84,6 +95,7 @@ class World {
     }
   }
 
+  /** Checks for character colliding with bottle items */
   checkBottleCollisions() {
     this.level.bottles.forEach((bottle, index) => {
       if (this.character.isColliding(bottle)) {
@@ -96,6 +108,7 @@ class World {
     });
   }
 
+  /** Removes splashed bottles from the active objects array */
   splashedBottlesCleanUp() {
     for (let i = this.throwableObjects.length - 1; i >= 0; i--) {
       let bottle = this.throwableObjects[i];
@@ -105,6 +118,7 @@ class World {
     }
   }
 
+  /** Updates boss contact state based on player distance */
   calculateDistanceOfChar() {
     this.level.enemies.forEach((enemy) => {
       if (enemy instanceof Endboss && !enemy.hadFirstContact) {
@@ -117,6 +131,7 @@ class World {
     });
   }
 
+  /** Checks if the boss is currently attacking the character */
   checkBossAttack() {
     this.level.enemies.forEach((enemy) => {
       if (enemy instanceof Endboss) {
@@ -132,6 +147,7 @@ class World {
     });
   }
 
+  /** Main animation loop for the canvas */
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.drawGameWorld();
@@ -145,6 +161,7 @@ class World {
     });
   }
 
+  /** Draws background layers and clouds */
   drawGameWorld() {
     this.ctx.translate(this.camera_x, 0);
     this.addObjectsToMap(this.level.backgroundObjects);
@@ -152,6 +169,7 @@ class World {
     this.ctx.translate(-this.camera_x, 0);
   }
 
+  /** Draws the fixed status bars */
   drawStaticUI() {
     this.addToMap(this.statusBarBottle);
     this.addToMap(this.statusBarCoin);
@@ -160,6 +178,7 @@ class World {
     this.checkAndDrawBossBar();
   }
 
+  /** Renders the boss health bar if contact was made */
   checkAndDrawBossBar() {
     const boss = this.level.enemies.find((e) => e instanceof Endboss);
     if (boss && boss.hadFirstContact) {
@@ -167,6 +186,7 @@ class World {
     }
   }
 
+  /** Draws all moving game entities */
   drawGameObjects() {
     this.ctx.translate(this.camera_x, 0);
     this.addToMap(this.character);
@@ -177,12 +197,14 @@ class World {
     this.ctx.translate(-this.camera_x, 0);
   }
 
+  /** Draws screens that sit on top of the world */
   drawOverlays() {
     if (this.gamePaused) {
       this.drawPauseScreen();
     }
   }
 
+  /** Renders the pause menu style */
   drawPauseScreen() {
     this.ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
@@ -192,12 +214,14 @@ class World {
     this.ctx.fillText("PAUSE", this.canvas.width / 2, this.canvas.height / 2);
   }
 
+  /** @param {Array} objects - Draws an array of objects */
   addObjectsToMap(objects) {
     objects.forEach((o) => {
       this.addToMap(o);
     });
   }
 
+  /** @param {MovableObject} mo - Draws a single object with direction check */
   addToMap(mo) {
     if (mo.otherDirection) {
       this.flipImage(mo);
@@ -208,6 +232,7 @@ class World {
     }
   }
 
+  /** Mirors the context for mirrored sprites */
   flipImage(mo) {
     this.ctx.save();
     this.ctx.translate(mo.width, 0);
@@ -215,11 +240,13 @@ class World {
     mo.x = mo.x * -1;
   }
 
+  /** Restores context after mirroring */
   flipImageBack(mo) {
     mo.x = mo.x * -1;
     this.ctx.restore();
   }
 
+  /** Connects world to entities and starts their logic */
   setWorld() {
     this.character.world = this;
     this.character.applyGravity();
@@ -233,10 +260,12 @@ class World {
     }
   }
 
+  /** @param {number} id - Adds interval to the tracking list */
   addInterval(id) {
     this.intervalIds.push(id);
   }
 
+  /** Stops all active intervals and sounds */
   stopGame() {
     this.intervalIds.forEach((id) => clearInterval(id));
     this.character.stopAllMyIntervals();
@@ -248,6 +277,7 @@ class World {
     document.getElementById("mobile-controls").classList.add("d-none");
   }
 
+  /** Monitors win and loss conditions */
   checkGameOver() {
     if (this.gameEnded) return;
     if (this.character.isDead()) {
@@ -257,6 +287,7 @@ class World {
     }
   }
 
+  /** @param {string} result - Transitions to end screen */
   handleGameOver(result) {
     this.gameEnded = true;
     this.character.walkingSound.pause();
@@ -269,6 +300,7 @@ class World {
     }, delay);
   }
 
+  /** Resets controls and stops all audio */
   cleanUp() {
     keyboard = {
       LEFT: false,
@@ -284,16 +316,19 @@ class World {
     });
   }
 
+  /** @returns {boolean} Check if boss energy is 0 */
   endbossDead() {
     let boss = this.level.enemies.find((e) => e instanceof Endboss);
     return boss && boss.isDead();
   }
 
+  /** @param {Object} sound - Registers new sound to the world */
   addSound(sound) {
     this.allSounds.push(sound);
     sound.setMute(this.gameMuted);
   }
 
+  /** Updates mute state for all registered sounds */
   updateAllSounds() {
     this.allSounds.forEach((s) => {
       s.setMute(this.gameMuted);
