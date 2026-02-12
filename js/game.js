@@ -16,6 +16,20 @@ let loseMusic;
 let totalImages = 0;
 let imagesLoaded = 0;
 
+/**
+ * Helper object to manage sound settings persistence in the browser's localStorage.
+ */
+const SoundStorage = {
+  KEY: "game_muted",
+  save(isMuted) {
+    localStorage.setItem(this.KEY, isMuted);
+  },
+  load() {
+    const saved = localStorage.getItem(this.KEY);
+    return saved === "true";
+  },
+};
+
 /** Initializes the game, sounds, and UI components */
 function init() {
   introMusic = new Sound("audio/intro.mp3");
@@ -84,9 +98,11 @@ function hideScreens() {
 
 /** @param {boolean} currentMuteState - Sets up the world with current settings */
 function initializeWorld(currentMuteState) {
+  const initialMuteState = SoundStorage.load();
   world = new World(canvas, keyboard);
-  world.gameMuted = currentMuteState;
+  world.gameMuted = initialMuteState;
   world.updateAllSounds();
+  updateMuteIcon(initialMuteState);
   document.getElementById("mute-btn").classList.remove("d-none");
   document.getElementById("pause-btn").classList.remove("d-none");
   document.getElementById("fullscreen").classList.remove("d-none");
@@ -146,15 +162,16 @@ function togglePause() {
 /** Toggles the global mute state and updates UI icons */
 function toggleMute() {
   if (world) {
-    let icon = document.getElementById("mute-icon");
     world.gameMuted = !world.gameMuted;
+    SoundStorage.save(world.gameMuted); // Speichern!
     world.updateAllSounds();
-    if (world.gameMuted) {
-      icon.src = "img/volume-mute-fill.svg";
-    } else {
-      icon.src = "img/volume-up-fill.svg";
-    }
+    updateMuteIcon(world.gameMuted);
   }
+}
+
+function updateMuteIcon(isMuted) {
+  let icon = document.getElementById("mute-icon");
+  icon.src = isMuted ? "img/volume-mute-fill.svg" : "img/volume-up-fill.svg";
 }
 
 /** Checks and handles device orientation for mobile support */
