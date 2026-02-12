@@ -13,6 +13,7 @@ class Character extends MovableObject {
   jumpSound = new Sound("audio/jump.mp3");
   walkingSound = new Sound("audio/character_walkling.mp3");
   hurtSound = new Sound("audio/character_hurt.mp3");
+  snoreSound = new Sound("audio/snore.mp3");
 
   offset = {
     top: 120,
@@ -97,6 +98,7 @@ class Character extends MovableObject {
     this.jumpSound.volume(0.2);
     this.walkingSound.volume(0.3);
     this.hurtSound.volume(0.3);
+    this.snoreSound.volume(0.3);
   }
 
   //currentImage is increased every second to change the image of the character and length calculated with modulo operator
@@ -120,7 +122,11 @@ class Character extends MovableObject {
         (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) &&
         !this.isAboveGround()
       ) {
-        if (!this.walkingSound.isPlaying()) {
+        if (
+          (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) &&
+          !this.isAboveGround() &&
+          !this.world.gameEnded
+        ) {
           this.walkingSound.loop();
         }
       } else {
@@ -147,10 +153,11 @@ class Character extends MovableObject {
         this.playAnimation(this.IMAGES_WALKING);
       } else if (this.lastAction && this.calculateIdleTime() > 5) {
         this.playAnimation(this.IMAGES_LONG_IDLE);
+        this.snoreSound.play();
       } else if (this.lastAction && this.calculateIdleTime() > 2) {
         this.playAnimation(this.IMAGES_IDLE);
       }
-    }, 50);
+    }, 30);
   }
 
   collectCoin() {

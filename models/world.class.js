@@ -316,12 +316,15 @@ class World {
   checkGameOver() {
     if (this.gameEnded) return;
     if (this.character.isDead()) {
+      this.gameEnded = true;
+      this.character.walkingSound.pause();
       setTimeout(() => {
         this.stopGame();
         this.cleanUp();
         showLostScreen();
       }, 1000);
     } else if (this.endbossDead()) {
+      this.character.walkingSound.pause();
       this.gameEnded = true;
       setTimeout(() => {
         this.stopGame();
