@@ -193,6 +193,7 @@ class Character extends MovableObject {
 
   hit(damage = 5) {
     super.hit(damage);
+    this.lastAction = new Date().getTime();
     if (!this.isDead()) {
       this.hurtSound.play();
     }
