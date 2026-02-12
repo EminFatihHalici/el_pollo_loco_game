@@ -4,7 +4,7 @@ class MovableObject extends DrawableObject {
   speed = 0.15;
   otherDirection = false;
   speedY = 0;
-  accelaration = 3;
+  accelaration = 1.5;
   energy = 100;
   lastHit = 0;
   groundLevel = 160;
@@ -22,8 +22,11 @@ class MovableObject extends DrawableObject {
       if (this.isAboveGround() || this.speedY > 0) {
         this.y -= this.speedY;
         this.speedY -= this.accelaration;
+      } else {
+        this.y = this.groundLevel;
+        this.speedY = 0;
       }
-    }, 1000 / 25);
+    }, 1000 / 60);
   }
 
   /** @param {number} damage - Deducts energy and sets hit timestamp */
@@ -84,7 +87,7 @@ class MovableObject extends DrawableObject {
   }
 
   jump() {
-    this.speedY = 30;
+    this.speedY = 25;
   }
 
   /** @param {Function} fn @param {number} time @returns {number} Interval ID */

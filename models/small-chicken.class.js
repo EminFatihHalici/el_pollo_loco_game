@@ -31,12 +31,13 @@ class SmallChicken extends MovableObject {
     this.loadImages(this.IMAGES_DEAD);
     this.speed = 0.15 + Math.random() * 0.25;
     this.smallChickenDeadSound.volume(0.3);
+    this.groundLevel = 380;
   }
 
   /** Starts movement and animation loops */
   animate() {
     this.setStoppableInterval(this.moveChicken.bind(this), 1000 / 60);
-    this.setStoppableInterval(this.playChickenAnimation.bind(this), 200);
+    this.setStoppableInterval(this.playChickenAnimation.bind(this), 80);
   }
 
   /** Handles the leftward movement if alive */

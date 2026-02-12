@@ -32,6 +32,7 @@ class Chicken extends MovableObject {
     this.loadImages(this.IMAGES_DEAD);
     this.chickenDeadSound.volume(0.3);
     this.speed = 0.15 + Math.random() * 0.25;
+    this.groundLevel = 380;
   }
 
   /** Starts movement and animation loops */
@@ -40,10 +41,10 @@ class Chicken extends MovableObject {
       () => !this.isDead() && this.moveLeft(),
       1000 / 60,
     );
-    this.setStoppableInterval(() => this.updateAnimation(), 200);
+    this.setStoppableInterval(() => this.updateAnimation(), 80);
   }
 
-  /** Updates the visual state based on life status (7 LOC) */
+  /** Updates the visual state based on life status */
   updateAnimation() {
     if (!this.isDead()) {
       this.playAnimation(this.IMAGES_WALKING);
