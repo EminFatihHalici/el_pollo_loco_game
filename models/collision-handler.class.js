@@ -122,12 +122,17 @@ class CollisionHandler {
 
   isJumpAttack(enemy) {
     const c = this.world.character;
-    return c.isAboveGround() && c.speedY <= 0 && !(enemy instanceof Endboss);
+    let characterBottom = c.y + c.height - c.offset.bottom;
+    let enemyTop = enemy.y + enemy.offset.top;
+    return (
+      c.isAboveGround() && c.speedY <= 0 && characterBottom < enemyTop + 100
+    );
   }
 
   handleJumpAttack(enemy) {
     enemy.hit();
     this.world.character.speedY = 15;
+    this.world.character.y -= 10;
   }
 
   handleEnemyHit() {
