@@ -3,7 +3,11 @@
 A dynamic, browser-based 2D platformer built with Object-Oriented Programming (OOP). Help Pepe collect bottles and coins to defeat the giant chicken boss!
 
 ## 🚀 Live Demo
-https://emin-fatih-halici.developerakademie.net/el_pollo_loco_game/index.html
+(https://emin-fatih-halici.developerakademie.net/el_pollo_loco_game/index.html)
+
+## 📚 Documentation
+You can find the full technical API documentation here:
+[View JSDoc Reference](https://eminfatihhalici.github.io/el_pollo_loco_game/)
 
 ## 🛠️ Tech Stack
 - **Language:** JavaScript (ES6+)
