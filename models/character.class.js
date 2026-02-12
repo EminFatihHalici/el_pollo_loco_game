@@ -7,8 +7,6 @@ class Character extends MovableObject {
   speed = 10;
   coins = 0;
   bottles = 0;
-  isIdle = false;
-  longIdle = false;
   lastAction = new Date().getTime();
   jumpSound = new Sound("audio/jump.mp3");
   walkingSound = new Sound("audio/character_walkling.mp3");
