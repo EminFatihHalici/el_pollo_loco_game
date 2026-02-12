@@ -173,6 +173,10 @@ function imageLoaded() {
   }
 }
 
+function backToMenu() {
+  location.reload();
+}
+
 //adding event listeners to detect key presses
 window.addEventListener("keydown", (e) => {
   if (e.keyCode == 39) {
