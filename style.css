@@ -602,4 +602,14 @@ footer {
   .mobile-controls-wrapper.d-none {
     display: none;
   }
+
+  .movement-side {
+    display: grid;
+    gap: 24px;
+  }
+
+  .action-side {
+    display: grid;
+    gap: 24px;
+  }
 }
