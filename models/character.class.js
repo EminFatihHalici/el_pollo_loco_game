@@ -139,70 +139,100 @@ class Character extends MovableObject {
     this.snoreSound.volume(0.3);
   }
 
-  /** Main animation and movement logic loops */
+  /**
+   * Main animation and movement loop for the character.
+   * Splits logic into high-frequency movement and lower-frequency animation.
+   */
   animate() {
-    this.setStoppableInterval(() => {
-      if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-        this.moveRight();
-        this.lastAction = new Date().getTime();
-        this.otherDirection = false;
-        this.world.camera_x = -this.x + 100;
-      }
+    this.setStoppableInterval(() => this.handleCharacterMovement(), 1000 / 60);
+    this.setStoppableInterval(() => this.updateCharacterAnimation(), 130);
+  }
 
-      if (this.world.keyboard.LEFT && this.x > 0) {
-        this.moveLeft();
-        this.lastAction = new Date().getTime();
-        this.otherDirection = true;
-        this.world.camera_x = -this.x + 100;
-      }
+  /**
+   * Evaluates keyboard input and updates the character's position and camera.
+   */
+  handleCharacterMovement() {
+    if (this.canMoveRight()) this.move("RIGHT", false);
+    if (this.canMoveLeft()) this.move("LEFT", true);
+    if (this.world.keyboard.SPACE && !this.isAboveGround()) this.performJump();
+    this.world.camera_x = -this.x + 100;
+    this.updateWalkingSound();
+  }
 
-      if (
-        (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) &&
-        !this.isAboveGround()
-      ) {
-        if (
-          (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) &&
-          !this.isAboveGround() &&
-          !this.world.gameEnded
-        ) {
-          this.walkingSound.loop();
-        }
-      } else {
-        this.walkingSound.pause();
-      }
+  /**
+   * Determines which animation to play based on the current state of the character.
+   */
+  updateCharacterAnimation() {
+    const isMoving = this.world.keyboard.RIGHT || this.world.keyboard.LEFT;
+    const idleTime = this.calculateIdleTime();
+    if (this.isDead()) return this.playAnimation(this.IMAGES_DEAD);
+    if (this.isHurt()) return this.playAnimation(this.IMAGES_HURT);
+    if (this.isAboveGround()) return this.playAnimation(this.IMAGES_JUMPING);
+    if (isMoving) return this.playAnimation(this.IMAGES_WALKING);
+    this.handleIdleState(idleTime, isMoving);
+  }
 
-      if (this.world.keyboard.SPACE && !this.isAboveGround()) {
-        this.jump();
-        this.jumpSound.play();
-        this.lastAction = new Date().getTime();
-      }
-    }, 1000 / 60); // 60fps
+  /** @returns {boolean} */
+  canMoveRight() {
+    return this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x;
+  }
 
-    this.setStoppableInterval(() => {
-      const isMoving = this.world.keyboard.RIGHT || this.world.keyboard.LEFT;
-      const idleTime = this.calculateIdleTime();
-      const isLongIdle =
-        idleTime > 10 &&
-        !this.isAboveGround() &&
-        !this.isDead() &&
-        !isMoving &&
-        !this.world.gameEnded;
+  /** @returns {boolean} */
+  canMoveLeft() {
+    return this.world.keyboard.LEFT && this.x > 0;
+  }
 
-      if (this.isDead()) {
-        this.playAnimation(this.IMAGES_DEAD);
-      } else if (this.isHurt()) {
-        this.playAnimation(this.IMAGES_HURT);
-      } else if (this.isAboveGround()) {
-        this.playAnimation(this.IMAGES_JUMPING);
-      } else if (isMoving) {
-        this.playAnimation(this.IMAGES_WALKING);
-      } else if (isLongIdle) {
-        this.playAnimation(this.IMAGES_LONG_IDLE);
-      } else if (idleTime > 3) {
-        this.playAnimation(this.IMAGES_IDLE);
-      }
-      this.handleSnoreSound(isLongIdle);
-    }, 130);
+  /**
+   * Moves the character and updates the last action timestamp.
+   * @param {'RIGHT' | 'LEFT'} direction - The direction to move.
+   * @param {boolean} isOtherDir - Whether the sprite should be mirrored.
+   */
+  move(direction, isOtherDir) {
+    direction === "RIGHT" ? this.moveRight() : this.moveLeft();
+    this.otherDirection = isOtherDir;
+    this.lastAction = new Date().getTime();
+  }
+
+  /**
+   * Triggers the jump logic and plays the corresponding sound.
+   */
+  performJump() {
+    this.jump();
+    this.jumpSound.play();
+    this.lastAction = new Date().getTime();
+  }
+
+  /**
+   * Controls the walking sound loop based on movement and ground state.
+   */
+  updateWalkingSound() {
+    const shouldPlay =
+      (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) &&
+      !this.isAboveGround() &&
+      !this.world.gameEnded;
+    shouldPlay ? this.walkingSound.loop() : this.walkingSound.pause();
+  }
+
+  /**
+   * Handles the transitions between idle and long-idle (sleeping) states.
+   * @param {number} idleTime - Seconds since the last user action.
+   * @param {boolean} isMoving - Current movement state.
+   */
+  handleIdleState(idleTime, isMoving) {
+    const isLongIdle =
+      idleTime > 10 &&
+      !this.isAboveGround() &&
+      !this.isDead() &&
+      !isMoving &&
+      !this.world.gameEnded;
+    if (isLongIdle) {
+      this.playAnimation(this.IMAGES_LONG_IDLE);
+    } else if (idleTime > 3) {
+      this.playAnimation(this.IMAGES_IDLE);
+    } else {
+      this.img = this.imageCache[this.IMAGES_WALKING[0]];
+    }
+    this.handleSnoreSound(isLongIdle);
   }
 
   /** @param {boolean} isLongIdle - Toggles snoring sound */
