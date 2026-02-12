@@ -92,24 +92,37 @@ class CollisionHandler {
 
   checkCharacterCollisionWithEnemy() {
     this.world.level.enemies.forEach((enemy) => {
-      if (
-        this.world.character.isColliding(enemy) &&
-        !enemy.isDead() &&
-        !this.world.character.isHurt()
-      ) {
-        if (
-          this.world.character.isAboveGround() &&
-          this.world.character.speedY < 0 &&
-          !(enemy instanceof Endboss)
-        ) {
-          enemy.hit();
-          this.world.character.speedY = 15;
+      if (this.shouldHandleCollision(enemy)) {
+        if (this.isJumpAttack(enemy)) {
+          this.handleJumpAttack(enemy);
         } else {
-          this.world.character.hit(5);
-          this.world.statusBarHealth.setPercantage(this.world.character.energy);
+          this.handleEnemyHit();
         }
       }
     });
+  }
+
+  shouldHandleCollision(enemy) {
+    return (
+      this.world.character.isColliding(enemy) &&
+      !enemy.isDead() &&
+      !this.world.character.isHurt()
+    );
+  }
+
+  isJumpAttack(enemy) {
+    const c = this.world.character;
+    return c.isAboveGround() && c.speedY < 0 && !(enemy instanceof Endboss);
+  }
+
+  handleJumpAttack(enemy) {
+    enemy.hit();
+    this.world.character.speedY = 15;
+  }
+
+  handleEnemyHit() {
+    this.world.character.hit(5);
+    this.world.statusBarHealth.setPercantage(this.world.character.energy);
   }
 
   checkBottleCollisions() {

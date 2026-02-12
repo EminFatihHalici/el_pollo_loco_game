@@ -232,15 +232,6 @@ footer {
   overflow: hidden;
   border-radius: 10px;
 }
-/* 
-.game-over-screen img {
-  width: auto;
-  max-width: 80%;
-  height: auto;
-  border-radius: 10px;
-  max-height: 50%;
-  object-fit: contain;
-} */
 
 .overlay {
   position: fixed;
