@@ -1,3 +1,7 @@
+/**
+ * Returns the HTML template for the game instructions (controls).
+ * @returns {string} HTML string representing the key bindings.
+ */
 function instructionTemplate() {
   return `
      <div class="control-row">
@@ -18,6 +22,10 @@ function instructionTemplate() {
     `;
 }
 
+/**
+ * Returns the HTML template for the 'About' section including the game's story.
+ * @returns {string} HTML string describing the game's background.
+ */
 function aboutTemplate() {
   return `
     <p class="intro-text">Welcome to the Desert!</p>
@@ -43,6 +51,10 @@ function aboutTemplate() {
     `;
 }
 
+/**
+ * Returns the HTML template for the legal notice and privacy policy.
+ * @returns {string} HTML string containing publisher and contact details.
+ */
 function legalTemplate() {
   return `
       <section>

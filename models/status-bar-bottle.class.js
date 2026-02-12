@@ -1,3 +1,5 @@
+/** * Visual status bar for collected salsa bottles.
+ * @extends DrawableObject */
 class StatusBarBottle extends DrawableObject {
   percentage = 100;
 
@@ -13,7 +15,6 @@ class StatusBarBottle extends DrawableObject {
   constructor() {
     super();
     this.loadImages(this.IMAGES);
-    this.animate();
     this.setPercantage(0);
     this.y = 0;
     this.x = 20;
@@ -21,16 +22,14 @@ class StatusBarBottle extends DrawableObject {
     this.height = 60;
   }
 
-  animate() {
-    setInterval(() => {}, 200);
-  }
-
+  /** @param {number} percentage - Updates bar and visual representation */
   setPercantage(percentage) {
     this.percentage = percentage;
     let imagePath = this.IMAGES[this.resolveImageIndex()];
     this.img = this.imageCache[imagePath];
   }
 
+  /** @returns {number} Index for the IMAGES array based on percentage */
   resolveImageIndex() {
     if (this.percentage == 100) {
       return 5;

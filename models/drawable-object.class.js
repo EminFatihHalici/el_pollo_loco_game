@@ -1,3 +1,4 @@
+/** * Base class for all renderable objects in the game. */
 class DrawableObject {
   x = 120;
   y = 280;
@@ -7,6 +8,7 @@ class DrawableObject {
   imageCache = [];
   currentIMage = 0;
 
+  /** @param {string} path - Loads a single image and tracks loading progress */
   loadImage(path) {
     totalImages++;
     this.img = new Image();
@@ -17,6 +19,7 @@ class DrawableObject {
     this.img.src = path;
   }
 
+  /** @param {CanvasRenderingContext2D} ctx - Draws the object onto the canvas */
   draw(ctx) {
     try {
       ctx.drawImage(this.img, this.x, this.y, this.width, this.height); // added try catch to handle image loading errors
@@ -26,6 +29,7 @@ class DrawableObject {
     }
   }
 
+  /** @param {string[]} arr - Preloads an array of images into the cache */
   loadImages(arr) {
     totalImages += arr.length;
     arr.forEach((path) => {

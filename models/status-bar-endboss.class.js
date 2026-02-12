@@ -1,3 +1,5 @@
+/** * Visual status bar for the final boss health.
+ * @extends DrawableObject */
 class StatusBarEndboss extends DrawableObject {
   percentage = 100;
 
@@ -13,7 +15,6 @@ class StatusBarEndboss extends DrawableObject {
   constructor() {
     super();
     this.loadImages(this.IMAGES);
-    this.animate();
     this.setPercantage(100);
     this.y = 0;
     this.x = 495;
@@ -21,18 +22,14 @@ class StatusBarEndboss extends DrawableObject {
     this.height = 60;
   }
 
-  animate() {
-    setInterval(() => {
-      // this.playAnimation(this.IMAGES);
-    }, 200);
-  }
-
+  /** @param {number} percentage - Updates the boss health bar visual */
   setPercantage(percentage) {
     this.percentage = percentage;
     let imagePath = this.IMAGES[this.resolveImageIndex()];
     this.img = this.imageCache[imagePath];
   }
 
+  /** @returns {number} Index for the IMAGES array */
   resolveImageIndex() {
     if (this.percentage == 100) {
       return 5;

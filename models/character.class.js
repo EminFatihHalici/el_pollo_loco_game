@@ -1,3 +1,6 @@
+/** * Represents the main character Pepe with all animations and movement logic.
+ * @extends MovableObject
+ */
 class Character extends MovableObject {
   width = 150;
   height = 300;
@@ -70,6 +73,7 @@ class Character extends MovableObject {
     "img/2_character_pepe/1_idle/idle/I-10.png",
   ];
 
+  /** Shortened LONG_IDLE list by using repeated references to save lines */
   IMAGES_LONG_IDLE = [
     "img/2_character_pepe/1_idle/long_idle/I-11.png",
     "img/2_character_pepe/1_idle/long_idle/I-11.png",
@@ -135,6 +139,7 @@ class Character extends MovableObject {
     this.snoreSound.volume(0.3);
   }
 
+  /** Main animation and movement logic loops */
   animate() {
     this.setStoppableInterval(() => {
       if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
@@ -202,6 +207,7 @@ class Character extends MovableObject {
     }, 130);
   }
 
+  /** @param {boolean} isLongIdle - Toggles snoring sound */
   handleSnoreSound(isLongIdle) {
     if (isLongIdle && !this.isHurt()) {
       if (!this.snoreSound.isPlaying()) {
@@ -212,20 +218,24 @@ class Character extends MovableObject {
     }
   }
 
+  /** Increases coin count */
   collectCoin() {
     this.coins += 1;
   }
 
+  /** Increases bottle count */
   collectBottles() {
     this.bottles += 1;
   }
 
+  /** @returns {number} The time since last player action in seconds */
   calculateIdleTime() {
     let timepassed = new Date().getTime() - this.lastAction;
     timepassed = timepassed / 1000; // difference in sec
     return timepassed;
   }
 
+  /** @param {number} damage - Deducts energy and plays hurt sound */
   hit(damage = 5) {
     super.hit(damage);
     this.lastAction = new Date().getTime();

@@ -1,3 +1,5 @@
+/** * Visual status bar representing the player's health.
+ * @extends DrawableObject */
 class StatusBarHealth extends DrawableObject {
   percentage = 100;
 
@@ -13,7 +15,6 @@ class StatusBarHealth extends DrawableObject {
   constructor() {
     super();
     this.loadImages(this.IMAGES);
-    this.animate();
     this.setPercantage(100);
     this.y = 45;
     this.x = 20;
@@ -21,18 +22,14 @@ class StatusBarHealth extends DrawableObject {
     this.height = 60;
   }
 
-  animate() {
-    setInterval(() => {
-      // this.playAnimation(this.IMAGES);
-    }, 200);
-  }
-
+  /** @param {number} percentage - Updates health bar and current image */
   setPercantage(percentage) {
     this.percentage = percentage;
     let imagePath = this.IMAGES[this.resolveImageIndex()];
     this.img = this.imageCache[imagePath];
   }
 
+  /** @returns {number} Index for the IMAGES array */
   resolveImageIndex() {
     if (this.percentage == 100) {
       return 5;

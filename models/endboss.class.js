@@ -1,3 +1,5 @@
+/** * High-level AI for the final boss with movement and attack states.
+ * @extends MovableObject */
 class Endboss extends MovableObject {
   width = 300;
   height = 400;
@@ -70,12 +72,14 @@ class Endboss extends MovableObject {
     this.endbossHurtSound.volume(0.3);
   }
 
+  /** Starts the boss's logic and animation loops */
   animate() {
     this.setStoppableInterval(() => this.updateDistance(), 1000 / 60);
     this.setStoppableInterval(() => this.handleMovement(), 1000 / 60);
     this.setStoppableInterval(() => this.playCurrentAnimation(), 150);
   }
 
+  /** Calculates distance between boss and player */
   updateDistance() {
     if (this.world && this.world.character) {
       this.currentDistance = Math.abs(
@@ -86,6 +90,7 @@ class Endboss extends MovableObject {
     }
   }
 
+  /** Determines boss movement or attack state */
   handleMovement() {
     if (this.shouldNotMove()) return;
     if (this.currentDistance < 100) {
@@ -95,6 +100,7 @@ class Endboss extends MovableObject {
     }
   }
 
+  /** Selects animation based on current state */
   playCurrentAnimation() {
     if (this.isDead()) {
       this.playAnimation(this.IMAGES_DEAD);
@@ -126,6 +132,7 @@ class Endboss extends MovableObject {
     );
   }
 
+  /** Moves the boss towards the character */
   moveBasedOnCharacter() {
     const bossMid = this.getBossMid();
     const characterMid = this.getCharacterMid();
@@ -138,6 +145,7 @@ class Endboss extends MovableObject {
     }
   }
 
+  /** Triggers the attack sequence */
   attack() {
     this.isAttacking = true;
     this.speed = 0;
@@ -174,6 +182,7 @@ class Endboss extends MovableObject {
     this.x += this.otherDirection ? -150 : 150;
   }
 
+  /** @param {number} damage - Handles boss hit logic and stun */
   hit(damage) {
     if (this.world.gameEnded || this.isDead()) return;
     super.hit(damage);
@@ -204,6 +213,7 @@ class Endboss extends MovableObject {
     setTimeout(() => (this.isStunned = false), 1500);
   }
 
+  /** @returns {boolean} Check if boss is currently in air */
   isAboveGround() {
     return this.y < this.groundLevel;
   }

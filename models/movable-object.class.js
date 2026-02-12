@@ -1,3 +1,5 @@
+/** * Base class for all objects with physics, movement and health.
+ * @extends DrawableObject */
 class MovableObject extends DrawableObject {
   speed = 0.15;
   otherDirection = false;
@@ -14,6 +16,7 @@ class MovableObject extends DrawableObject {
   };
   intervalIds = [];
 
+  /** Applies constant downward force if object is in air */
   applyGravity() {
     this.gravityTimer = this.setStoppableInterval(() => {
       if (this.isAboveGround() || this.speedY > 0) {
@@ -23,6 +26,7 @@ class MovableObject extends DrawableObject {
     }, 1000 / 25);
   }
 
+  /** @param {number} damage - Deducts energy and sets hit timestamp */
   hit(damage) {
     this.energy -= damage;
     if (this.energy < 0) {
@@ -32,16 +36,19 @@ class MovableObject extends DrawableObject {
     }
   }
 
+  /** @returns {boolean} True if energy is zero */
   isDead() {
     return this.energy == 0;
   }
 
+  /** @returns {boolean} True if last hit was less than 1 second ago */
   isHurt() {
     let timepassed = new Date().getTime() - this.lastHit;
     timepassed = timepassed / 1000;
     return timepassed < 1;
   }
 
+  /** @param {MovableObject} mo @returns {boolean} Check for collision considering offsets */
   isColliding(mo) {
     return (
       this.x + this.width - this.offset.right > mo.x + mo.offset.left &&
@@ -51,6 +58,7 @@ class MovableObject extends DrawableObject {
     );
   }
 
+  /** @returns {boolean} True if object is not on ground level */
   isAboveGround() {
     if (this instanceof ThrowableObject) {
       return true;
@@ -59,6 +67,7 @@ class MovableObject extends DrawableObject {
     }
   }
 
+  /** @param {string[]} images - Cycles through an array of image paths */
   playAnimation(images) {
     let i = this.currentIMage % images.length;
     let path = images[i];
@@ -78,6 +87,7 @@ class MovableObject extends DrawableObject {
     this.speedY = 30;
   }
 
+  /** @param {Function} fn @param {number} time @returns {number} Interval ID */
   setStoppableInterval(fn, time) {
     let id = setInterval(() => {
       if (this.world && this.world.gamePaused) {
@@ -90,6 +100,7 @@ class MovableObject extends DrawableObject {
     return id;
   }
 
+  /** Clears all intervals associated with this object */
   stopAllMyIntervals() {
     this.intervalIds.forEach((id) => clearInterval(id));
     this.intervalIds = [];
