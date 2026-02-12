@@ -2,7 +2,7 @@ class Character extends MovableObject {
   width = 150;
   height = 300;
   x = 100;
-  y = 30;
+  y = 150;
   world;
   speed = 10;
   coins = 0;
@@ -83,10 +83,10 @@ class Character extends MovableObject {
     "img/2_character_pepe/1_idle/long_idle/I-20.png",
   ];
 
-  currentIMage = 0;
+  /*  currentImage = 0; */
 
   constructor() {
-    super().loadImage("img/2_character_pepe/2_walk/W-21.png");
+    super().loadImage("img/2_character_pepe/1_idle/idle/I-1.png");
     this.loadImages(this.IMAGES_WALKING);
     this.loadImages(this.IMAGES_JUMPING);
     this.loadImages(this.IMAGES_HURT);
@@ -164,11 +164,11 @@ class Character extends MovableObject {
         this.playAnimation(this.IMAGES_IDLE);
       }
       this.handleSnoreSound(isLongIdle);
-    }, 30);
+    }, 130);
   }
 
   handleSnoreSound(isLongIdle) {
-    if (isLongIdle) {
+    if (isLongIdle && !this.isHurt()) {
       if (!this.snoreSound.isPlaying()) {
         this.snoreSound.loop();
       }
