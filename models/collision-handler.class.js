@@ -135,9 +135,53 @@ class CollisionHandler {
     this.world.character.y -= 10;
   }
 
-  handleEnemyHit() {
-    this.world.character.hit(5);
-    this.world.statusBarHealth.setPercantage(this.world.character.energy);
+  /**
+   * Handles the logic when the character collides with an enemy.
+   * @param {Object} enemy - The enemy object the character collided with.
+   */
+  handleEnemyHit(enemy) {
+    if (this.world.character.isHurt()) return;
+    this.applyDamage(enemy);
+    if (!(enemy instanceof Endboss)) {
+      this.executeKnockback();
+    }
+  }
+
+  /**
+   * Calculates and applies damage to the character based on the enemy type.
+   * @param {Object} enemy - The enemy that caused the damage.
+   */
+  applyDamage(enemy) {
+    const char = this.world.character;
+    const damage = enemy instanceof Endboss ? 20 : 5;
+    char.hit(damage);
+    this.world.statusBarHealth.setPercantage(char.energy);
+  }
+
+  /**
+   * Initiates a physical knockback effect, pushing the character away and upwards.
+   */
+  executeKnockback() {
+    const char = this.world.character;
+    char.speedY = 15;
+    let knockbackTime = 0;
+    let interval = setInterval(() => {
+      this.moveCharacterBackwards(char);
+      knockbackTime++;
+      if (knockbackTime > 5) clearInterval(interval);
+    }, 1000 / 60);
+  }
+
+  /**
+   * Moves the character horizontally based on their current facing direction.
+   * @param {MovableObject} char - The character to be moved.
+   */
+  moveCharacterBackwards(char) {
+    if (char.otherDirection) {
+      char.x += 10;
+    } else {
+      char.x -= 10;
+    }
   }
 
   /** Checks for bottle item collection */
