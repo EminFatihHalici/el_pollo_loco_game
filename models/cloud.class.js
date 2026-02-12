@@ -1,28 +1,21 @@
 class Cloud extends MovableObject {
+  y = 50;
+  width = 500;
+  height = 250;
 
-    y = 50;
-    width = 500;
-    height = 250;
-    
+  constructor() {
+    super().loadImage("img/5_background/layers/4_clouds/1.png");
 
-    constructor() {
-        super().loadImage('img/5_background/layers/4_clouds/1.png')
+    this.x = Math.random() * 500;
+  }
 
-        this.x = Math.random() * 500;
+  animate() {
+    this.moveLeft();
+  }
 
-
-
-    }
-
-    // Clouds move to the left continuously and set interval to create the animation (refresh every 60 ms)
-    animate() { 
-        this.moveLeft();
-}
-
-    moveLeft() {
-        this.setStoppableInterval(() => { 
-        this.x -= this.speed;
-        }, 1000 / 60); // 60fps
-    }
-
+  moveLeft() {
+    this.setStoppableInterval(() => {
+      this.x -= this.speed;
+    }, 1000 / 60);
+  }
 }

@@ -31,25 +31,32 @@ class SmallChicken extends MovableObject {
   }
 
   animate() {
-    this.setStoppableInterval(() => {
-      if (!this.isDead()) {
-        this.moveLeft();
-      }
-    }, 1000 / 60); // 60fps
+    this.setStoppableInterval(this.moveChicken.bind(this), 1000 / 60);
+    this.setStoppableInterval(this.playChickenAnimation.bind(this), 200);
+  }
 
-    this.setStoppableInterval(() => {
-      if (!this.isDead()) {
-        this.playAnimation(this.IMAGES_WALKING);
-      } else {
-        this.playAnimation(this.IMAGES_DEAD);
-        if (!this.deathTimerStarted) {
-          this.deathTimerStarted = true;
-          setTimeout(() => {
-            this.isGone = true;
-          }, 1000);
-        }
-      }
-    }, 200);
+  moveChicken() {
+    if (!this.isDead()) {
+      this.moveLeft();
+    }
+  }
+
+  playChickenAnimation() {
+    if (!this.isDead()) {
+      this.playAnimation(this.IMAGES_WALKING);
+    } else {
+      this.playAnimation(this.IMAGES_DEAD);
+      this.startDeathTimer();
+    }
+  }
+
+  startDeathTimer() {
+    if (!this.deathTimerStarted) {
+      this.deathTimerStarted = true;
+      setTimeout(() => {
+        this.isGone = true;
+      }, 1000);
+    }
   }
 
   hit(damage = 100) {

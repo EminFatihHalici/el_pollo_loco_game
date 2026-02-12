@@ -72,18 +72,54 @@ class Character extends MovableObject {
 
   IMAGES_LONG_IDLE = [
     "img/2_character_pepe/1_idle/long_idle/I-11.png",
+    "img/2_character_pepe/1_idle/long_idle/I-11.png",
+    "img/2_character_pepe/1_idle/long_idle/I-11.png",
+    "img/2_character_pepe/1_idle/long_idle/I-11.png",
+    "img/2_character_pepe/1_idle/long_idle/I-11.png",
+    "img/2_character_pepe/1_idle/long_idle/I-12.png",
+    "img/2_character_pepe/1_idle/long_idle/I-12.png",
+    "img/2_character_pepe/1_idle/long_idle/I-12.png",
+    "img/2_character_pepe/1_idle/long_idle/I-12.png",
     "img/2_character_pepe/1_idle/long_idle/I-12.png",
     "img/2_character_pepe/1_idle/long_idle/I-13.png",
+    "img/2_character_pepe/1_idle/long_idle/I-13.png",
+    "img/2_character_pepe/1_idle/long_idle/I-13.png",
+    "img/2_character_pepe/1_idle/long_idle/I-13.png",
+    "img/2_character_pepe/1_idle/long_idle/I-13.png",
+    "img/2_character_pepe/1_idle/long_idle/I-14.png",
+    "img/2_character_pepe/1_idle/long_idle/I-14.png",
+    "img/2_character_pepe/1_idle/long_idle/I-14.png",
+    "img/2_character_pepe/1_idle/long_idle/I-14.png",
     "img/2_character_pepe/1_idle/long_idle/I-14.png",
     "img/2_character_pepe/1_idle/long_idle/I-15.png",
+    "img/2_character_pepe/1_idle/long_idle/I-15.png",
+    "img/2_character_pepe/1_idle/long_idle/I-15.png",
+    "img/2_character_pepe/1_idle/long_idle/I-15.png",
+    "img/2_character_pepe/1_idle/long_idle/I-15.png",
+    "img/2_character_pepe/1_idle/long_idle/I-16.png",
+    "img/2_character_pepe/1_idle/long_idle/I-16.png",
+    "img/2_character_pepe/1_idle/long_idle/I-16.png",
+    "img/2_character_pepe/1_idle/long_idle/I-16.png",
     "img/2_character_pepe/1_idle/long_idle/I-16.png",
     "img/2_character_pepe/1_idle/long_idle/I-17.png",
+    "img/2_character_pepe/1_idle/long_idle/I-17.png",
+    "img/2_character_pepe/1_idle/long_idle/I-17.png",
+    "img/2_character_pepe/1_idle/long_idle/I-18.png",
+    "img/2_character_pepe/1_idle/long_idle/I-18.png",
+    "img/2_character_pepe/1_idle/long_idle/I-18.png",
+    "img/2_character_pepe/1_idle/long_idle/I-18.png",
     "img/2_character_pepe/1_idle/long_idle/I-18.png",
     "img/2_character_pepe/1_idle/long_idle/I-19.png",
+    "img/2_character_pepe/1_idle/long_idle/I-19.png",
+    "img/2_character_pepe/1_idle/long_idle/I-19.png",
+    "img/2_character_pepe/1_idle/long_idle/I-19.png",
+    "img/2_character_pepe/1_idle/long_idle/I-19.png",
+    "img/2_character_pepe/1_idle/long_idle/I-20.png",
+    "img/2_character_pepe/1_idle/long_idle/I-20.png",
+    "img/2_character_pepe/1_idle/long_idle/I-20.png",
+    "img/2_character_pepe/1_idle/long_idle/I-20.png",
     "img/2_character_pepe/1_idle/long_idle/I-20.png",
   ];
-
-  /*  currentImage = 0; */
 
   constructor() {
     super().loadImage("img/2_character_pepe/1_idle/idle/I-1.png");
@@ -99,7 +135,6 @@ class Character extends MovableObject {
     this.snoreSound.volume(0.3);
   }
 
-  //currentImage is increased every second to change the image of the character and length calculated with modulo operator
   animate() {
     this.setStoppableInterval(() => {
       if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
@@ -144,7 +179,7 @@ class Character extends MovableObject {
       const isMoving = this.world.keyboard.RIGHT || this.world.keyboard.LEFT;
       const idleTime = this.calculateIdleTime();
       const isLongIdle =
-        idleTime > 5 &&
+        idleTime > 10 &&
         !this.isAboveGround() &&
         !this.isDead() &&
         !isMoving &&
@@ -160,7 +195,7 @@ class Character extends MovableObject {
         this.playAnimation(this.IMAGES_WALKING);
       } else if (isLongIdle) {
         this.playAnimation(this.IMAGES_LONG_IDLE);
-      } else if (idleTime > 2) {
+      } else if (idleTime > 3) {
         this.playAnimation(this.IMAGES_IDLE);
       }
       this.handleSnoreSound(isLongIdle);
@@ -193,6 +228,7 @@ class Character extends MovableObject {
 
   hit(damage = 5) {
     super.hit(damage);
+    this.lastAction = new Date().getTime();
     if (!this.isDead()) {
       this.hurtSound.play();
     }

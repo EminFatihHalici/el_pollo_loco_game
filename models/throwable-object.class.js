@@ -43,43 +43,64 @@ class ThrowableObject extends MovableObject {
 
   throw() {
     this.speedY = 15;
-
     this.applyGravity();
+    this.startMovement();
+    this.startAnimation();
+  }
+
+  startMovement() {
     this.movementTimer = setInterval(() => {
-      if (this.isLookingLeft) {
-        this.x -= 15;
-      } else {
-        this.x += 15;
-      }
-      if (this.y > 360 && !this.isBroken) {
-        this.isBroken = true;
+      this.updatePosition();
+      if (this.shouldSplash()) {
         this.splash();
       }
     }, 25);
-    if (this.world) {
-      this.world.addInterval(this.movementTimer);
-    }
+    this.addToWorld(this.movementTimer);
+  }
 
+  updatePosition() {
+    this.x += this.isLookingLeft ? -15 : 15;
+  }
+
+  shouldSplash() {
+    return this.y > 360 && !this.isBroken;
+  }
+
+  startAnimation() {
     this.animationTimer = setInterval(() => {
       this.playAnimation(this.IMAGES_ROTATE);
     }, 100);
+    this.addToWorld(this.animationTimer);
+  }
+
+  addToWorld(timer) {
     if (this.world) {
-      this.world.addInterval(this.animationTimer);
+      this.world.addInterval(timer);
     }
   }
 
   splash() {
+    this.stopMovement();
+    this.bottleSound();
+    this.startSplashAnimation();
+    this.scheduleRemoval();
+  }
+
+  stopMovement() {
     clearInterval(this.movementTimer);
     clearInterval(this.animationTimer);
     clearInterval(this.gravityTimer);
-    this.bottleSound();
     this.speedY = 0;
+  }
+
+  startSplashAnimation() {
     this.splashTimer = setInterval(() => {
       this.playAnimation(this.IMAGES_SPLASH);
     }, 100);
-    if (this.world) {
-      this.world.addInterval(this.splashTimer);
-    }
+    this.addToWorld(this.splashTimer);
+  }
+
+  scheduleRemoval() {
     setTimeout(() => {
       clearInterval(this.splashTimer);
       this.isGone = true;

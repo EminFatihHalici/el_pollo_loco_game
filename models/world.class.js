@@ -21,7 +21,6 @@ class World {
   gameEnded = false;
   gamePaused = false;
   gameMuted = false;
-
   allSounds = [];
   intervalIds = [];
 
@@ -35,6 +34,7 @@ class World {
     this.keyboard = keyboard;
     this.draw();
     this.setWorld();
+    this.collisionHandler = new CollisionHandler(this);
     this.backgroundSound.volume(0.025);
     this.backgroundSound.loop();
     this.triggerSound.volume(0.3);
@@ -44,114 +44,35 @@ class World {
   }
 
   run() {
-    let id1 = setInterval(() => {
+    this.startMainLoop();
+    this.startCleanupLoop();
+  }
+
+  startMainLoop() {
+    let id = setInterval(() => {
       if (this.gamePaused) return;
-      this.checkCharacterCollisionWithEnemy();
-      this.checkThrowObjects();
-      this.collisionBottlesWithEnemies();
-      this.checkCoinCollisions();
-      this.checkBottleCollisions();
-      this.checkCharacterIdle();
-      this.checkBossAttack();
-      this.checkGameOver();
+      this.updateGameState();
     }, 1000 / 60);
-    this.addInterval(id1);
+    this.addInterval(id);
+  }
 
-    let id2 = setInterval(() => {
+  updateGameState() {
+    this.collisionHandler.checkCollisions();
+    this.checkGameOver();
+  }
+
+  startCleanupLoop() {
+    let id = setInterval(() => {
       if (this.gamePaused) return;
-      this.splashedBottlesCleanUp();
-      this.cleanUpEnemies();
-      this.calculateDistanceOfChar();
+      this.cleanupGameObjects();
     }, 200);
-    this.addInterval(id2);
+    this.addInterval(id);
   }
 
-  checkThrowObjects() {
-    if (this.keyboard.D && this.character.bottles > 0) {
-      let bottle = new ThrowableObject(
-        this.character.x + 100,
-        this.character.y + 100,
-        this.character.otherDirection,
-      );
-      bottle.world = this;
-      this.throwableObjects.push(bottle);
-      bottle.throw();
-      this.character.bottles--;
-      let bottlePercent = this.character.bottles * 20;
-      this.statusBarBottle.setPercantage(bottlePercent);
-      this.keyboard.D = false;
-    }
-  }
-
-  collisionBottlesWithEnemies() {
-    for (let i = this.throwableObjects.length - 1; i >= 0; i--) {
-      let bottle = this.throwableObjects[i];
-      this.level.enemies.forEach((enemy) => {
-        if (bottle.isColliding(enemy) && !bottle.isBroken) {
-          bottle.isBroken = true;
-          bottle.splash();
-          if (enemy instanceof Endboss) {
-            enemy.hit(25);
-            let bossPercent = enemy.energy;
-            this.statusBarEndboss.setPercantage(bossPercent);
-            console.log("Boss wurde getroffen!");
-            console.log("Boss Energy ", enemy.energy);
-          } else if (
-            enemy instanceof SmallChicken ||
-            enemy instanceof Chicken
-          ) {
-            enemy.hit();
-          }
-        }
-      });
-    }
-  }
-
-  checkCharacterIdle() {
-    if (
-      this.keyboard.LEFT == false &&
-      this.keyboard.RIGHT == false &&
-      this.keyboard.SPACE == false
-    ) {
-      this.character.isIdle = true;
-    } else {
-      this.character.isIdle = false;
-    }
-  }
-
-  checkCoinCollisions() {
-    this.level.coins.forEach((coin, index) => {
-      if (this.character.isColliding(coin)) {
-        this.character.collectCoin();
-        coin.collect();
-        let coinPercent = this.character.coins * 10; // 10 coins = 100%
-        this.statusBarCoin.setPercantage(coinPercent);
-        this.level.coins.splice(index, 1);
-      }
-    });
-  }
-
-  checkCharacterCollisionWithEnemy() {
-    this.level.enemies.forEach((enemy) => {
-      if (
-        this.character.isColliding(enemy) &&
-        !enemy.isDead() &&
-        !this.character.isHurt()
-      ) {
-        if (
-          this.character.isAboveGround() &&
-          this.character.speedY < 0 &&
-          !(enemy instanceof Endboss)
-        ) {
-          enemy.hit();
-          this.character.speedY = 15;
-        } else {
-          this.character.hit(5);
-          console.log("Energy ", this.character.energy);
-          this.statusBarHealth.setPercantage(this.character.energy);
-        }
-      }
-    });
+  cleanupGameObjects() {
+    this.splashedBottlesCleanUp();
+    this.cleanUpEnemies();
+    this.calculateDistanceOfChar();
   }
 
   cleanUpEnemies() {
@@ -213,48 +134,62 @@ class World {
 
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    this.ctx.translate(this.camera_x, 0);
-    this.addObjectsToMap(this.level.backgroundObjects);
-
-    this.ctx.translate(-this.camera_x, 0);
-    //space for fixed objects
-    this.addToMap(this.statusBarBottle);
-    this.addToMap(this.statusBarCoin);
-    this.addToMap(this.statusBarHealth);
-    // drawing healtbar of endboss only when boss fight starts
-    if (
-      this.level.enemies.some(
-        (enemy) => enemy instanceof Endboss && enemy.hadFirstContact,
-      )
-    ) {
-      this.addToMap(this.statusBarEndboss);
-    }
-    this.ctx.translate(this.camera_x, 0);
-    this.addObjectsToMap(this.throwableObjects);
-    this.addObjectsToMap(this.level.clouds);
-    this.addToMap(this.character);
-    this.addObjectsToMap(this.level.bottles);
-    this.addObjectsToMap(this.level.coins);
-    this.statusBarHealth.setPercantage(this.character.energy);
-
-    this.addObjectsToMap(this.level.enemies);
-    this.ctx.translate(-this.camera_x, 0);
-
-    if (this.gamePaused) {
-      this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-      this.ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
-      this.ctx.font = "60px Zabars";
-      this.ctx.textAlign = "center";
-      this.ctx.shadowColor = "black";
-      this.ctx.shadowBlur = 4;
-      this.ctx.fillText("PAUSE", this.canvas.width / 2, this.canvas.height / 2);
-      this.ctx.shadowBlur = 0;
-    }
+    this.drawGameWorld();
+    this.drawStaticUI();
+    this.drawGameObjects();
+    this.drawOverlays();
 
     let self = this;
     requestAnimationFrame(function () {
       self.draw();
     });
+  }
+
+  drawGameWorld() {
+    this.ctx.translate(this.camera_x, 0);
+    this.addObjectsToMap(this.level.backgroundObjects);
+    this.addObjectsToMap(this.level.clouds);
+    this.ctx.translate(-this.camera_x, 0);
+  }
+
+  drawStaticUI() {
+    this.addToMap(this.statusBarBottle);
+    this.addToMap(this.statusBarCoin);
+    this.addToMap(this.statusBarHealth);
+    this.statusBarHealth.setPercantage(this.character.energy);
+    this.checkAndDrawBossBar();
+  }
+
+  checkAndDrawBossBar() {
+    const boss = this.level.enemies.find((e) => e instanceof Endboss);
+    if (boss && boss.hadFirstContact) {
+      this.addToMap(this.statusBarEndboss);
+    }
+  }
+
+  drawGameObjects() {
+    this.ctx.translate(this.camera_x, 0);
+    this.addToMap(this.character);
+    this.addObjectsToMap(this.throwableObjects);
+    this.addObjectsToMap(this.level.bottles);
+    this.addObjectsToMap(this.level.coins);
+    this.addObjectsToMap(this.level.enemies);
+    this.ctx.translate(-this.camera_x, 0);
+  }
+
+  drawOverlays() {
+    if (this.gamePaused) {
+      this.drawPauseScreen();
+    }
+  }
+
+  drawPauseScreen() {
+    this.ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+    this.ctx.fillStyle = "black";
+    this.ctx.font = "60px Zabars";
+    this.ctx.textAlign = "center";
+    this.ctx.fillText("PAUSE", this.canvas.width / 2, this.canvas.height / 2);
   }
 
   addObjectsToMap(objects) {
@@ -316,22 +251,22 @@ class World {
   checkGameOver() {
     if (this.gameEnded) return;
     if (this.character.isDead()) {
-      this.gameEnded = true;
-      this.character.walkingSound.pause();
-      setTimeout(() => {
-        this.stopGame();
-        this.cleanUp();
-        showLostScreen();
-      }, 1000);
+      this.handleGameOver("lost");
     } else if (this.endbossDead()) {
-      this.character.walkingSound.pause();
-      this.gameEnded = true;
-      setTimeout(() => {
-        this.stopGame();
-        this.cleanUp();
-        showWinScreen();
-      }, 1750);
+      this.handleGameOver("win");
     }
+  }
+
+  handleGameOver(result) {
+    this.gameEnded = true;
+    this.character.walkingSound.pause();
+    const delay = result === "win" ? 1750 : 1000;
+    setTimeout(() => {
+      this.stopGame();
+      this.cleanUp();
+      if (result === "win") showWinScreen();
+      else showLostScreen();
+    }, delay);
   }
 
   cleanUp() {

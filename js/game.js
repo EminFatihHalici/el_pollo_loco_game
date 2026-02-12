@@ -22,9 +22,11 @@ function init() {
   renderStartScreen();
   bindTouchEvents();
   preloadAllAssets();
+  showInstructionTemplate();
+  showAboutTemplate();
+  showLegalTemplate();
 }
 
-// rendering both intro pics
 function renderStartScreen() {
   let imgElement = document.getElementById("introImage");
   intervalId = setInterval(() => {
@@ -33,37 +35,51 @@ function renderStartScreen() {
   }, 3000);
 }
 
-//function to dissappear the intro pic and show the canvas
 function startGame() {
-  if (winMusic) {
-    winMusic.pause();
-    winMusic.currentTime = 0;
-  }
-  if (loseMusic) {
-    loseMusic.pause();
-    loseMusic.currentTime = 0;
-  }
-  document.getElementById("loader").classList.remove("d-none");
+  resetMusic();
+  showLoader();
   setTimeout(() => {
     let currentMuteState = world ? world.gameMuted : false;
-    introMusic.play();
-    introMusic.volume(0.06);
+    playIntroMusic();
     initLevel();
-    if (world) {
-      world.stopGame();
-    }
-    document.getElementById("startScreen").classList.add("d-none");
-    document.getElementById("gameOverScreen").classList.add("d-none");
-    document.getElementById("winScreen").classList.add("d-none");
-    world = new World(canvas, keyboard);
-    world.gameMuted = currentMuteState;
-    world.updateAllSounds();
-    document.getElementById("mute-btn").classList.remove("d-none");
-    document.getElementById("pause-btn").classList.remove("d-none");
-    document.getElementById("fullscreen").classList.remove("d-none");
-    document.getElementById("startScreen").classList.add("d-none");
-    document.getElementById("mobile-controls").classList.remove("d-none");
+    if (world) world.stopGame();
+    hideScreens();
+    initializeWorld(currentMuteState);
   }, 500);
+}
+
+function resetMusic() {
+  [winMusic, loseMusic].forEach((music) => {
+    if (music) {
+      music.pause();
+      music.currentTime = 0;
+    }
+  });
+}
+
+function showLoader() {
+  document.getElementById("loader").classList.remove("d-none");
+}
+
+function playIntroMusic() {
+  introMusic.play();
+  introMusic.volume(0.06);
+}
+
+function hideScreens() {
+  ["startScreen", "gameOverScreen", "winScreen"].forEach((id) => {
+    document.getElementById(id).classList.add("d-none");
+  });
+}
+
+function initializeWorld(currentMuteState) {
+  world = new World(canvas, keyboard);
+  world.gameMuted = currentMuteState;
+  world.updateAllSounds();
+  document.getElementById("mute-btn").classList.remove("d-none");
+  document.getElementById("pause-btn").classList.remove("d-none");
+  document.getElementById("fullscreen").classList.remove("d-none");
+  document.getElementById("mobile-controls").classList.remove("d-none");
 }
 
 function exitFullscreen() {
@@ -177,7 +193,24 @@ function backToMenu() {
   location.reload();
 }
 
-//adding event listeners to detect key presses
+function showInstructionTemplate() {
+  let container = document.getElementById("instruction");
+  container.innerHTML = "";
+  container.innerHTML += instructionTemplate();
+}
+
+function showAboutTemplate() {
+  let container = document.getElementById("about");
+  container.innerHTML = "";
+  container.innerHTML += aboutTemplate();
+}
+
+function showLegalTemplate() {
+  let container = document.getElementById("legal");
+  container.innerHTML = "";
+  container.innerHTML += legalTemplate();
+}
+
 window.addEventListener("keydown", (e) => {
   if (e.keyCode == 39) {
     keyboard.RIGHT = true;

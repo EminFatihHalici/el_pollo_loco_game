@@ -14,7 +14,6 @@ class MovableObject extends DrawableObject {
   };
   intervalIds = [];
 
-  // setting gravity for movable objects / character falls downs
   applyGravity() {
     this.gravityTimer = this.setStoppableInterval(() => {
       if (this.isAboveGround() || this.speedY > 0) {
@@ -38,8 +37,8 @@ class MovableObject extends DrawableObject {
   }
 
   isHurt() {
-    let timepassed = new Date().getTime() - this.lastHit; //difference in ms
-    timepassed = timepassed / 1000; // difference in sec
+    let timepassed = new Date().getTime() - this.lastHit;
+    timepassed = timepassed / 1000;
     return timepassed < 1;
   }
 
@@ -61,8 +60,7 @@ class MovableObject extends DrawableObject {
   }
 
   playAnimation(images) {
-    let i = this.currentIMage % images.length; // let i = 0 % 6; => Rest 0
-    // i = 0, 1, 2, 3, 4, 5, 0, 1, ...
+    let i = this.currentIMage % images.length;
     let path = images[i];
     this.img = this.imageCache[path];
     this.currentIMage++;
