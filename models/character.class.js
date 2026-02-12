@@ -143,21 +143,40 @@ class Character extends MovableObject {
     }, 1000 / 60); // 60fps
 
     this.setStoppableInterval(() => {
-      if (this.isHurt()) {
-        this.playAnimation(this.IMAGES_HURT);
-      } else if (this.isDead()) {
+      const isMoving = this.world.keyboard.RIGHT || this.world.keyboard.LEFT;
+      const idleTime = this.calculateIdleTime();
+      const isLongIdle =
+        idleTime > 5 &&
+        !this.isAboveGround() &&
+        !this.isDead() &&
+        !isMoving &&
+        !this.world.gameEnded;
+
+      if (this.isDead()) {
         this.playAnimation(this.IMAGES_DEAD);
+      } else if (this.isHurt()) {
+        this.playAnimation(this.IMAGES_HURT);
       } else if (this.isAboveGround()) {
         this.playAnimation(this.IMAGES_JUMPING);
-      } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+      } else if (isMoving) {
         this.playAnimation(this.IMAGES_WALKING);
-      } else if (this.lastAction && this.calculateIdleTime() > 5) {
+      } else if (isLongIdle) {
         this.playAnimation(this.IMAGES_LONG_IDLE);
-        this.snoreSound.play();
-      } else if (this.lastAction && this.calculateIdleTime() > 2) {
+      } else if (idleTime > 2) {
         this.playAnimation(this.IMAGES_IDLE);
       }
+      this.handleSnoreSound(isLongIdle);
     }, 30);
+  }
+
+  handleSnoreSound(isLongIdle) {
+    if (isLongIdle) {
+      if (!this.snoreSound.isPlaying()) {
+        this.snoreSound.loop();
+      }
+    } else {
+      this.snoreSound.pause();
+    }
   }
 
   collectCoin() {
