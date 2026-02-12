@@ -435,7 +435,6 @@ footer {
   font-family: "zabars", sans-serif;
 }
 
-/* Der Spinner selbst */
 .spinner {
   width: 60px;
   height: 60px;
@@ -444,6 +443,11 @@ footer {
   border-radius: 50%;
   animation: spin 1s linear infinite;
   margin-bottom: 20px;
+}
+
+.btn-container {
+  display: flex;
+  gap: 16px;
 }
 
 @keyframes spin {
