@@ -1,8 +1,8 @@
-/** * Visual status bar for the final boss health.
- * @extends DrawableObject */
-class StatusBarEndboss extends DrawableObject {
-  percentage = 100;
-
+/**
+ * Visual status bar for the final boss health.
+ * @extends StatusBar
+ */
+class StatusBarEndboss extends StatusBar {
   IMAGES = [
     "img/7_statusbars/2_statusbar_endboss/blue/blue0.png",
     "img/7_statusbars/2_statusbar_endboss/blue/blue20.png",
@@ -12,37 +12,14 @@ class StatusBarEndboss extends DrawableObject {
     "img/7_statusbars/2_statusbar_endboss/blue/blue100.png",
   ];
 
+  /** Initializes the boss health bar with its specific position and images. */
   constructor() {
-    super();
+    super(); // WICHTIG: Ruft den Constructor von StatusBar auf
     this.loadImages(this.IMAGES);
-    this.setPercantage(100);
-    this.y = 0;
     this.x = 495;
+    this.y = 0;
     this.width = 200;
     this.height = 60;
-  }
-
-  /** @param {number} percentage - Updates the boss health bar visual */
-  setPercantage(percentage) {
-    this.percentage = percentage;
-    let imagePath = this.IMAGES[this.resolveImageIndex()];
-    this.img = this.imageCache[imagePath];
-  }
-
-  /** @returns {number} Index for the IMAGES array */
-  resolveImageIndex() {
-    if (this.percentage == 100) {
-      return 5;
-    } else if (this.percentage >= 80) {
-      return 4;
-    } else if (this.percentage >= 60) {
-      return 3;
-    } else if (this.percentage >= 40) {
-      return 2;
-    } else if (this.percentage >= 20) {
-      return 1;
-    } else {
-      return 0;
-    }
+    this.setPercantage(100);
   }
 }
