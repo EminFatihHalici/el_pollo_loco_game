@@ -10,7 +10,6 @@ let startImages = [
 ];
 let currentImageIndex = 0;
 let intervalId;
-let introMusic;
 let winMusic;
 let loseMusic;
 let totalImages = 0;
@@ -19,7 +18,7 @@ let imagesLoaded = 0;
 /**
  * Helper object to manage sound settings persistence in the browser's localStorage.
  */
-const SoundStorage = {
+const soundStorage = {
   KEY: "game_muted",
   save(isMuted) {
     localStorage.setItem(this.KEY, isMuted);
@@ -32,7 +31,6 @@ const SoundStorage = {
 
 /** Initializes the game, sounds, and UI components */
 function init() {
-  introMusic = new Sound("audio/intro.mp3");
   winMusic = new Sound("audio/win_sound.mp3");
   loseMusic = new Sound("audio/lose_sound.mp3");
   canvas = document.getElementById("canvas");
@@ -60,7 +58,6 @@ function startGame() {
   showLoader();
   setTimeout(() => {
     let currentMuteState = world ? world.gameMuted : false;
-    playIntroMusic();
     initLevel();
     if (world) world.stopGame();
     hideScreens();
@@ -83,12 +80,6 @@ function showLoader() {
   document.getElementById("loader").classList.remove("d-none");
 }
 
-/** Plays the intro background music at low volume */
-function playIntroMusic() {
-  introMusic.play();
-  introMusic.volume(0.06);
-}
-
 /** Hides all menu and game-over screens */
 function hideScreens() {
   ["startScreen", "gameOverScreen", "winScreen"].forEach((id) => {
@@ -98,7 +89,7 @@ function hideScreens() {
 
 /** @param {boolean} currentMuteState - Sets up the world with current settings */
 function initializeWorld(currentMuteState) {
-  const initialMuteState = SoundStorage.load();
+  const initialMuteState = soundStorage.load();
   world = new World(canvas, keyboard);
   world.gameMuted = initialMuteState;
   world.updateAllSounds();
@@ -163,7 +154,7 @@ function togglePause() {
 function toggleMute() {
   if (world) {
     world.gameMuted = !world.gameMuted;
-    SoundStorage.save(world.gameMuted); // Speichern!
+    soundStorage.save(world.gameMuted); // Speichern!
     world.updateAllSounds();
     updateMuteIcon(world.gameMuted);
   }
