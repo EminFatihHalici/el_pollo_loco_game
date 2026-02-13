@@ -204,8 +204,8 @@ class Endboss extends MovableObject {
     setTimeout(() => {
       this.x +=
         this.world.character.x < this.x
-          ? Math.min(160, 4500 - this.x)
-          : Math.max(-160, 2000 - this.x);
+          ? Math.min(30, 4500 - this.x)
+          : Math.max(-30, 2000 - this.x);
     }, 200);
   }
 
