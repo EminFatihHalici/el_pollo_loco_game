@@ -5,6 +5,9 @@ class CollisionHandler {
     this.world = world;
   }
 
+  lastThrowTime = 0;
+  throwCooldown = 2000;
+
   /** Executes all collision and state checks */
   checkCollisions() {
     this.checkCharacterCollisionWithEnemy();
@@ -22,11 +25,20 @@ class CollisionHandler {
       const bottle = this.createBottle();
       this.world.throwableObjects.push(bottle);
       this.updateBottleCount();
+      this.lastThrowTime = new Date().getTime();
     }
   }
 
+  /**
+   * Checks all conditions: Key pressed, ammo available, and cooldown finished.
+   * @returns {boolean}
+   */
   canThrowBottle() {
-    return this.world.keyboard.D && this.world.character.bottles > 0;
+    const currentTime = new Date().getTime();
+    const hasEnoughAmmo = this.world.character.bottles > 0;
+    const isCooldownOver =
+      currentTime - this.lastThrowTime > this.throwCooldown;
+    return this.world.keyboard.D && hasEnoughAmmo && isCooldownOver;
   }
 
   createBottle() {
