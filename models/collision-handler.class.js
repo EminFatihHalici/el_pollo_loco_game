@@ -165,7 +165,7 @@ class CollisionHandler {
    */
   applyDamage(enemy) {
     const char = this.world.character;
-    const damage = enemy instanceof Endboss ? 20 : 5;
+    const damage = enemy instanceof Endboss ? 20 : 10;
     char.hit(damage);
     this.world.statusBarHealth.setPercantage(char.energy);
   }
