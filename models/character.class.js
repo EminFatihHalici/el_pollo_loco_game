@@ -230,7 +230,7 @@ class Character extends MovableObject {
     } else if (idleTime > 3) {
       this.playAnimation(this.IMAGES_IDLE);
     } else {
-      this.img = this.imageCache[this.IMAGES_WALKING[0]];
+      this.img = this.imageCache[this.IMAGES_IDLE[0]];
     }
     this.handleSnoreSound(isLongIdle);
   }
